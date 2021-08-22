@@ -1,0 +1,157 @@
+<div class="{% if section.settings.full_width %}container-fluid to-edges{% else %}container{% endif %}">
+  {% for block in section.blocks %}
+  <style>
+    {% comment '2w pixels for small screens since full width, 1w since half screen = @2x density' %}{% endcomment %}
+    .image-altblock-{{ block.id }} {
+      height:{{ section.settings.row_size }};
+      background-image:url('{{ block.settings.benefit_bg | img_url: '1600x1600' }}'); 
+    }
+    @media only screen and (max-width: 1200px) {
+      .image-altblock-{{ block.id }} {
+        background-image:url('{{ block.settings.benefit_bg | img_url: '1280x1280' }}'); 
+      }
+    }
+    @media only screen and (max-width: 992px) {
+      .image-altblock-{{ block.id }} {
+        background-image:url('{{ block.settings.benefit_bg | img_url: '992x992' }}'); 
+      }
+    }
+    @media only screen and (max-width: 768px) {
+      .image-altblock-{{ block.id }} {
+        background-image:url('{{ block.settings.benefit_bg | img_url: '1280x1280' }}'); 
+      }
+    }
+    @media only screen and (max-width: 576px) {
+      .image-altblock-{{ block.id }} {
+        background-image:url('{{ block.settings.benefit_bg | img_url: '1024x1024' }}'); 
+      }
+    }
+  </style>
+    {% capture evens %}{{ forloop.index | modulo:2 }}{% endcapture %}
+    <div class="row  align-items-center" style="background-color:{{block.settings.benefit_color}};">
+      
+      <div class="col-md-30{% if evens == '0' %} push-md-30{% endif %}">
+        <div class="text-center">
+          <h3 style="color:{{block.settings.title_color}};">{{block.settings.benefit_title}}</h3>
+          <p style="color:{{block.settings.copy_color}};">{{block.settings.benefit_copy}}</p>
+                    {%if block.settings.link_url != ""%}
+          <a href="{{ block.settings.link_url }}" class="btn">
+          {% if block.settings.link_text != "" %}{{block.settings.link_text}}{%else%}<ly-as-46283>Shop Now</ly-as-46283>{%endif%}
+        </a>
+          {%endif%}
+        </div>
+      </div>
+
+      <div class="col-md-30{% if evens == '0' %} pull-md-30{% endif %} image-altblock image-altblock-{{ block.id }}"></div>
+
+    </div>
+  {% endfor %} 
+</div>
+
+{% schema %}
+  {
+    "name": "Alternating Image Blocks",
+    "class": "index-section index-section--alternate-blocks",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Brand Benefit Rows"
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Make this full width?",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "row_size",
+        "label": "Row size",
+        "default": "500px",
+        "options": [
+          {
+            "value": "250px",
+            "label": "Small"
+          },
+          {
+            "value": "500px",
+            "label": "Medium"
+          },
+          {
+            "value": "750px",
+            "label": "Large"
+          }
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "type": "row",
+        "name": "Row",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Benefits Row"
+          },
+          {
+            "type": "color",
+            "id": "benefit_color",
+            "label": "Background color for row",
+            "default": "#f7f7f7"
+          },
+          {
+            "type": "image_picker",
+            "id": "benefit_bg",
+            "label": "Background image for image size",
+            "info": "Best at minimum 1600x1600px"
+          },
+          {
+            "type": "text",
+            "id": "benefit_title",
+            "label": "Title"
+          },
+          {
+            "type": "color",
+            "id": "title_color",
+            "label": "Title color",
+            "default": "#f7f7f7"
+          },
+          {
+            "type": "textarea",
+            "id": "benefit_copy",
+            "label": "Short copy"
+          },
+          {
+            "type": "color",
+            "id": "copy_color",
+            "label": "Copy color",
+            "default": "#f7f7f7"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "Button text"
+          },
+          {
+            "type": "text",
+            "id": "link_url",
+            "label": "Button link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Alternating content blocks",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "row"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

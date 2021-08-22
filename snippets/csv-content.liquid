@@ -1,0 +1,22 @@
+{%- assign row_content = row[col] | replace: '|||', '<br />' | replace: '___', ',' -%}
+{% if j == 1 and row_content contains '(' %}
+  {%- assign row_parenthesis = row_content | split: '(' -%}
+  {%- assign row_endparenthesis = row_parenthesis[1]  | remove: ')' -%}
+  {%- assign row_content = row_parenthesis[0] | append: '<small>(' | append: row_endparenthesis | append: ')</small>' -%}
+{% endif %}
+{%- assign row_fractions = row_content | split: '/' -%}
+{%- assign row_fraction_start_size = row_fractions[0].size | minus: 1 -%}
+{%- assign row_fraction_start_test = row_fraction_start_size | minus: 1 -%}
+{%- assign row_fraction_start = row_fractions[0] | slice: row_fraction_start_test, row_fraction_start_size | times: 1 -%}
+{%- assign row_fraction_end = row_fractions[1] | slice: 0, 1 | times: 1 -%}
+{% if row_fraction_start > 0 and row_fraction_end > 0 %}
+  {%- assign start_num_get = row_fractions[0] | split: ' ' -%}
+  {%- assign numerator = start_num_get.last -%}
+  {%- assign end_num_get = row_fractions[1] | split: ' ' -%}
+  {%- assign denominator = end_num_get.first -%}
+  {% capture remove %}{{ numerator }}/{{ denominator }}{% endcapture %}
+  {% capture insert %}<sup>{{ numerator }}</sup>/<sub>{{ denominator }}</sub>{% endcapture %}
+  {{ row_content | replace: remove, insert }}
+{% else %}
+  {{ row_content }}
+{% endif %}

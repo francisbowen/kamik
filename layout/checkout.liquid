@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+    
+    {{ 'inferno-checkout.scss.css' | asset_url | stylesheet_tag }}
+    
+  </head>
+  <body>
+                    <!-- GOOGLE TAG MANAGER -->
+        <noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-KQ2CWL" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+        <script type="text/javascript">
+            //<![CDATA[
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+                var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+                j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-KQ2CWL');
+
+            var dlCurrencyCode = 'CAD';
+                        //]]>
+        </script>
+        <!-- END GOOGLE TAG MANAGER -->
+    {{ skip_to_content_link }}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+
+	{% assign tgnow = "" %}    
+    {%for tag in customer.tags %}
+    {% assign tgnow = tag  | slice: 0,4 %}
+    {% if tgnow == "B2B-"%}
+		<style>
+          .reduction-code, .product__description__property, .product__price del, .order-summary__section--discount {display:none !important;}
+    	</style>
+    {%break%}
+    {%endif%}
+    {%endfor%}
+    
+    
+    {{ tracking_code }}
+  </body>
+</html>

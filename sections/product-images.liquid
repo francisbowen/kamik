@@ -1,0 +1,144 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign product_image_size = '720x' -%}
+{%- assign product_image_zoom_size = '1400x' -%}
+
+{%- assign defaults = true %}
+{% for media in product.media %}
+  {% unless media.media_type == 'image' %}
+    {% case media.media_type %}
+      {% when 'video' %}
+		{%- assign video_used = true -%}
+        {% capture image_grid__default %}{{ image_grid__default }}{% include 'loop-thumbnail', image_size: product_image_size, enable_image_zoom: false %}{% endcapture %}
+    {% endcase %}
+  {% endunless %}
+{% endfor %}
+{%- assign video_used = false -%}
+
+{%- assign option_index = 'option1' -%}
+{%- assign image_matrix = '[ ' -%}
+{% for option in product.options_with_values %}
+  {%- assign option_lowercase = option | downcase -%}
+  {% if option_lowercase == 'color' or option_lowercase == 'couleur' or option_lowercase == 'farbe' %}
+    {% capture option_index %}option{{ forloop.index }}{% endcapture %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{%- assign variant_start = current_variant[option_index] -%}
+{% for image in product.images %}
+  {%- assign image_alt_split = image.alt | split: ':' -%}
+  {%- assign image_alt_title = image_alt_split[0] | strip -%}
+  {%- assign image_alt_360 = image_alt_split[1] | strip -%}
+  {% unless image.attached_to_variant? or image_alt_title != product.title %}
+    {% capture image_grid__default_const %}{{ image_grid__default_const }}{% include 'loop-thumbnail', image_size: product_image_size, enable_image_zoom: enable_zoom, product_image_zoom_size: product_image_zoom_size %}{% endcapture %}
+  {% endunless %}
+{% endfor %}
+{%- assign defaults = false %}
+{%- assign options_by_name = product.options_by_name['Color'].values -%}
+{% if cart.attributes.language == "fr" %}
+  {%- assign options_by_name = product.options_by_name['Couleur'].values -%}
+{% endif %}
+{% if cart.attributes.language == "de" %}
+  {%- assign options_by_name = product.options_by_name['Farbe'].values -%}
+{% endif %}
+{% for color_option in options_by_name %}
+  {% capture image_matrix %}{{ image_matrix }}{ "option_color": "{{ color_option }}", "images":[ {% endcapture %}
+  {%- assign comma_needed = false -%}
+  {% for image in product.images %}
+	{%- assign image_alt_split = image.alt | split: ':' -%}
+	{%- assign image_alt_color = image_alt_split[0] | strip -%}
+	{%- assign image_alt_color_all = image_alt_color | split: ',' -%}
+    {%- assign image_alt_360 = image_alt_split[1] | strip | downcase -%}
+    {%- assign spin = false -%}
+    {%- assign enable_zoom = settings.enable_zoom -%}
+    {%- assign image_alt_newfile = '' -%}
+  	{% if image.attached_to_variant? %}
+  	  {%- assign variant_check = image.variants[0] -%}
+  	  {% if variant_check[option_index] == color_option %}
+		{% if image_alt_360 == '360' %}
+		  {%- assign spin = true -%}
+		{% elsif image_alt_360 == 'spin' %}
+          {%- assign enable_zoom = false -%}
+		  {%- assign image_alt_newfile = image_alt_split[2] -%}
+        {% endif %}
+        {% if variant_start == color_option %}
+          {% capture image_grid__default %}{{ image_grid__default }}{% include 'loop-thumbnail', image_size: product_image_size, enable_image_zoom: enable_zoom, product_image_zoom_size: product_image_zoom_size, file_change: image_alt_newfile %}{% endcapture %}
+        {% endif %}
+        {% capture image_matrix %}{{ image_matrix }}{% if comma_needed %}, {% endif %}{ "alt": "{{ image.alt | escape }}", "src": "{{ image.src | img_url: product_thumb_size }}", "type": "{% if spin %}spin{% else %}image{% endif %}", "id": "{{ image.id }}" }{% endcapture %}
+        {%- assign comma_needed = true -%}
+      {% endif %}
+    {% elsif image_alt_color_all contains color_option %}
+      {% if image_alt_360 == '360' %}
+        {%- assign spin = true -%}
+      {% elsif image_alt_360 == 'spin' %}
+        {%- assign enable_zoom = false -%}
+        {%- assign image_alt_newfile = image.alt | remove: image_alt_split[0] | remove: image_alt_split[1] | remove_first: ':' | remove_first: ':' | strip -%}
+      {% endif %}
+      {% if variant_start == color_option %}
+        {% capture image_grid__default %}{{ image_grid__default }}{% include 'loop-thumbnail', image_size: product_image_size, enable_image_zoom: enable_zoom, product_image_zoom_size: product_image_zoom_size, file_change: image_alt_newfile %}{% endcapture %}
+      {% endif %}
+      {% capture image_matrix %}{{ image_matrix }}{% if comma_needed %}, {% endif %}{ "alt": "{{ image.alt | escape }}", "src": "{{ image.src | img_url: product_thumb_size }}", "type": "{% if spin %}spin{% else %}image{% endif %}", "id": "{{ image.id }}" }{% endcapture %}
+      {%- assign comma_needed = true -%}
+    {% endif %}
+  {% endfor %}
+  {% capture image_matrix %}{{ image_matrix }} ] }{% unless forloop.last %},{% endunless %}{% endcapture %}
+{% endfor %}
+{% capture image_matrix %}{{ image_matrix }} ]{% endcapture %}
+<script type="application/json" id="ImageJSON-{{ product.id }}">
+  {{ image_matrix }}
+</script>
+<script id="ThumbnailTemplate" type="text/template">
+  {% raw %}
+    {{#images}}
+      <div class="col-lg-30 product-single__thumbnail-cointainer">
+        <div class="product-single__thumbnail-adjust">
+          <div class="product-single__thumbnails-item product-single__thumbnails-item-{{media_type}} product-single__thumbnail-{{id}} js{{#unless sirvSrc}}{{#if_equal media_type '==' 'image'}} zoomable{{/if_equal}}{{/unless}}"{{#if_equal media_type '==' 'image'}} data-zoom="{{zoomImage}}"{{/if_equal}}{{#if spinSrc}} data-sprite_url="{{spinSrc}}"{{/if}}>
+            {{#if sirvSrc}}
+              <div class="Sirv" data-src="{{sirvSrc}}"></div>
+            {{else}}
+              <img id="{{id}}"
+                   class="feature-row__image"
+                   src="{{image}}"
+                   alt="{{alt}}">
+            {{/if}}
+            {{#if spinSrc}}
+              <div class="spritespin-container"><div class="spritespin"></div></div>
+            {{/if}}
+          </div>
+          {{#if spinSrc}}
+            <p>360 &deg;<br />{% endraw %}{% include 'icon-360' %}{% raw %}</p>
+          {{/if}}
+        </div>
+      </div>
+    {{/images}}
+  {% endraw %}
+</script>  
+
+<div id="product-thumbnails" class="product-single__photos row align-items-center">
+  {{ image_grid__default }}
+  {{ image_grid__default_const }}
+</div>
+
+<script>
+  function mobileOnlySlider() {
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      $('.product-single__photos').slick({
+        infinite: false,
+        arrows: true,
+        dots: false,
+        touchMove: false
+      });
+    }
+  }
+  $(document).ready(function(){
+    mobileOnlySlider();
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Product Images",
+    "class": "col-lg-36 col-md-26",
+    "settings": [
+    ]
+  }
+{% endschema %}

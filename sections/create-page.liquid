@@ -1,0 +1,50 @@
+{%- assign curr_title = 'customer.register.title' | t -%}
+{% render 'account-header', title: curr_title, image: section.settings.image %}
+
+<div class="container loginpage">
+
+  <div class="row">
+    <div class="col-md-30 offset-md-15">
+      <div class="note form-success hide" id="ResetSuccess">
+        {{ 'customer.recover_password.success' | t }}
+      </div>
+
+      <div id="CustomerLoginForm" class="form-vertical">
+        {% include 'createaccount' %}
+      </div>
+
+      {% comment %}
+      If accounts are set as optional, the following will be shown as an option
+      during checkout, not on the default /login page.
+      {% endcomment %}
+      {% if shop.checkout.guest_login %}
+      <div class="text-center">
+        <hr class="hr--invisible">
+        <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+        {% form 'guest_login' %}
+        <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+        {% endform %}
+      </div>
+      {% endif %}
+    </div>  
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Create Account Options",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Header Image",
+        "info": "Leave blank to just use text"
+      }
+	]
+  }
+{% endschema %}

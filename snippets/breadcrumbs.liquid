@@ -1,0 +1,81 @@
+<div class="breadcrumbs">
+  {% unless request.page_type == 'product' %}
+    <div class="container breadcrumb-container">
+      <div class="row align-items-center justify-content-between">
+  {% endunless %}
+        {% unless template.suffix == 'of-collections' %}
+          <nav class="breadcrumb d-md-block d-none{% unless request.page_type == 'product' %} col-lg-auto{% endunless %}" role="navigation" aria-label="breadcrumbs">
+            {% if request.page_type == 'page' %}
+              <span>{{ page.title }}</span>
+            {% elsif request.page_type == 'collection' %}
+              {% if collection.title contains ':' %}
+                {% assign collection_title_split = collection.title | split: ':' %}
+                {% for collection_title_single in collection_title_split %}
+                  {% unless forloop.last %}
+                    {% assign collection_handle = collection_title_single | strip | handleize %}
+                    {% assign collect = collections[collection_handle] %}
+                    {% if collect != blank %}
+                      {{ collection_title_single | link_to: collect.url }}
+                      <span aria-hidden="true"> / </span>
+                    {% endif %}
+                  {% else %}
+                    {{ collection_title_single | strip }}
+                  {% endunless %}
+                {% endfor %}
+              {% else %}
+                <span>{{ collection.title }}</span>
+              {% endif %}
+            {% elsif request.page_type == 'product' %}
+              {% if collection.url %}
+                {% if collection.title contains ':' %}
+                  {% assign collection_title_split = collection.title | split: ':' %}
+                  {% for collection_title_single in collection_title_split %}
+                    {% unless forloop.last %}
+                      {% assign collection_handle = collection_title_single | strip | handleize %}
+                      {% assign collect = collections[collection_handle] %}
+                      {% if collect != blank %}
+                        {{ collection_title_single | link_to: collect.url }}
+                        <span aria-hidden="true"> / </span>
+                      {% endif %}
+                    {% else %}
+                      {{ collection_title_single | strip | link_to: collection.url }}
+                    {% endunless %}
+                  {% endfor %}
+                {% else %}
+                  {{ collection.title | link_to: collection.url }}
+                {% endif %}
+              {% else %}
+                <a href="/collections/all"><ly-as-46305>Products</ly-as-46305></a>
+              {% endif %}
+              <span aria-hidden="true"> / </span>
+              <span>{{ product.title }}</span>
+            {% elsif request.page_type == 'blog' %}
+              {% if current_tags %}
+                {{ blog.title | link_to: blog.url }}
+                <span aria-hidden="true"> / </span>
+                <span>{{ current_tags | join: " + " }}</span>
+              {% else %}
+                <span>{{ blog.title }}</span>
+              {% endif %}
+            {% elsif request.page_type == 'article' %}
+              {{ blog.title | link_to: blog.url }}
+              <span aria-hidden="true"> / </span>
+              <span>{{ article.title }}</span>
+            {% else %}
+              <span>{{ page_title }}</span>
+            {% endif %}
+          </nav>
+        {% endunless %}
+  {% unless request.page_type == 'product' %}
+        {% if request.page_type == 'collection' %}
+          <div class="col-lg-auto">
+            {% include 'collection-filters' %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% unless template.suffix == 'of-collections' %}
+      <style>@media screen and (min-width: 992px) {.breadcrumb-container { padding-left: {{ settings.logo_max_width | plus: 40 }}px; }}</style>
+    {% endunless %}
+  {% endunless %}
+</div>

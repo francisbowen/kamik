@@ -1,0 +1,223 @@
+{% if section.settings.show_instagram %}
+  {%- assign skip = false -%}
+  {% for block in section.blocks %}
+	{% case block.type %}
+      {% when 'excluded_by_type' %}
+        {% if block.settings.excluded_type == request.page_type %}
+          {%- assign skip = true -%}
+          {% break %}
+        {% endif %}
+      {% when 'excluded_by_page' %}
+        {% if block.settings.excluded_page == page.handle %}
+          {%- assign skip = true -%}
+          {% break %}
+        {% endif %}
+    {% endcase %}
+  {% endfor %}
+  {% unless skip %}
+    <div class="container">
+      <div class="row instagram-row"></div>
+    </div>
+    <script>
+      function mobile_scene_checker(){
+        if (typeof mobile_scene !== typeof undefined) {
+          setTimeout(function(){
+            mobile_scene.duration(getDurationMobile());
+          },500); 
+        }
+      }
+      function loadInstagram(){
+        $.instagramFeed({
+          'username': 'kamikofficial',
+          'get_data': true,
+          'callback': function(data){
+            var insta_media = data.edge_owner_to_timeline_media.edges,
+                instasource = $("#InstagramTemplate").html(),
+                instatemplate = Handlebars.compile(instasource),
+                images = [],
+                image = {};
+            $.each(insta_media, function(i,insta) {
+              var image_data = insta.node,
+                  image_class = (i == 0) ? 'col-lg-24' : 'col-md-20 col-30',
+                  image_caption = image_data.edge_media_to_caption.edges[0].node.text,
+                  new_row = (i == 0) ? true : '',
+                  text_row = (i == 2) ? true : '',
+                  end_row = (i == 5) ? true : '';
+              image = {
+                row: new_row,
+                textrow: text_row,
+                endrow: end_row,
+                class: image_class,
+                image: image_data.thumbnail_src,
+                slug: image_data.shortcode,
+                caption: image_caption
+              };
+              images.push(image);
+              if(i == 5) { 
+                mobile_scene_checker();
+                return false;
+              }
+            });
+            var instadata = {
+              imageArray: images
+            }
+            $('.instagram-row').html(instatemplate(instadata));
+          }
+        });
+      }
+      $(document).ready(function(){
+        loadInstagram();
+      });
+      document.addEventListener("shopify:section:load", function(event) {
+        if (event.detail.sectionId === "instagram") {
+          loadInstagram();
+        }
+      });
+    </script>
+    <script id="InstagramTemplate" type="text/template">
+      {% raw %}
+        {{#imageArray}}
+          <div class="{{class}} instagram-col">
+            <a href="https://www.instagram.com/p/{{slug}}/" target="_blank">
+              <img src="{{image}}" />
+              <span>{% endraw %}{% include 'icon-instagram' %}{% raw %}<br />{{caption}}</span>
+            </a>
+          </div>
+          {{#if row}}
+            <div class="col-lg-36">
+              <div class="row">
+          {{/if}}
+          {{#if textrow}}
+            <div class="{{class}} instagram-col instagram-col--text">
+              <div class="d-flex">
+                <p class="align-self-center">{% endraw %}{{ section.settings.title | newline_to_br }}{% raw %}</p>
+              </div>
+            </div>
+          {{/if}}
+          {{#if endrow}}
+              </div>
+            </div>
+          {{/if}}
+        {{/imageArray}}
+      {% endraw %}
+    </script>
+  {% else %}
+    <style>
+      #shopify-section-{{ section.id }} { display: none; }
+    </style>
+  {% endunless %}
+{% else %}
+  <style>
+    #shopify-section-{{ section.id }} { display: none; }
+  </style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Instagram",
+    "class": "section-instagram section-spacing",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_instagram",
+        "label": "Show Instagram?"
+      },
+      {
+        "type": "textarea",
+        "id": "title",
+        "label": "Instagram block text"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "excluded_by_type",
+        "name": "Excluded By Type",
+        "settings": [
+          {
+            "type": "select",
+            "id": "excluded_type",
+            "label": "Excluded Type",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "index",
+                "label": "Homepage"
+              },
+              {
+                "value": "page",
+                "label": "Page"
+              },
+              {
+                "value": "blog",
+                "label": "Blog"
+              },
+              {
+                "value": "article",
+                "label": "Article"
+              },
+              {
+                "value": "collection",
+                "label": "Collection"
+              },
+              {
+                "value": "product",
+                "label": "Product"
+              },
+              {
+                "value": "customers/account",
+                "label": "Customer - Account Landing"
+              },
+              {
+                "value": "customers/activate_account",
+                "label": "Customer - Activate Account"
+              },
+              {
+                "value": "customers/addresses",
+                "label": "Customer - Address"
+              },
+              {
+                "value": "customers/login",
+                "label": "Customer - Login"
+              },
+              {
+                "value": "customers/order",
+                "label": "Customer - Order"
+              },
+              {
+                "value": "customers/register",
+                "label": "Customer - Register"
+              },
+              {
+                "value": "customers/reset_password",
+                "label": "Customer - Reset Password"
+              },
+              {
+                "value": "404",
+                "label": "404 Page"
+              },
+              {
+                "value": "gift_card",
+                "label": "Gift Card"
+              }
+            ],
+            "default":   "none"
+          }
+        ]
+      },
+      {
+        "type": "excluded_by_page",
+        "name": "Excluded By Page",
+        "settings": [
+          {
+            "type": "page",
+            "id": "excluded_page",
+            "label": "Page"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

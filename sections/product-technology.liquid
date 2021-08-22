@@ -1,0 +1,98 @@
+{%- assign tech_used = '' -%}
+{% for block in section.blocks %}
+  {%- assign article_location = block.settings.connect -%}
+  {%- assign article = articles[article_location] -%}
+  {% if request.page_type == 'product' %}
+	{% if product.tags contains block.settings.tag and block.settings.connect != blank %}
+	  {% capture tech_used %}
+        {{ tech_used }}
+		<div class="col-md tech-single">
+          <div class="d-md-flex tech-single--adjust">
+            <div class="align-self-center tech-single--align">
+              <a href="{{ article.url }}" class="d-lg-flex align-items-center justify-content-center tech-single--flex">
+                <div class="tech-single--icon">
+                  <img src="{{ block.settings.icon }}" alt="{{ block.settings.title | escape }}" />
+                </div>
+                <div class="tech-single--description rte">
+                  <h5 class="thin">{{ article.title }}</h5>
+                  {{ article.excerpt }}
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endcapture %}
+    {% endif %}
+  {% endif %}
+  {% if article != blank %}
+    {% capture tech_style %}
+      {{ tech_style }}
+      .tech-icon.tech-icon--{{ article.handle | handleize }} { -webkit-mask-image:url({{ block.settings.icon }}); mask-image:url({{ block.settings.icon }}); }
+    {% endcapture %}
+  {% endif %}
+{% endfor %}
+
+{% if tech_used != blank %}
+  {% if request.page_type == 'product' %}
+    <div class="container-fluid">
+      <div class="row no-gutters">
+        {{ tech_used }}
+      </div>
+    </div>
+    {% if section.settings.image != blank %}
+      <style>
+        #shopify-section-{{ section.id }} { background-image: url({{ section.settings.image | img_url: '2000x' }}); }
+      </style>
+    {% endif %}
+  {% endif %}
+{% else %}
+  <style>
+    #shopify-section-{{ section.id }} { display: none; }
+    {{ tech_style }}
+  </style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Product Technology",
+	"class": "product-technology",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image",
+        "info": "For product page accordion"
+      }
+    ],
+    "blocks":[
+      {
+        "name": "Technology",
+        "type": "technology",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "tag",
+            "label": "Product Tag",
+            "info": "Will connect this to products"
+          },
+          {
+            "type": "text",
+            "id": "icon",
+            "label": "Icon",
+            "info": "Upload svg in files and paste url here"
+          },
+          {
+            "type": "article",
+            "id": "connect",
+            "label": "Technology More Info"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

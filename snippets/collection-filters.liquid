@@ -1,0 +1,38 @@
+<div class="filters-toolbar-wrapper">
+  <div class="filters-toolbar">
+    <div class="filters-toolbar--single">
+      <label for="SortTags" class="label--hidden">{{ 'collections.filters.title_tags' | t }}</label>
+      <select class="filters-toolbar__input filters-toolbar__input--filter" name="SortTags" id="SortTags">
+        {% if current_tags %}
+          {% if collection.handle %}
+                      	{%unless collection.handle contains "b2b"%}
+            <option value="/collections/{{ collection.handle }}">{{ 'collections.filters.all_tags' | t }}</option>
+        {%endunless%}
+          {% elsif collection.current_type %}
+        {%unless collection.current_type contains "b2b"%}
+            <option value="{{ collection.current_type | url_for_type }}">{{ 'collections.filters.all_tags' | t }}</option>
+        {%endunless%}
+          {% elsif collection.current_vendor %}
+                {%unless collection.current_vendor contains "b2b"%}
+            <option value="{{ collection.current_vendor | url_for_vendor }}">{{ 'collections.filters.all_tags' | t }}</option>
+        {%endunless%}
+          {% endif %}
+        {% else %}
+        {% if current_tags contains tag %}
+              	{%unless current_tags contains "b2b"%}
+          <option value="">{{ 'collections.filters.all_tags' | t }}</option>
+        {%endunless%}
+        {% endif %}
+        {% endif %}
+        {% for tag in collection.all_tags %}
+               	{%unless tag contains "b2b"%}       
+          <option value="{{ tag | handleize }}">{{ tag }}</option>
+        {%endunless%}
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+<div class="filters-toolbar">
+  <div class="filters-toolbar-placeholder"></div>
+</div>

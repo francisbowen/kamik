@@ -1,0 +1,26 @@
+<div class="row align-items-center justify-content-between technology-item-single">
+  <div class="col-md-36 order-md-{{ side }}">
+    <div role="img"
+         class="technology-item-single--image lazyload"
+         data-bg="{{ image | img_url: '300x300' }}"
+         data-bgset="{% render 'image-bg', image: image %}"
+         data-sizes="auto"
+         data-parent-fit="cover"
+         style="background-image: url('{{ image | img_url: '300x300' }}');">
+      {% if video_id != blank %}<div class="video-adjust"><div class="video-wrapper"><div id="image-{{ id }}"></div></div></div>{% endif %}
+      <div class="tech-icon tech-icon--{{ handle | handleize }}"></div>
+    </div>
+  </div>
+  <div class="col-md-22">
+    <div class="technology-item-single--content">
+      <h4>{{ title }}</h4>
+      {%- assign article_content_parts = content | split: '<h6>' -%}
+      {% for article_content_part in article_content_parts %}
+        {% unless article_content_part contains '</h6>' %}
+          {{ article_content_part }}
+        {% endunless %}
+      {% endfor %}
+      {% if video_id != blank %}<a class="btn btn--tertiary tech-video" href="#image-{{ id }}" data-type="{{ video_type }}" data-id="{{ video_id }}" data-index="{{ index }}">{% render 'icon-video' %} {{ 'blogs.article.play_video' | t }}</a>{% endif %}
+    </div>
+  </div>
+</div>

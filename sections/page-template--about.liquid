@@ -1,0 +1,93 @@
+{% if section.settings.image != blank %}
+  <div class="timeline-intro">
+    <div class="timeline-intro--image jarallax" data-jarallax data-speed="0.75" style="background-image: url('{{ section.settings.image | img_url: '2200x' }}');">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-md-30">
+            {% if section.settings.title != blank %}<h3>{{ section.settings.title }}</h3>{% endif %}
+          </div>
+          <div class="col-md-30">
+            <div class="timeline-intro--content">
+              {{ section.settings.text }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-60 section-push">
+      <div class="timeline">
+        <div class="timeline-layout">
+          {% for block in section.blocks %}
+            {% assign mod = forloop.index | modulo: 2 %}
+            <div class="year d-flex align-items-center justify-content-{% if mod == 0 %}md-start{% else %}md-end{% endif %}">
+              <div class="year-date order-md-2 text-center">
+                <p><span>{{ block.settings.year }}</span></p>
+              </div>
+              <div class="year-description order-{% if mod == 0 %}md-1{% else %}md-3{% endif %}">
+                <div class="rte">
+                  {{ block.settings.text }}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+  var controller = new ScrollMagic.Controller();
+  $('.year').each(function() {
+    new ScrollMagic.Scene({triggerElement: this})
+        .setClassToggle(this, "active")
+        .addTo(controller);
+  });
+{% endjavascript %}
+
+{% schema %}
+  {
+    "name": "About Us - Timeline",
+    "class": "section-spacing",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "timeline",
+        "name": "Timeline Dot",
+        "settings": [
+          {
+            "type": "text",
+            "id": "year",
+            "label": "year"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,33 @@
+{%- assign image_splits = content | split: '<img ' -%}
+{% for image_split in image_splits %}
+  {% if image_split contains 'src="' %}
+    {%- assign article_image_parts = image_split | split: '>' -%}
+    {%- assign image_src_parts = article_image_parts[0] | split: 'src="' -%}
+    {%- assign image_url_parts = image_src_parts[1] | split: '"' -%}
+	{%- assign image_rebuild = '<img ' | append: article_image_parts[0] | append: '>' -%}
+    {%- assign content_parts = content | remove: image_rebuild -%}
+	{% case align %}
+      {% when 'image full' %}
+        <div class="article-image article-image--full jarallax article-content" data-jarallax data-speed="0.75" style="background-image: url('{{ image_url_parts[0] }}');"></div>
+	  {% when 'image left' or 'image right' %}
+        <div class="container article-content">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-lg-25 col-md-30{% if align == 'image right' %} order-md-1{% endif %} article-image-align article-image-align--{{ align | handleize }}">
+              <span></span>
+              <div role="img"
+                   class="article-image img_bg_find img_bg_find lazyload"
+                   data-bg="{{ block.settings.image | img_url: '300x' }}"
+                   data-bgset="{% render 'image-bg', image: block.settings.image %}"
+                   data-sizes="auto"
+                   data-og="{{ image_url_parts[0] }}"
+                   data-parent-fit="cover"
+                   style="background-image: url('{{ image_url_parts[0] }}');"></div>
+            </div>
+            <div class="col-md-30 rte">
+              {{ content_parts }}
+            </div>
+          </div>
+        </div>
+    {% endcase %}
+  {% endif %}
+{% endfor %}

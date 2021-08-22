@@ -1,0 +1,9 @@
+<{% if template == 'index' %}h1{% else %}div{% endif %} class="h2 site-header__logo" itemscope itemtype="http://schema.org/Organization">
+  <a href="/" itemprop="url" class="site-header__logo-image{% if settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}">
+    {% if settings.logo %}
+      {% include 'logo' %}
+    {% else %}
+      {{ shop.name }}
+    {% endif %}
+  </a>
+</{% if template == 'index' %}h1{% else %}div{% endif %}>

@@ -1,0 +1,22 @@
+<article class="rte">
+  <h2>{{ page.title }}</h2>
+  {{ page.content }}
+
+  <div class="contact-form form-vertical">
+    {{ section.settings.contact_form }}
+  </div>
+</article>
+
+{% schema %}
+  {
+    "name": "Contact Form",
+    "class": "col-lg-40 order-lg-1 section-push",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "contact_form",
+        "label": "Contact Form code"
+      }
+    ]
+  }
+{% endschema %}

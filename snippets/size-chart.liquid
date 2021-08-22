@@ -1,0 +1,78 @@
+      {%- assign newline_split = content | replace: ',"""', ',"&#34;' | replace: '""",', '&#34;",' | replace: '""', '&#34;' | split: '"' -%}
+      {%- assign string_adjusts = '' -%}
+      {% for newline in newline_split %}
+        {%- assign mod = forloop.index | modulo: 2 -%}
+        {%- assign tie_in = newline -%}
+        {% if mod == 0 %}
+          {%- assign tie_in = newline | newline_to_br | replace: '<br />', '|||' | replace: ',', '___' -%}
+        {% endif %}
+        {% capture string_adjusts %}{{ string_adjusts | append: tie_in }}{% endcapture %}
+      {% endfor %}
+      {%- assign new_csv = string_adjusts | newline_to_br | replace: '|||<br />', '|||' | split: '<br />' -%}
+      {%- assign breakdown_type = block.settings.mobile_breakdown -%}
+      <div class="size-chart--table flex-md-grow-1">
+        <div class="table table-type table-type__{{ block.settings.mobile_breakdown }} table--{{ block.id }}">
+          {%- assign first_row = new_csv[0] | split: ',' -%}
+          {%- assign row_size = new_csv.size -%}
+          {%- assign cell_size = first_row.size -%}
+          {%- assign mobile_key = '' -%}
+          {% case breakdown_type %}
+            {% when 'by_row' %}
+              {% for i in (1..row_size) %}
+                {%- assign row_get = i | minus: 1 -%}
+                <div class="tr">
+                  {% for j in (1..cell_size) %}
+                    <div class="td{% if j == 1 %} th table_toggle{% endif %}">
+                      {%- assign col_get = j | minus: 1 -%}
+                      {%- assign curr_row = new_csv[row_get] | split: ',' -%}
+                      {% include 'csv-content', row: curr_row, col: col_get %}
+                    </div>
+                    {% if block.settings.key_both and j == i %}
+                      {% capture mobile_key %}{{ mobile_key }} .table--{{ block.id }} .td:nth-of-type({{ i }}):before { content:'{% include 'csv-content', row: curr_row, col: col_get %}'; }{% endcapture %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endfor %}
+            {% when 'by_col' %}
+              {% for j in (1..row_size) %}
+                <div class="tr">
+                  {% for i in (1..cell_size) %}
+                    <div class="td{% if j == 1 %} th table_toggle equalize{% endif %}">
+                      {%- assign row_get = j | minus: 1 -%}
+                      {%- assign col_get = i | minus: 1 -%}
+                      {%- assign curr_row = new_csv[row_get] | split: ',' -%}
+                      {% include 'csv-content', row: curr_row, col: col_get %}
+                    </div>
+                    {% if j == 1 %}
+                      <style>.tr .td:nth-child({{ i }}):before { content:"{{ curr_row[col_get] | replace: '|||', '<br />' | replace: '___', ',' }}";}</style>
+                    {% endif %}
+                    {% if block.settings.key_both and j == i %}
+                      {% capture mobile_key %}{{ mobile_key }} .table--{{ block.id }} .tr:nth-of-type({{ i }}):before { content:'{% include 'csv-content', row: curr_row, col: col_get %}'; }{% endcapture %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endfor %}
+          {% endcase %}
+        </div>
+      </div>
+      {% if block.settings.image != blank and header %}
+        <div class="size-chart--image">
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" target="_blank">
+          {% endif %}
+          {% render 'image', file: block.settings.image, alt: block.settings.title %}
+          {% if block.settings.link_text != blank %}
+            <p class="text-center"><b>{{ block.settings.link_text }}</b></p>
+          {% endif %}
+          {% if block.settings.link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if block.settings.key_both %}
+        <style>
+          {% for i in (1..cell_size) %}
+            {{ mobile_key }}
+          {% endfor %}
+        </style>
+      {% endif %}

@@ -1,0 +1,27 @@
+{% if page.content != blank %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <article class="col-md-40 section-push">
+        <div class="rte text-center">
+          {{ page.content }}
+        </div>
+      </article>
+    </div>
+  </div>
+{% endif %}
+{% section 'page-template--about-image-text' %}
+{% section 'page-template--about' %}
+<div class="container">
+  <div class="row justify-content-center">
+    <article class="col-md-40 section-push">
+      <div class="rte text-center">
+        {% section 'page-template--about-content' %}
+      </div>
+    </article>
+  </div>
+</div>
+<div id="about-connections" class="connections section-push">
+  <div class="container">
+    {% section 'page-template--about-connections' %}
+  </div>
+</div>

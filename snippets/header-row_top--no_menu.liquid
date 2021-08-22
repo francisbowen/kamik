@@ -1,0 +1,35 @@
+<header class="container site-header" role="banner">
+  <div class="row align-items-center">
+    <div class="col-lg-10 col-md-15 order-{% if settings.align_logo == 'center' %}3{% else %}1{% endif %}">
+      {% include 'header-logo' %}
+    </div>
+
+    {% if settings.align_logo == 'center' %}
+      <div class="col d-none d-md-block order-2">
+        <div class="site-header__search">
+          {% include 'search-form' %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="col text-right site-header__icons order-4">
+      <div class="site-header__icons-wrapper">
+
+        {% if settings.align_logo == 'left' %}
+          {% include 'search-toggle' %}
+        {% endif %}
+
+        {% include 'header-account' %}
+
+        {% include 'header-cart_icon' %}
+
+        {% include 'header-menu_icon' %}
+
+      </div>
+
+      {% if settings.cartdropdown %}
+        {% include 'header-cart_dropdown' %}
+      {% endif %}
+  </div>
+  </div>
+</header>

@@ -1,0 +1,25 @@
+{% if image_size == blank %}{%- assign image_size = '800x800' -%}{% endif %}
+<a href="{{ url }}" class="infoblock-single">
+  <div class="infoblock-image d-flex justify-content-center">
+    {% render 'image', file: image, default_size: image_size, class: 'flex-shrink-0' %}
+  </div>
+  <div class="infoblock-description rte">
+    <h4>{{ title }}</h4>
+    {% if by != blank or on != blank %}
+      <div class="infoblock-description--meta">
+        {% if on != blank %}
+          <span class="article__date">
+            {{ on }}
+          </span>
+        {% endif %}
+        {% if by != blank %}
+          <span class="article__author">
+            {{ by }}
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% unless description contains '<p>' %}<p>{% endunless %}{{ description }}{% unless description contains '<p>' %}</p>{% endunless %}
+    <span class="btn btn--secondary">{% if btn_text != blank %}{{ btn_text }}{% else %}{{ 'blogs.article.read_more' | t }}{% endif %}</span>
+  </div>
+</a>

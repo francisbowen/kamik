@@ -1,0 +1,19 @@
+{% layout none %}{% paginate collection.products by 250 %}
+{"variants": {
+	{% for product in collection.products %}
+	"{{product.id}}":{
+    {% for variant in product.variants %}
+	"{{variant.id}}":{
+		"handle":"{{product.handle}}",
+    	"sku":"{{variant.sku}}",
+    	"upc":"{{variant.barcode}}",
+    	"product_id":"{{product.id}}",
+    	"variant_id":"{{variant.id}}",
+    	"price":"{{variant.price | money}}",
+    	"compare_at":"{{variant.compare_at_price | money}}" 
+	}{%- unless forloop.last %},{% endunless -%}
+    {% endfor %}
+	}{%- unless forloop.last %},{% endunless -%}
+    {% endfor %}
+}}
+{% endpaginate %}

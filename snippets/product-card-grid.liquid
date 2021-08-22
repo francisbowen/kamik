@@ -1,0 +1,92 @@
+{% if grid_image_width %}
+  {% assign grid_image_width_2 = grid_image_width | split:'x' %}
+  {% assign grid_image_width_2 = grid_image_width_2[0] | times:  2 | append: 'x' %}
+{% else %}
+  {% assign grid_image_width_2 = '600x' %}
+{% endif %}
+
+{% if product.metafields.global.color_order != blank %}
+  {%- assign color_order = product.metafields.global.color_order | replace: ', ', ',' | replace: ' ,', ',' | split: ',' -%}
+{% endif %}
+
+{%- assign featured_image = product.featured_image -%}
+{% if image_override != blank %}
+  {%- assign featured_image = image_override -%}
+{% endif %}
+{%- assign featured_image_split = false -%}
+{%- assign featured_swatch_pick = false -%}
+{%- assign curr_swatches = '' -%}
+{% unless title_only %}
+
+  {%- assign color_name = 'Color' -%}
+  {% if request.locale.iso_code == 'fr' %}
+    {%- assign color_name = 'Couleur' -%}
+  {% elsif request.locale.iso_code == 'de' %}
+    {%- assign color_name = 'Farbe' -%}
+  {% endif %}
+
+  {%- assign color_options = product.options_with_values | where: 'name', color_name -%}
+  {%- assign color_option = color_options[0] -%}
+  {% if color_option.values.size > 0 %}
+    {% capture option_index %}option{{ color_option.position }}{% endcapture %}
+    {% capture curr_swatches %}
+      <fieldset class="swatch clearfix" data-option-index="{{ option_index }}" data-option-id="{{ product.id }}">
+        <div class="d-flex flex-wrap swatch--color">
+          {% for value in color_option.values %}
+            {% for variant in product.variants %}
+              {% if variant[option_index] == value %}
+                {% if split_prod %}
+                  {%- assign gender_filter_downcase = variant.metafields.global.gender_filter | downcase -%}
+                  {% unless spit_prod_gender contains gender_filter_downcase %}
+                    {% break %}
+                  {% else %}
+                    {% unless featured_image_split %}
+                      {%- assign featured_image = variant.image -%}
+                      {%- assign featured_image_split = true -%}
+                    {% endunless %}
+                  {% endunless %}
+                {% endif %}
+                <div data-value="{{ value | escape }}" class="swatch-element color {{ value | handle }}{% if color_order != blank %}{%- assign extra_items = color_order.size -%}{% if color_order contains value %}{% for color in color_order %}{% if color == value %} order-{{ forloop.index0 }}{% if forloop.index0 == 0 %}{%- assign featured_swatch_pick = true -%}{% endif %}{% break %}{% endif %}{% endfor %}{% else %} order-{{ extra_items }}{%- assign extra_items = extra_items | plus: 1 -%}{% endif %}{% endif %}">
+                  <div class="tooltip">{{ value }}</div>
+                  <input id="swatch-{{ product.id }}{{ option_index }}-{{ value | handle }}" type="radio" name="option-{{ product.id }}{{ option_index }}" value="{{ value | escape }}"{% if color_order != blank %}{% if featured_swatch_pick %} checked{%- assign featured_swatch_pick = false -%}{% endif %}{% elsif forloop.first %} checked{% endif %} data-variant_id="{{ variant.id }}" data-image="{{ variant.image | img_url: '600x' }}" />
+                  <label class="color" for="swatch-{{ product.id }}{{ option_index }}-{{ value | handle }}"></label>
+                  {% unless netavail %}
+                    {% if variant.compare_at_price > variant.price %}
+                      <p class="variant-tag"><ly-as-46317>Sale</ly-as-46317></p>
+                    {% endif %}
+                  {% endunless %}
+                </div>
+                {% break %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
+      </fieldset>
+    {% endcapture %}
+  {% endif %}
+  <script>$(function() { if(!$('input[name="option-{{ product.id }}{{ option_index }}"]:checked').length){$('.swatch-element.order-1 input[name="option-{{ product.id }}{{ option_index }}"]').attr('checked',true)} });</script>
+{% endunless %}
+
+<div class="grid-view-item{% if title_only %} grid-view-item--title-only{% endif %}{% unless product.available %} product-price--sold-out grid-view-item--sold-out{% endunless %}">
+  <a class="grid-view-item__link" href="{{ product.url | within: collection }}">
+    <div role="img"
+         class="grid-view-item__image grid-view-item__image--{{ product.id }} lazyload"
+         data-bg="{{ featured_image | img_url: '300x300' }}"
+         data-bgset="{% render 'image-bg', image: featured_image %}"
+         data-sizes="auto"
+         data-parent-fit="cover"
+         style="background-image:url({{ featured_image | img_url: '300x300' }});"></div>
+    <div class="grid-view-item__content">
+      {{ curr_swatches }}
+      {% if request.page_type == 'search' %}
+        {% if product.tags contains 'women' or product.tags contains 'men' or product.tags contains 'kids' %}<p style="margin-bottom:0;">{% if product.tags contains 'women' %}Women's{% elsif product.tags contains 'men' %}Men's{% elsif product.tags contains 'kids' %}Kid's{% endif %}</p>{% endif %}
+      {% endif %}
+      <div class="h4 grid-view-item__title">{% if title_override != blank %}{{ title_override }}{% else %}{{ product.title }}{% endif %}</div>
+      {% unless title_only %}
+        <div class="grid-view-item__meta">
+          {% include 'product-price' %}
+        </div>
+      {% endunless %}
+    </div>
+  </a>
+</div>

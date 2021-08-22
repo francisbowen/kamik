@@ -1,0 +1,22 @@
+<div id="AjaxinatePagination" class="text-center">
+  {% if paginate.next %}
+    <a class="btn" href="{{ paginate.next.url }}"><ly-as-46316>{{ 'blogs.article.view_all' | t }}</ly-as-46316></a>
+  {% endif %}
+</div>
+
+<script>
+  $(document).ready(function(){
+    var endlessScroll = new Ajaxinate({
+      container: '#AjaxinateContainer',
+      pagination: '#AjaxinatePagination',
+      method: 'click',
+      offset: 1000,
+      callback: function(){
+        item_checker();
+        if(this.method != 'scroll') {
+          this.method = 'scroll';
+        }
+      }
+    });
+  });
+</script>

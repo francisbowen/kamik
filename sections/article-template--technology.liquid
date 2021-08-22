@@ -1,0 +1,271 @@
+{% if request.page_type == 'article' %}
+
+  {% for block in section.blocks %}
+    {% if block.settings.connect == article.url %}
+      {% if block.settings.video != blank %}
+        {%- assign tech_video = block.settings.video -%}
+      {% endif %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ shop.url }}{{ article.url }}"
+      },
+      "headline": "{{ article.title }}",
+      "image": [
+        "https:{{ article.image.src | img_url: 'original' }}"
+      ],
+      "datePublished": "{{ article.published_at }}",
+      "dateModified": "{{ article.published_at | date: "%Y-%m-%dT%H:%M:%SZ" }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ article.author }}"
+      },
+       "publisher": {
+        "@type": "Organization",
+        "name": "{{ shop.name }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https:{{ settings.logo | img_url: 'original' }}"
+        }
+      },
+      "description": "{{ article.excerpt_or_content | strip_html | truncatewords: 100 | escape }}"
+    }
+  </script>
+
+  {%- assign article_url = article.url -%}
+  {%- assign article_content_parts = article.content | split: '<h6>' -%}
+    {% for article_content_part in article_content_parts %}
+      {% unless article_content_part contains '</h6>' %}
+        {% capture article_content %}
+          <div class="section--image-with-text">
+            {% render 'image-with-text', layout: 'right', image: article.image, title: article.title, content: article_content_part, normal_title: true, video: tech_video %}
+          </div>
+        {% endcapture %}
+      {% else %}
+        {%- assign image_splits = article_content_part | split: '<img ' -%}
+        {% for image_split in image_splits %}
+          {% if image_split contains 'src="' %}
+            {%- assign article_image_parts = image_split | split: '>' -%}
+            {%- assign image_src_parts = article_image_parts[0] | split: 'src="' -%}
+            {%- assign image_url_parts = image_src_parts[1] | split: '"' -%}
+            {% capture article_images %}
+              {{ article_images }}{% unless forloop.first %},{% endunless %}{{ image_url_parts[0] }}
+            {% endcapture %}
+          {% endif %}
+        {% endfor %}
+      {% endunless %}
+    {% endfor %}
+  {%- assign article_image_array = article_images | split: ',' -%}
+  {%- assign article_image_array_size = article_image_array.size -%}
+  {%- assign loop_start = 0 -%}
+  <article id="article-single" class="article-technology" itemscope itemtype="http://schema.org/Article">
+    {{ article_content }}
+    <div class="d-flex flex-wrap article-technology--images">
+      {% for article_image in article_image_array %}
+        {% if article_image != blank %}
+          {%- assign mod = loop_start | modulo: 2 -%}
+          <div class="article-image jarallax article-content article-image--{{ mod }}" data-jarallax data-speed="0.75" style="background-image: url('{{ article_image | strip }}');"></div>
+          {%- assign loop_start = loop_start | plus: 1 -%}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </article>
+
+  <div id="technology-articles" class="section-spacing section--technology-articles">
+    <div class="container">
+      <div class="row">
+        <div class="col-60 text-center">
+          <h3 class="thin">Other Technology</h3>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        {% for article in blog.articles limit: 50 %}
+          {% unless article.url == article_url %}
+            {% render 'technology-grid-item', url: article.url, handle: article.handle, image: article.image.src, title: article.title -%}
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% for tag in article.tags %}
+    {% if tag contains 'collection--' %}
+      {%- assign collection_handle = tag | remove: 'collection--' -%}
+      {%- assign collection = collections[collection_handle] -%}
+      {% if collection %}
+        <div id="technology-products" class="section-spacing">
+          <div class="container">
+            <div class="row">
+              <div class="col-60 text-center">
+                <h3 class="thin">Explore {{ article.title }} Products</h3>
+              </div>
+            </div>
+            <div class="row products-row">
+              {% for product in collection.products limit: 50 %}
+                {% render 'product-card-grid', product: product, grid_image_width: '600x' %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <script>
+          $(document).ready(function(){
+            $('#technology-products .products-row').slick({
+              infinite: true,
+              slidesToShow: 4,
+              slidesToScroll: 4,
+              arrows: true,
+              dots: false,
+              responsive: [
+                {
+                  breakpoint: 995,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                  }
+                },
+                {
+                  breakpoint: 576,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+              ]
+            });
+          });
+        </script>
+      {% endif %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+{% else %}
+
+  {% paginate blog.articles by 50 %}
+    <section class="section-spacing section--blog section--technology-articles">
+      <div class="container">
+        {%- assign zeroindex = -1 -%}
+        {% for article in blog.articles %}
+          {% for block in section.blocks %}
+            {%- assign tech_video = '' -%}
+            {% if block.settings.connect == article.url %}
+              {% if block.settings.video != blank %}
+                {%- assign tech_video = block.settings.video -%}
+                {%- assign zeroindex = zeroindex | plus: 1 -%}
+              {% endif %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          {% capture article_side %}{% cycle '0', '1' %}{% endcapture %}
+          {% render 'technology-item', id: article.id, index: zeroindex, handle: article.handle, image: article.image.src, title: article.title, content: article.content, side: article_side, video_id: tech_video.id, video_type: tech_video.type -%}
+        {% endfor %}
+      </div>
+    </section>
+  {% endpaginate %}
+
+{% endif %}
+
+<script>
+    var videoArray = new Array();
+
+    function createVideo() {
+      var youtubeScriptId = 'youtube-api';
+      var youtubeScript = document.getElementById(youtubeScriptId);
+
+      if (youtubeScript === null) {
+        var tag = document.createElement('script');
+        var firstScript = document.getElementsByTagName('script')[0];
+
+        tag.src = 'https://www.youtube.com/iframe_api';
+        tag.id = youtubeScriptId;
+        firstScript.parentNode.insertBefore(tag, firstScript);
+      }
+
+      window.onYouTubeIframeAPIReady = function() {
+        var videos = $('.btn.tech-video[data-type="youtube"]');
+        for (var i = 0; i < videos.length; i++) {
+          var $videoContain = $(videos[i]),
+              videoId = $videoContain.data('id'),
+              divID = $videoContain.attr('href');
+          
+          videoArray[i] = new YT.Player($(divID)[0], {
+            videoId: videoId,
+            height: '780',
+            width: '1280',
+            playerVars: {
+              autoplay: 0,
+              modestbranding: 1,
+              rel: 0
+            },
+            events: {
+              'onReady': function(e) {
+                $(e.target.f).closest('.video-adjust').addClass('videoloaded');
+              }
+            }
+          });
+        }
+
+      };
+    }
+    
+    function vid_play($target) {
+      var type = $target.data('type'),
+          index = $target.data('index'),
+          divID = $target.attr('href');
+      console.log(index);
+      if(type == 'vimeo') {
+        alert('vimeo not set up');
+      } else {
+        $(divID).closest('.technology-item-single').addClass('videoplay');
+        videoArray[index].playVideo();
+      }
+    }
+    
+    $(document).ready(function(){
+      createVideo();
+      
+      $('.technology-item-single--content').on('click','.btn',function(e){
+        e.preventDefault();
+        vid_play($(this));
+      });
+    });
+</script>
+
+{% schema %}
+  {
+    "name": "Technology Videos",
+    "settings": [],
+    "blocks":[
+      {
+        "name": "Technology",
+        "type": "technology",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "url",
+            "id": "connect",
+            "label": "Technology Connected To"
+          },
+          {
+            "type": "video_url",
+            "id": "video",
+            "label": "Video",
+            "accept": ["youtube", "vimeo"],
+            "info": "Will add modal link to article image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

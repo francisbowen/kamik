@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row justify-content-between">
+    <article class="col-lg-40 order-lg-1 section-push">
+      <div class="rte">
+        {{ page.content }}
+        {% section 'page-template--default' %}
+      </div>
+    </article>
+    {% section 'page-sidebar' %}
+  </div>
+</div>

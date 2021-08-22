@@ -1,0 +1,85 @@
+{% capture media_id %}FeaturedMedia-{{ section.id }}-{{ image.id }}{% endcapture %}
+{% if video_used %}
+  {%- assign image_src = media -%}
+  {%- assign image_alt = media.alt -%}
+  {%- assign image_id = media.id -%}
+  {%- assign media_type = media.media_type -%}
+{% else %}
+  {%- assign image_src = image.src -%}
+  {%- assign image_alt = image.alt -%}
+  {%- assign image_id = image.id -%}
+  {%- assign media_type = 'image' -%}
+{% endif %}
+{% if spin %}
+  {%- assign frame_number = image_alt_split[2] | strip | times: 1 -%}
+
+  {%- assign main_image_split = image.src | split: '/' -%}
+  {%- assign URL_360 = main_image_split[1] | file_url -%}
+
+  {%- assign image_part = URL_360 | split: '/' -%}
+  {%- assign image_part_size = image_part.size | minus: 1 -%}
+  {%- assign image_file = image_part[image_part_size] -%}
+
+  {%- assign spin_parts = image_file | split: '-' -%}
+  {%- assign spin_parts_length = spin_parts.size | minus: 1 -%}
+  {%- assign spin_part_end = spin_parts[spin_parts_length] -%}
+
+  {%- assign extension_part = spin_part_end | split: '.' -%}
+  {%- assign extension_part_length = extension_part.size | minus: 1 -%}
+  {%- assign extension = extension_part[extension_part_length] -%}
+
+  {%- assign file_url_start = URL_360 | remove: image_file -%}
+  {%- assign spin_frames = image_file | remove: spin_part_end -%}
+  {% capture sprite_spin_source %}{{ file_url_start }}{{ spin_frames }}{frame}.{{ extension }}{% endcapture %}
+{% endif %}
+<div class="col-lg-30 product-single__thumbnail-cointainer{% if defaults %} product-single__thumbnail-stay{% endif %}">
+  <div class="product-single__thumbnail-adjust">
+    <div class="product-single__thumbnails-item product-single__thumbnails-item-{{ media_type }} product-single__thumbnail-{{ image_id }} js{% if spin %} product-single__thumbnails-item-spin{% elsif enable_image_zoom %} zoomable{% endif %}"{% if enable_image_zoom %} data-zoom="{{ image.src | img_url: product_image_zoom_size }}"{% endif %}{% if spin %} data-sprite_url="{{ sprite_spin_source }}"{% endif %}>
+      {% if file_change != blank %}
+        <div class="Sirv" data-src="{{ file_change }}"></div>
+      {% else %}
+        <img id="{{ media_id }}"
+             class="feature-row__image lazyload"
+             src="{{ image_src | img_url: image_size }}"
+             alt="{{ image_alt | escape }}">
+      {% endif %}
+      {% if video_used %}
+        {{ media | video_tag: class: 'media-video', image_size: image_size, muted: 'muted' }}
+      {% elsif spin %}
+      	<div class="spritespin-container"><div class="spritespin"></div></div>
+      {% endif %}
+    </div>
+    {% if video_used %}
+      <p>{% include 'icon-video' %}</p>
+      <script>
+        $(document).ready(function(){
+          var vid = $('.product-single__thumbnail-{{ image_id }} video').get(0);
+          vid.play();
+          vid.loop = true;
+        });
+      </script>
+    {% elsif spin %}
+      <p>360 &deg;<br />{% include 'icon-360' %}</p>
+      <script>
+        $(document).ready(function(){
+          var isSpinning = false;
+          $('.product-single__thumbnail-{{ image_id }} .spritespin').spritespin({
+            source: SpriteSpin.sourceArray('{{ sprite_spin_source }}', {
+              frame: [1,{{ frame_number }}],
+              digits: 2
+            }),
+            width: {{ image.width }},
+            height: {{ image.height }},
+            frameTime: 100,
+            sense: -1,
+            animate: false,
+            responsive: true,
+            onLoad: function() {
+              $(this).closest('.product-single__thumbnail-{{ image_id }}').addClass('spritespin-initiate');
+            }
+          });
+        });
+      </script>
+    {% endif %}
+  </div>
+</div>

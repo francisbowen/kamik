@@ -1,0 +1,83 @@
+{% include 'header-image' %}
+
+{% schema %}
+  {
+    "name": "Header Image",
+    "class": "shopify-section--header-image",
+    "blocks": [
+      {
+        "type": "page_header",
+        "name": "Page Header",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Page Title"
+          },
+          {
+            "type": "textarea",
+            "id": "subtitle",
+            "label": "Subtitle"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Page",
+            "info": "Header image defined below will be used for this specific page"
+          },
+          {
+            "type": "header",
+            "content": "Image Settings"
+          },
+          {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Header image"
+          },
+          {
+            "type": "header",
+            "content": "Video Settings"
+          },
+          {
+            "id": "video",
+            "type": "video_url",
+            "label": "Video URL",
+            "accept": ["youtube", "vimeo"],
+            "info": "Will autoplay video in header"
+          },
+          {
+            "id": "video_fr",
+            "type": "video_url",
+            "label": "Video URL (French)",
+            "accept": ["youtube", "vimeo"],
+            "info": "Will autoplay video in header"
+          },
+          {
+            "id": "video_de",
+            "type": "video_url",
+            "label": "Video URL (German)",
+            "accept": ["youtube", "vimeo"],
+            "info": "Will autoplay video in header"
+          },
+          {
+            "id": "video_height",
+            "type": "text",
+            "label": "Video Height",
+            "info": "Adjust if you see black bars and want header to maintain the video ratio - default is 720"
+          },
+          {
+            "id": "keep_title",
+            "type": "checkbox",
+            "label": "Keep Title while autoplaying?"
+          },
+          {
+            "id": "btn_text",
+            "type": "text",
+            "label": "Button Text",
+            "info": "Will allow playing with sound on click, optional"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

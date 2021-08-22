@@ -1,0 +1,298 @@
+{% assign curr_title = 'customer.account.title' | t %}
+{% assign curr_secondary = 'layout.customer.log_out' | t | customer_logout_link %}
+{% render 'account-header', title: curr_title, secondary: curr_secondary, image: section.settings.image %}
+{% include 'netterms-check' %}
+<div class="account">
+  <div class="container">
+    <div class="row">
+{% if netavail %}        
+            <div class="col-md-60 rte">
+        <h2><ly-as-101180>Orders</ly-as-101180></h2>
+              <style> .netorders th, .netorders td {font-size:12px;padding: 10px 0px;}
+              </style>
+        <table class="responsive-table netorders">
+          <thead>
+          <tr style="Background:#f7f7f7;">
+            <th><ly-as-101181>Web Order</ly-as-101181></th>
+            <th><ly-as-101182>PO Number</ly-as-101182></th>
+            <th><ly-as-101183>Items</ly-as-101183></th>
+            <th style="min-width:100px;width:100px;"><ly-as-101184>Order Date</ly-as-101184></th>
+            <th><ly-as-101185>Status</ly-as-101185></th>
+            <th><ly-as-101186>Total</ly-as-101186></th>
+            <th style="min-width:200px;width:200px;"><ly-as-101187>Address</ly-as-101187></th>            
+            <th><ly-as-101188>Tracking</ly-as-101188></th>
+            <th><ly-as-101189>Ship Date</ly-as-101189></th>
+            <th><ly-as-101190>Cancel Date</ly-as-101190></th>
+            <th><ly-as-101191>Reorder</ly-as-101191></th>
+          </tr>
+          </thead>
+            
+        {% for meta in customer.metafields.global reversed %}
+          {% unless meta[0] contains 'ship_to' or meta[0] contains 'sold_to' %}
+          	{% assign metablocks = meta[1] | split: "||"%}
+          	{% assign pieces = metablocks[0] | split: ","%}
+            {% assign piecenum = pieces[0] | replace: "#","" %}
+        		<tr>
+              	{% for piece in pieces %}
+                  {% if forloop.index == 3 %}
+                  <td><a href="#" id="itemclick{{ piecenum }}" class=""><ly-as-101192>View Items</ly-as-101192></a></td>
+                  {%else%}
+                  <td>{% if piece == "Open"%}<ly-as-101193>Received</ly-as-101193>{%else%}{{ piece }}{%endif%}</td>
+                  {%endif%}
+                {% endfor%}
+                  <td>
+                    {% if metablocks[3] == "FUTURE ORDER" %}
+        		{% if metablocks[2] contains '{"items":[{' %}
+                           {%comment %}             
+        			<span class="reorder-{{meta[0]}}" style="cursor:pointer;font-weight:bold;text-decoration:underline;color:#2c5234;">REORDER NOW</span>
+							{%endcomment%}
+<ly-as-101194>Coming Soon</ly-as-101194>
+        			<script type="application/json" id="cart-{{meta[0]}}">{{ metablocks[2] }}</script>
+                    <script>
+                      		var cartjson{{meta[0]}} = JSON.parse(document.getElementById('cart-{{meta[0]}}').innerHTML);
+                        $( ".reorder-{{meta[0]}}" ).click(function(e) {
+                            e.preventDefault;
+                            $('body').addClass('loading');
+                            $.ajax({
+                                type: 'POST',
+                                data: '',
+                                dataType: 'json',
+                                url: '/cart/clear.js',
+                                success: function(data){
+                                  console.log('cleared');
+                                    $.ajax({
+                                        type: 'POST',
+                                        data: cartjson{{meta[0]}},
+                                        dataType: 'json',
+                                        url: '/cart/add.js',
+                                        success: function(data){
+                                            console.log(data);
+                                            $('body').removeClass('loading');
+                                            window.location.href = '{% if request.locale.iso_code == 'fr' %}/fr{% elsif request.locale.iso_code == 'de' %}/de{%endif%}/cart/';
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    </script>
+             	{%endif%}    
+                                       {%else%} <ly-as-101194>Coming Soon</ly-as-101194>
+                    {%endif%}
+                  </td></tr><div id="items{{ piecenum }}" class="itmgrid white-popup mfp-hide row"><div class="col-20" style="font-weight:bold;background:#f7f7f7;"><ly-as-101195>Item</ly-as-101195></div><div class="col-20" style="font-weight:bold;background:#f7f7f7;"><ly-as-101196>Quantity</ly-as-101196></div><div class="col-20" style="font-weight:bold;background:#f7f7f7;"><ly-as-101197>Price</ly-as-101197></div>{{metablocks[4] | replace: "::","<br/>"}}</div>
+<style>
+  .itmgrid div{padding:5px 10px;border:1px solid #f7f7f7;font-size:12px;}
+          </style>
+          <script>
+  $( "#itemclick{{ piecenum }}" ).click(function() {
+          $.magnificPopup.open({
+          items: {
+            src: '#items{{ piecenum }}',
+            type: 'inline'
+          },
+          closeOnBgClick: true,
+          showCloseBtn: true
+        });
+});
+          </script>
+          {% endunless %}
+        {% endfor %}
+        </table>
+      </div>
+{%endif%}      
+      <div class="{%if netavail %}col-md-60{%else%}col-md-40{%endif%} rte">
+        <h2>{% if netavail %}<ly-as-101198>Dropship</ly-as-101198>{%else%}{{ 'customer.orders.title' | t }}{%endif%}</h2>
+
+        {% paginate customer.orders by 20 %}
+          {% if customer.orders.size != 0 %}
+
+            <table class="responsive-table">
+              <thead>
+                <tr>
+                  <th>{{ 'customer.orders.order_number' | t }}</th>
+                  <th>{{ 'customer.orders.date' | t }}</th>
+                  <th>{{ 'customer.orders.payment_status' | t }}</th>
+                  <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                  <th>{{ 'customer.orders.total' | t }}</th>
+                  {% if section.settings.reorder %}<th><ly-as-101191>Reorder</ly-as-101191></th>{% endif %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in customer.orders %}
+                  <tr>
+                    <td data-label="{{ 'customer.orders.order_number' | t }}">
+                      <a href="{{ order.customer_url }}" class="btn btn--secondary btn--small">{{ order.name }}</a>
+                    </td>
+                    <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}</td>
+                    <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                    <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                    <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money | remove: ".00" }}</td>
+                    {% if section.settings.reorder %}
+                      {% assign netorder = false %}
+                      {% for line_item in order.line_items %}
+                        {% if line_item.variant_id == blank %}
+                          {% assign netorder = true %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                      <td>
+                      </td>
+                    {% endif %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+          {% else %}
+
+            <p>{{ 'customer.orders.none' | t }}</p>
+
+          {% endif %}
+        
+          {% if paginate.pages > 1 %}
+            {% include 'pagination' %}
+          {% endif %}
+        
+        {% endpaginate %}      
+      </div>
+      {% unless netavail%}
+      <div class="col-md-20 rte">
+        {% render 'account-sidebar' %}
+      </div>
+      {%endunless%}
+       
+    </div>
+  </div>
+</div>
+
+
+
+{% if netavail %}
+  <div id="netterms-alert" class="white-popup mfp-hide">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-60 rte">
+          <h4><ly-as-101199>Select one of the Order Options.</ly-as-101199></h4>
+         <!-- <p><em><ly-as-101200>Cookies are required for the use of the Net Terms Program</ly-as-101200></em></p> -->
+        </div>
+        {% if preorder %}
+        {%comment %}
+        <div class="col-md-20">
+          <a class="btn btn--preorder" href="#">PREORDER / BOOKING</a>
+          <small>Coming Soon</small>
+        </div>
+        {%endcomment%}
+        <div class="col-md-20">
+          <span class="btn disabled" style="background-color:#999999;color:white;"><ly-as-101201>PREORDER / BOOKING</ly-as-101201></span>
+          <small><ly-as-101194>Coming Soon</ly-as-101194></small>
+        </div>          
+        {%else%}
+        <div class="col-md-20">
+          <span class="btn disabled" style="background-color:#999999;color:white;"><ly-as-101201>PREORDER / BOOKING</ly-as-101201></span>
+          <small><ly-as-101194>Coming Soon</ly-as-101194></small>
+        </div>        
+        {%endif%}
+        <div class="col-md-20">
+          <a class="btn btn--now" href="#"><ly-as-101202>CREATE ORDER</ly-as-101202></a>
+        </div>
+        {%if dropship %}
+        <div class="col-md-20">
+          <a class="btn btn--dropship" href="#"><ly-as-101203>CREATE ORDER / DROPSHIP</ly-as-101203></a>
+          <small><ly-as-101204>Dropshipping requires use of credit card</ly-as-101204></small>
+        </div>
+        {%else%}
+        <div class="col-md-20">
+          <span class="btn disabled" style="background-color:#999999;color:white;"><ly-as-101203>CREATE ORDER / DROPSHIP</ly-as-101203></span>
+          <small><ly-as-101204>Dropshipping requires use of credit card</ly-as-101204></small>
+        </div>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function(){
+      var first_login = getUrlParameter('action');
+      if(first_login == 'initial_login') {
+        $.ajax({
+        type: "POST",
+        url: '/cart/clear.js',
+        data: '',
+        dataType: 'json'
+      	});
+        $('body').addClass('netterms-picker');
+        $.magnificPopup.open({
+          items: {
+            src: '#netterms-alert',
+            type: 'inline'
+          },
+          closeOnBgClick: false,
+          showCloseBtn: false
+        });
+      }
+    });
+    $('#netterms-alert').on('click','a',function(e){
+      e.preventDefault();
+      var cookie_need = 'net_dropship';
+      if(!$(this).hasClass('btn--dropship')) {
+        cookie_need = $(this).hasClass('btn--now') ? 'net_now' : 'net_preorder';
+      }
+      Cookies.set('netneed', cookie_need, { expires: 1 });
+      $.ajax({
+        type: 'POST',
+        url: '/cart/update.js',
+        dataType: 'json',
+        data: {
+          attributes: {
+            'netneed': cookie_need
+          }
+        },
+        success: function(d){
+          window.location.href = 'https://{{ shop.domain }}{% if request.locale.iso_code == 'fr' %}/fr{% elsif request.locale.iso_code == 'de' %}/de{%endif%}';
+        }
+      });
+    });
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Account Page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Header Image",
+        "info": "Leave blank to just use text"
+      },
+      {
+        "type": "header",
+        "content": "Reordering"
+      },
+      {
+        "type": "textarea",
+        "id": "reordernote",
+        "label": "Reorder Note",
+        "default":"*** To reorder a terms order, please find the link in the submission below."
+      },
+      {
+        "type": "header",
+        "content": "Net Terms"
+      },
+      {
+        "type": "text",
+        "id": "nettitle",
+        "label": "Net Terms Title",
+        "default":"Net Terms Submissions"
+      },
+      {
+        "type": "textarea",
+        "id": "netnote",
+        "label": "Net Terms Note",
+        "default":"These will move into orders once approved, but stay here as well for a record of the submission."
+      }
+    ]
+  }
+{% endschema %}

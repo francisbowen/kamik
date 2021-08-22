@@ -1,0 +1,93 @@
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{% include 'richcards' %}
+
+{% include 'netterms-check' %}
+{% include 'itemchecker' %}
+
+{%- assign type_title = false -%}
+{% for tag in product.tags %}
+  {% if tag contains 'type--' %}
+    {%- assign type_title = true -%}
+    {%- assign type_name = tag | remove: 'type--' -%}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+<div id="ProductMain">
+  <div id="ProductSection-{{ product.id }}" class="colitem-{{product.handle}} {% if product.tags contains "b2c-product"%}colitem-b2c {%endif%} {%unless product.tags contains "b2b-purchasenow" or product.tags contains "b2b-preorder"%}colitem-b2c {%endunless%} {% if product.tags contains "b2b-purchasenow"%}colitem-purchasenow {%endif%} {% if product.tags contains "b2b-preorder"%}colitem-preorder {%endif%} prod-{{product.handle}} product-template__container" data-section-id="{{ product.id }}" data-section-type="product" data-enable-history-state="true" data-crossclick="{% if settings.enable_crossclick %}allow{% endif %}" data-comingsoon="{% if product.tags contains 'coming soon' %}true{% else %}false{% endif %}" data-price_adjust="{{ price_adjust }}">
+    <div class="container">
+      <div class="row product-single">
+        <div class="col-60 d-md-none product-meta--mobile">
+          {% assign current_variant = product.selected_or_first_available_variant %}
+          <h1 class="product-single__title">
+            {% if type_title %}<ly-as-46299>The</ly-as-46299> {% endif %}{{ product.title }}{% if type_title %} {{ type_name }}{% endif %}
+            <span class="wishlist-add">
+              <div class="swym-dummy">
+                <span class="swym-button"></span>
+              </div>
+            </span>
+          </h1>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="product-single__price product-single__price-{{ product.id }}{% unless current_variant.available %} product-price--sold-out{% endunless %}">
+              {% if current_variant.compare_at_price > current_variant.price %}
+              <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+              <s id="ComparePriceMobile-{{ product.id }}">{{ current_variant.compare_at_price | money }}</s>
+              <span class="product-price__price product-price__price-{{ product.id }} product-price__sale product-price__sale--single">
+                <span id="ProductPriceMobile-{{ product.id }}">{{ current_variant.price | money }}</span>
+                <span class="product-price__sale-label product-price__sale-label-{{ product.id }}">{{ 'products.product.on_sale' | t }}</span>
+              </span>
+              {% else %}
+              <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+              <s id="ComparePriceMobile-{{ product.id }}" class="hide">{{ current_variant.compare_at_price | money }}</s>
+              <span class="product-price__price product-price__price-{{ product.id }}">
+                <span id="ProductPriceMobile-{{ product.id }}">{{ current_variant.price | money }}</span>
+                <span class="product-price__sale-label product-price__sale-label-{{ product.id }} hide">{{ 'products.product.on_sale' | t }}</span>
+              </span>
+              {% endif %}
+            </p>
+
+            <div class="review-skip">
+              {% render 'okendo-reviews-product-rating-summary' %}
+              <a href="#product-reviews"><ly-as-46301>See Reviews</ly-as-46301></a>
+            </div>
+          </div>
+        </div>
+
+        {% section 'product-images' %}
+
+        {% section 'product-template' %}
+
+      </div>
+    </div>
+  </div>
+
+  {% section 'product-technology' %}
+
+  <div id="ReviewSection-{{ product.id }}" class="review-template__container section-spacing">
+    <div id="product-reviews" class="container">
+      <div class="row">
+        <div class="col-60">
+          {% render 'okendo-reviews-widget' %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% section 'product-videos' %}
+
+  {% section 'product-related' %}
+
+  {% unless product.empty? %}
+    <script type="application/json" id="ProductJson-{{ product.id }}">
+      {{ product | json }}
+    </script>
+  {% endunless %}
+
+  {% section 'page-template--size-chart' %}
+
+  {% section 'page-template--dealer-locator' %}
+</div>

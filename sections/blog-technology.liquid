@@ -1,0 +1,70 @@
+{%- assign filters = section.settings.filters | split: ',' -%}
+{% if filters %}
+<div class="technology-list whitebg">
+   <ul>
+   {% for filter in filters %}
+      {% if blog.all_tags contains filter %}
+         {% if current_tags contains filter %}
+            <li class="active">{{ filter | link_to_remove_tag: filter }}</li>
+         {% else %}
+            <li>{{ filter | link_to_tag: filter }}</li>
+         {% endif %}
+      {% endif %}
+   {% endfor %}
+   </ul>
+</div>
+{% endif %}
+{% paginate blog.articles by 7 %}
+<div class="technology-wrapper">
+   <div class="container">
+      <div class="whitebg">
+         <div class="technology-wrapper-inner">
+         {% for article in blog.articles limit: 2 %}
+            <div class="row technology-item {% cycle '', 'flex-row-reverse' %}">
+               <div class="col-md-20 col-12 p-4">
+                  <div class="blog-img" style="background-image: url({{ article.image | img_url: '1200x' }});">
+                  </div>
+               </div>
+               <div class="col-md-40 col-12 p-4">
+                  <div class="blog-details-wrapper">
+                     <p>{{ article.content | strip_html }}</p>
+                  </div>
+               </div>
+            </div>
+         {% endfor %}
+         <div class="row technology-item align-items-start">
+            {% for article in blog.articles limit: 3 offset: 2 %}
+               <div class="col-md-20 col-12 p-4">
+                  <div class="blog-img" style="background-image: url({{ article.image | img_url: '1200x' }});">
+                  </div>
+                  <p>{{ article.content | strip_html }}</p>
+               </div>
+            {% endfor %}
+         </div>
+         <div class="row technology-item align-items-start">
+            {% for article in blog.articles limit: 2 offset: 5 %}
+               <div class="col-md-30 col-12 p-4">
+                  <div class="blog-img" style="background-image: url({{ article.image | img_url: '1200x' }});">
+                  </div>
+                  <p>{{ article.content | strip_html }}</p>
+               </div>
+            {% endfor %}
+         </div>
+      </div>
+      </div>
+   </div>
+</div>
+{% comment %} {% include 'pagination' %} {% endcomment %}
+{% endpaginate %}
+{% schema %}
+   {
+      "name": "Technology Blog",
+      "settings": [
+         {
+            "type":"textarea",
+            "id":"filters",
+            "label":"Filters"
+         }
+      ]
+   }
+{% endschema %}

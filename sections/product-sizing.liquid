@@ -1,0 +1,64 @@
+{%- assign block_need = '' -%}
+{% for block in section.blocks %}
+  {% if product.type == block.settings.type %}
+    {% if block.settings.size_url != blank %}
+	  {% capture block_need %}
+        <div id="size-chart" class="white-popup mfp-hide">
+          <h4 class="h5">{{ product.type }} Sizing</h4>
+          <div class="container">
+            <div class="row">
+              <div class="col-60">
+                {% include 'image', file: block.settings.size_url, default_size: '900x' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endcapture %}
+      {% break %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% if block_need != blank %}
+  {{ block_need }}
+{% else %}
+  <style>
+    .swatch--size a { display: none; }
+  </style>
+{% endif %}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    display: none;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Product Sizing",
+    "blocks": [
+      {
+        "type": "size",
+        "name": "Size",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "info": "Just to help keep organized"
+          },
+          {
+            "type": "text",
+            "id": "type",
+            "label": "Product type",
+            "info": "Must match the current product type to show up"
+          },
+          {
+            "type": "image_picker",
+            "id": "size_url",
+            "label": "Product size image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

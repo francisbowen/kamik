@@ -1,0 +1,48 @@
+{% for block in section.blocks %}
+  {% if block.settings.url != blank %}
+    <div class="col-lg-20 col-md-30 about-connections-col">
+      {% render 'infoblock-single', url: block.settings.url, image: block.settings.image, title: block.settings.title, description: block.settings.description, btn_text: block.settings.btn %}
+    </div>
+  {% endif %}
+{% endfor %}
+
+{% schema %}
+  {
+    "name": "About Us - Page Links",
+    "class": "row justify-content-center",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "featured_page",
+        "name": "Featured Link",
+        "settings": [
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Where to Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Description"
+          },
+          {
+            "type": "text",
+            "id": "btn",
+            "label": "Button Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,4231 @@
+{
+  "current": {
+    "dbat": "",
+    "promsg": "Net Term Pricing is Applied",
+    "color_body_bg": "#fff",
+    "color_modal_bg": "#000000",
+    "opacity_modal_bg": 60,
+    "header_bg_color": "#ffffff",
+    "header_link_color": "#2c5234",
+    "header_link_color_hover": "#2c5234",
+    "header_megamenu_subheading_color": "#232824",
+    "header_megamenu_subheading_color_hover": "#2c5234",
+    "header_megamenu_link_color": "#232824",
+    "header_megamenu_link_color_hover": "#f4a428",
+    "header_mobile_region_bg_color": "#f4a428",
+    "footer_bg_color": "#241e18",
+    "footer_text_color": "#ffffff",
+    "color_body_text": "#232824",
+    "color_link": "#f4a428",
+    "color_link_hover": "#3d4246",
+    "color_sale_text": "#7796a8",
+    "color_button": "#295135",
+    "color_button_text": "#fff",
+    "color_button_hover": "#1a3322",
+    "color_button_text_hover": "#fff",
+    "color_small_button": "#ffffff",
+    "color_small_button_text": "#295135",
+    "color_small_button_hover": "#fff",
+    "color_small_button_text_hover": "#223646",
+    "color_text_field_text": "#232824",
+    "color_text_field_border": "#ebebeb",
+    "color_text_field_border_focus": "#295135",
+    "color_text_field": "#fff",
+    "color_addtocart": "#7796a8",
+    "color_addtocart_text": "#fff",
+    "color_addtocart_hover": "#537182",
+    "color_addtocart_text_hover": "#fff",
+    "button_radius": 0,
+    "color_borders": "#ebebeb",
+    "color_image_overlay_text": "#fff",
+    "color_image_overlay": "#232824",
+    "image_overlay_opacity": 25,
+    "type_header_font": "helvetica_n7",
+    "type_header_base_size": 21,
+    "type_header_upcase": false,
+    "type_base_font": "helvetica_n4",
+    "type_base_size": 14,
+    "type_bold_product_titles": false,
+    "header_sticky": true,
+    "logo": "shopify:\/\/shop_images\/logo_188a976b-f572-4270-96ce-9ae05cf22361.png",
+    "logo_max_width": "100",
+    "cartdropdown": "flyout",
+    "enablesearch": true,
+    "searchwhat": "everything",
+    "main_linklist": "main-menu",
+    "megamenu1": "Women",
+    "megamenu2": "Kids",
+    "megamenu3": "Men",
+    "megamenu4": "",
+    "megamenu5": "",
+    "megamenu6": "",
+    "show_free_shipping": true,
+    "free_shipping_threshold": "149.99",
+    "free_shipping_left_text": "You are |amount| away from FREE Shipping within Canada",
+    "free_shipping_met_text": "You've got FREE Shipping within Canada",
+    "share_facebook": true,
+    "share_twitter": true,
+    "share_pinterest": true,
+    "social_twitter_link": "https:\/\/twitter.com\/Kamik",
+    "social_facebook_link": "https:\/\/www.facebook.com\/kamik",
+    "social_pinterest_link": "",
+    "social_instagram_link": "https:\/\/www.instagram.com\/kamikofficial\/",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "newsletter_action_url": "",
+    "newsletter_poup": false,
+    "newsletter_bg": "",
+    "newsletter_color": "#222222",
+    "newsletter_popup_length": "0",
+    "newsletter_popup_content": "Become a newsletter member to stay up to date on new arrivals and exclusive sales",
+    "enable_zoom": true,
+    "show_variant_labels": true,
+    "enable_colorswatch": true,
+    "color_swatchimage": false,
+    "show_quantity_selector": false,
+    "cartajax": true,
+    "favicon": "shopify:\/\/shop_images\/Screen_Shot_2020-08-19_at_4.54.34_PM.png",
+    "checkout_header_image": "",
+    "checkout_logo_image": "shopify:\/\/shop_images\/logo_188a976b-f572-4270-96ce-9ae05cf22361.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "large",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#2c5234",
+    "checkout_button_color": "#2c5234",
+    "checkout_error_color": "#ef465a",
+    "aprovecodes": "",
+    "newsletter_popup_title": "Join the Movement",
+    "footer_link_color": "#ffffff",
+    "footer_link_color_hover": "#ffffff",
+    "color_small_button_text_border": "#222222",
+    "enable_crossclick": false,
+    "color_text": "#232824",
+    "cart_flyout": false,
+    "header_overlay": false,
+    "align_menu": "inline",
+    "align_menu_text": "left",
+    "logo_scrolled": "",
+    "type_header_family": "Google_Work+Sans_600_sans",
+    "type_base_family": "Google_Work+Sans_400_sans",
+    "sections": {
+      "slideshow": {
+        "type": "slideshow",
+        "blocks": {
+          "slideshow-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/21S_AUGUST_HOME-BANNER_DESK.jpg",
+              "image_mobile": "shopify:\/\/shop_images\/21S_AUGUST_HOME-BANNER_MOB.jpg",
+              "overlay": true,
+              "alignment": "bottom",
+              "text_layout": "left",
+              "text_align": "left",
+              "title": "Ready for Back to School!",
+              "heading_color": "#ffffff",
+              "subheading": "Perfect for indoor and outdoor activities.",
+              "subheading_color": "#ffffff",
+              "button": "SHOP NOW",
+              "link": "shopify:\/\/collections\/kids-rain-boots",
+              "product_callout": "",
+              "product_callout-location": "bottomright"
+            }
+          }
+        },
+        "block_order": [
+          "slideshow-0"
+        ],
+        "settings": {
+          "mobile_hide": false,
+          "contained": "container-fluid",
+          "autoplay": true,
+          "autoplay_speed": "5000",
+          "dots": true,
+          "arrows": true,
+          "slideshow_height": "small"
+        }
+      },
+      "featured-collections": {
+        "type": "collection",
+        "blocks": {
+          "1597337809895": {
+            "type": "product",
+            "settings": {
+              "prod": "wildcat",
+              "image": "shopify:\/\/shop_images\/AUGUST_MIDDLESQUARE_WILDCAT.jpg",
+              "title": ""
+            }
+          },
+          "1597337818028": {
+            "type": "product",
+            "settings": {
+              "prod": "stomp",
+              "image": "shopify:\/\/shop_images\/AUGUST_MIDDLESQUARE_STOMP.jpg",
+              "title": ""
+            }
+          },
+          "1597337800020": {
+            "type": "product",
+            "settings": {
+              "prod": "overpass",
+              "image": "shopify:\/\/shop_images\/AUGUST_MIDDLESQUARE_OVERPASS.jpg",
+              "title": ""
+            }
+          }
+        },
+        "block_order": [
+          "1597337809895",
+          "1597337818028",
+          "1597337800020"
+        ],
+        "settings": {
+          "mobile_hide": false,
+          "title": "Recess Winners",
+          "description": "Conquer the school day.",
+          "show_view_all": true,
+          "view_all_url": "shopify:\/\/collections\/kids-footwear",
+          "view_all_text": "Shop Now"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "1590100795912": {
+            "type": "menu",
+            "settings": {
+              "title": "Shop",
+              "linklist": "footer-menu-shop",
+              "where_to_show": "everyone"
+            }
+          },
+          "1590099511121": {
+            "type": "menu",
+            "settings": {
+              "title": "About Kamik",
+              "linklist": "footer",
+              "where_to_show": "everyone"
+            }
+          },
+          "1590099522710": {
+            "type": "menu",
+            "settings": {
+              "title": "Customer Service",
+              "linklist": "footer-menu-customer-service",
+              "where_to_show": "everyone"
+            }
+          },
+          "1600446860161": {
+            "type": "menu",
+            "settings": {
+              "title": "Returns & Shipping",
+              "linklist": "footer-returns-shipping",
+              "where_to_show": "b2c"
+            }
+          },
+          "1599666026800": {
+            "type": "menu",
+            "settings": {
+              "title": "Legal",
+              "linklist": "legal",
+              "where_to_show": "everyone"
+            }
+          }
+        },
+        "block_order": [
+          "1590100795912",
+          "1590099511121",
+          "1590099522710",
+          "1600446860161",
+          "1599666026800"
+        ],
+        "settings": {
+          "footer_socials_enable": true,
+          "footer_newsletter_enable": true,
+          "footer_newsletter_alone": false,
+          "newsletter_background": "#241e18",
+          "newsletter_color": "#ffffff"
+        }
+      },
+      "notification": {
+        "type": "notification",
+        "settings": {
+          "message": false,
+          "message_text": "Welcome to Kamik.com Canada! To shop our USA site click here.",
+          "message_icon": "",
+          "align_message_icon": "right",
+          "message_link": "http:\/\/us.kamik.com",
+          "color_bg": "#295135",
+          "color_text": "#ffffff"
+        }
+      },
+      "mobile-nav": {
+        "type": "mobile-nav",
+        "blocks": {
+          "1591660411094": {
+            "type": "row",
+            "settings": {
+              "main_title": "Women",
+              "main_link": "shopify:\/\/collections\/women",
+              "main_linklist": "women-mobile",
+              "main_icon": "",
+              "enable_icon": false
+            }
+          },
+          "1594403968956": {
+            "type": "row",
+            "settings": {
+              "main_title": "Kids",
+              "main_link": "shopify:\/\/collections\/kids",
+              "main_linklist": "kids-mob",
+              "main_icon": "",
+              "enable_icon": false
+            }
+          },
+          "1594404558615": {
+            "type": "row",
+            "settings": {
+              "main_title": "Toddlers",
+              "main_link": "shopify:\/\/collections\/toddlers",
+              "main_linklist": "toddlers-footwear",
+              "main_icon": "",
+              "enable_icon": false
+            }
+          },
+          "1594404020463": {
+            "type": "row",
+            "settings": {
+              "main_title": "Men",
+              "main_link": "shopify:\/\/collections\/men",
+              "main_linklist": "men-mob",
+              "main_icon": "",
+              "enable_icon": false
+            }
+          },
+          "1591660430823": {
+            "type": "simplerow",
+            "settings": {
+              "main_title": "#FreeYourPlay",
+              "main_icon": "",
+              "main_link": "shopify:\/\/blogs\/freeyourplay"
+            }
+          },
+          "1602615311720": {
+            "type": "simplerow",
+            "settings": {
+              "main_title": "Stories",
+              "main_icon": "",
+              "main_link": "shopify:\/\/blogs\/stories"
+            }
+          }
+        },
+        "block_order": [
+          "1591660411094",
+          "1594403968956",
+          "1594404558615",
+          "1594404020463",
+          "1591660430823",
+          "1602615311720"
+        ],
+        "settings": {}
+      },
+      "header-bg": {
+        "type": "header-bg",
+        "blocks": {
+          "1590776384450": {
+            "type": "page_header",
+            "settings": {
+              "title": "120+ Years of Tradition",
+              "subtitle": "That's Far From Traditional",
+              "url": "shopify:\/\/pages\/about",
+              "image": "shopify:\/\/shop_images\/AUT_WINTER_ABOUT-US_120YEARS_BANNER.jpg",
+              "video": "",
+              "video_fr": "",
+              "video_de": "",
+              "video_height": "720",
+              "keep_title": false,
+              "btn_text": ""
+            }
+          },
+          "1591054464210": {
+            "type": "page_header",
+            "settings": {
+              "title": "#FreeYourPlay",
+              "subtitle": "",
+              "url": "shopify:\/\/blogs\/freeyourplay",
+              "image": "shopify:\/\/shop_images\/AUG_KIDS_BANNER_15087b81-f118-4944-b66b-67f2131af46f.jpg",
+              "video": "https:\/\/www.youtube.com\/watch?time_continue=5&v=-haBsbQFtHw&feature=emb_logo",
+              "video_fr": "",
+              "video_de": "",
+              "video_height": "520",
+              "keep_title": false,
+              "btn_text": ""
+            }
+          },
+          "1591142704349": {
+            "type": "page_header",
+            "settings": {
+              "title": "Stories",
+              "subtitle": "Looking for style inspos? New collections? News about the brand?\n\nYou’re in the right spot. \n\nWe’ll be dropping new info here periodically, so make sure to visit frequently!",
+              "url": "shopify:\/\/blogs\/stories",
+              "image": "shopify:\/\/shop_images\/STORIE_BANNER_SPRINGSUMMER.jpg",
+              "video": "",
+              "video_fr": "",
+              "video_de": "",
+              "video_height": "",
+              "keep_title": false,
+              "btn_text": ""
+            }
+          },
+          "1591296059966": {
+            "type": "page_header",
+            "settings": {
+              "title": "Technology",
+              "subtitle": "",
+              "url": "shopify:\/\/blogs\/technology",
+              "image": "shopify:\/\/shop_images\/AUG_TECHNOLOGY_PAGE_LONG_BANNER.jpg",
+              "video": "",
+              "video_fr": "",
+              "video_de": "",
+              "video_height": "",
+              "keep_title": false,
+              "btn_text": ""
+            }
+          },
+          "1591301002517": {
+            "type": "page_header",
+            "settings": {
+              "title": "Sustainable Manufacturing",
+              "subtitle": "It's more than what we do,\nIt's a significant part of what we are",
+              "url": "shopify:\/\/pages\/sustainability",
+              "image": "shopify:\/\/shop_images\/AUG_SUSTAINABLE_BANNER.jpg",
+              "video": "https:\/\/youtu.be\/oAnKZEgzSw0",
+              "video_fr": "https:\/\/youtu.be\/hReeCuRCAo8",
+              "video_de": "https:\/\/youtu.be\/gm4I8OOnHJw",
+              "video_height": "550",
+              "keep_title": false,
+              "btn_text": "Kamik Sustainability"
+            }
+          },
+          "1591916978260": {
+            "type": "page_header",
+            "settings": {
+              "title": "Kamik Club",
+              "subtitle": "",
+              "url": "shopify:\/\/pages\/kamik-club",
+              "image": "shopify:\/\/shop_images\/AUG_KIDS_BANNER_15087b81-f118-4944-b66b-67f2131af46f.jpg",
+              "video": "",
+              "video_fr": "",
+              "video_de": "",
+              "video_height": "",
+              "keep_title": false,
+              "btn_text": ""
+            }
+          }
+        },
+        "block_order": [
+          "1590776384450",
+          "1591054464210",
+          "1591142704349",
+          "1591296059966",
+          "1591301002517",
+          "1591916978260"
+        ],
+        "settings": {}
+      },
+      "megamenu1": {
+        "type": "megamenu1",
+        "blocks": {
+          "1588287120666": {
+            "type": "megamenu_menu",
+            "settings": {
+              "title": "Women",
+              "url": "shopify:\/\/collections\/womens-footwear",
+              "linklist": "women-footwear",
+              "title_2": "Accessories",
+              "url_2": "shopify:\/\/collections\/women-accessories-liners",
+              "linklist_2": "women-accessories",
+              "column_width": "col-15"
+            }
+          },
+          "1588287836417": {
+            "type": "megamenu_image",
+            "settings": {
+              "title": "Sandals",
+              "image": "shopify:\/\/shop_images\/TODDLER_MENU.jpg",
+              "link": "shopify:\/\/collections\/women-womens-footwear-sandals-1",
+              "column_width": "col-15"
+            }
+          },
+          "1588287162289": {
+            "type": "megamenu_image",
+            "settings": {
+              "title": "Rain Boots",
+              "image": "shopify:\/\/shop_images\/DROPDOWNMENU_WOAMNRAIN_NA.jpg",
+              "link": "shopify:\/\/collections\/women-womens-footwear-rain-boots",
+              "column_width": "col-15"
+            }
+          }
+        },
+        "block_order": [
+          "1588287120666",
+          "1588287836417",
+          "1588287162289"
+        ],
+        "settings": {}
+      },
+      "product-images": {
+        "type": "product-images",
+        "settings": {}
+      },
+      "product-template": {
+        "type": "product-template",
+        "blocks": {
+          "1589830081520": {
+            "type": "descript",
+            "settings": {
+              "title": "Shipping & Returns",
+              "content": "<p><a href=\"\/pages\/shipping\" title=\"Shipping\"><strong>Shipping<\/strong><\/a><br\/>Spend $149.99 or more to qualify for <strong>Free Shipping.<\/strong><\/p><p><\/p><p>All shipments are shipped via Canada Post ground.<\/p><p><\/p><p><a href=\"\/pages\/shipping\" title=\"Shipping\">Click here<\/a> for more information<\/p><p><\/p><p><strong>Returns<\/strong><br\/>Items must be unworn, in its original packaging, including affixed hang-tags.<\/p><p>Please note that unless the return is for warranty reasons, you will need to pay to ship the return to us.<\/p><p>Returns must be received within 30 days of order date to be eligible for full refund.<\/p><p>Please review our complete return policy <a href=\"\/pages\/warranty-return-policies\" title=\"Warranty & Return Policies\">here<\/a>.<br\/><br\/><\/p><p><\/p>",
+              "tag": "",
+              "start_open": true,
+              "where_to_show": "b2c"
+            }
+          },
+          "1593198593354": {
+            "type": "technology",
+            "settings": {
+              "title": "Rubber<sup>He<\/sup>",
+              "content": "<p>Light and strong, our proprietary technology offers superior traction and flexibility, and is 100% recyclable.<\/p>",
+              "tag": "tech-RUBBERHE"
+            }
+          },
+          "1596578173522": {
+            "type": "technology",
+            "settings": {
+              "title": "Vegan-friendly",
+              "content": "<p>This product is made without materials from animal byproducts, nor was it tested on animals.<\/p>",
+              "tag": "tech-VEGAN"
+            }
+          },
+          "1596578006947": {
+            "type": "technology",
+            "settings": {
+              "title": "Odour Control Insole",
+              "content": "<p>Featuring a natural treatment to keep your feet fresh.<\/p>",
+              "tag": "tech-ODOURCTRL"
+            }
+          },
+          "1596578204192": {
+            "type": "technology",
+            "settings": {
+              "title": "Waterproof",
+              "content": "<p>This product is perfect to keep you dry in all kinds of wet weather.<\/p>",
+              "tag": "tech-WATERPROOF"
+            }
+          },
+          "1596578230703": {
+            "type": "technology",
+            "settings": {
+              "title": "Recyclable",
+              "content": "<p>Made from recyclable rubber.<\/p>",
+              "tag": "tech-RECYCLABLE"
+            }
+          },
+          "1595622994365": {
+            "type": "technology",
+            "settings": {
+              "title": "Made in Canada",
+              "content": "<p>Made to the highest standards, using domestic and imported materials.<\/p>",
+              "tag": "tech-Canada"
+            }
+          },
+          "1593198710300": {
+            "type": "technology",
+            "settings": {
+              "title": "Waterproof Seam-Sealed",
+              "content": "<p>Water won't get in the stitches or seams, keeping your feet dry all day long.<\/p>",
+              "tag": "tech-SEAMSEALED"
+            }
+          },
+          "1596577648200": {
+            "type": "technology",
+            "settings": {
+              "title": "Genuine Leather & Suede",
+              "content": "<p>Featuring high quality and sustainable genuine leather.<\/p>",
+              "tag": "tech-LEATHER"
+            }
+          },
+          "1596578564481": {
+            "type": "technology",
+            "settings": {
+              "title": "Generous Fit",
+              "content": "<p>Style cut a bit wider at the calf for extra leg room. <\/p>",
+              "tag": "tech-WIDE"
+            }
+          },
+          "1596578743138": {
+            "type": "technology",
+            "settings": {
+              "title": "NiteRays",
+              "content": "<p>A reflective binding or patch on the boot for added safety after the sun sets.<\/p>",
+              "tag": "tech-NITERAYS"
+            }
+          },
+          "1596748971961": {
+            "type": "technology",
+            "settings": {
+              "title": "Easy Grab Lace Lock",
+              "content": "<p>Our patented knob on the bungee lace makes boots easy to adjust.<\/p>",
+              "tag": "tech-EASYGRAB"
+            }
+          },
+          "1596750499898": {
+            "type": "technology",
+            "settings": {
+              "title": "Pull n' Lock",
+              "content": "<p>One-pull of the bungee lace and the knob locks automatically without additional effort. <\/p>",
+              "tag": "tech-PULLNLOCK"
+            }
+          },
+          "1596752147727": {
+            "type": "technology",
+            "settings": {
+              "title": "Oil & Acid Resistant",
+              "content": "<p>The protective compound stops oil, acid and a variety of other chemicals from penetrating, keeping your feet safe and splatter-free.<\/p>",
+              "tag": "tech-OILANDACID"
+            }
+          },
+          "1597086760883": {
+            "type": "technology",
+            "settings": {
+              "title": "-40°C",
+              "content": "<p>Match our boots with your needs for warmth depending on your activity levels and weather conditions.<\/p>",
+              "tag": "tmp-40F_40C"
+            }
+          },
+          "1597086852063": {
+            "type": "technology",
+            "settings": {
+              "title": "-32°C",
+              "content": "<p>Match our boots with your needs for warmth depending on your activity levels and weather conditions.<\/p>",
+              "tag": "tmp-25F_32C"
+            }
+          },
+          "1597087031155": {
+            "type": "technology",
+            "settings": {
+              "title": "-20°C",
+              "content": "<p>Match our boots with your needs for warmth depending on your activity levels and weather conditions.<\/p>",
+              "tag": "tmp-10F_23C"
+            }
+          },
+          "1597087218889": {
+            "type": "technology",
+            "settings": {
+              "title": "-30°C",
+              "content": "<p>Match our boots with your needs for warmth depending on your activity levels and weather conditions.<\/p>",
+              "tag": "tmp-22F_30C"
+            }
+          },
+          "1597098036045": {
+            "type": "technology",
+            "settings": {
+              "title": "DriDEFENSE Membrane",
+              "content": "<p>Our proprietary waterproof membrane keeps feet dry by preventing any water from getting in.<\/p>",
+              "tag": "tech-DRIDEFENCE"
+            }
+          },
+          "1597098828431": {
+            "type": "technology",
+            "settings": {
+              "title": "Waterproof Bottom",
+              "content": "<p>The waterproof bottom keep feet dry, acting as a barrier against snow or water.<\/p>",
+              "tag": "tech-WTPRFBTM"
+            }
+          },
+          "1597679125486": {
+            "type": "technology",
+            "settings": {
+              "title": "-74°C",
+              "content": "<p>Match our boots with your needs for warmth depending on your activity levels and weather conditions.<\/p>",
+              "tag": "tmp-100F_74C"
+            }
+          },
+          "1597679163033": {
+            "type": "technology",
+            "settings": {
+              "title": "-10°C",
+              "content": "<p>Match our boots with your needs for warmth depending on your activity levels and weather conditions.<\/p>",
+              "tag": "tmp-14F_10C"
+            }
+          },
+          "1597689894469": {
+            "type": "technology",
+            "settings": {
+              "title": "Composite Toe",
+              "content": "<p>    Our CSA  and ASTM-approved composite toecap conforms to industry standards for added  safety. <\/p>",
+              "tag": "tech-COMPTOE"
+            }
+          },
+          "1597689914606": {
+            "type": "technology",
+            "settings": {
+              "title": "Steel Toe and Plate",
+              "content": "<p>Our CSA and ASTM-approved steel toe conforms to industry standards for added safety.<\/p>",
+              "tag": "tech-SAFETOEPLA"
+            }
+          },
+          "1598392767080": {
+            "type": "technology",
+            "settings": {
+              "title": "Designed in Canada",
+              "content": "<p>Designed to the highest standards, ensuring consistent quality, comfort and durability.<\/p>",
+              "tag": "tech-designca"
+            }
+          },
+          "1598393792902": {
+            "type": "technology",
+            "settings": {
+              "title": "-32°C",
+              "content": "<p>Match our boots with your needs for warmth depending on your activity levels and weather conditions.<\/p>",
+              "tag": "tmp-25F_32Capp"
+            }
+          },
+          "1598392849175": {
+            "type": "technology",
+            "settings": {
+              "title": "Dri-Defense",
+              "content": "<p>A Cohesive system of components, including wind resistant shell fabric with DWR coating, insulation, inner lining and seam sealing, featured exclusively on Kamik apparel.<\/p>",
+              "tag": "tech-dridefa"
+            }
+          },
+          "1598393311275": {
+            "type": "technology",
+            "settings": {
+              "title": "3M® Reflective Details",
+              "content": "<p>Our reflective piping and patches allow you to continue to work or play safely after the sun sets.<\/p>",
+              "tag": "tech-3m"
+            }
+          },
+          "1598393472592": {
+            "type": "technology",
+            "settings": {
+              "title": "PVC Free",
+              "content": "<p>Committed to keeping you safe & our environment clean, we have removed PVC, Polyvinyl Chloride from our products.<\/p>",
+              "tag": "tech-pvcfree"
+            }
+          },
+          "1598393655144": {
+            "type": "technology",
+            "settings": {
+              "title": "Waterproof",
+              "content": "<p>Our garments are perfect for keeping you dry in all kinds of wet weather.<\/p>",
+              "tag": "tech-waterprfa"
+            }
+          },
+          "1598394040094": {
+            "type": "technology",
+            "settings": {
+              "title": "Seam Sealed",
+              "content": "<p>Kamik apparel has applied a seam sealed waterproofing at critical points of assembly. <\/p>",
+              "tag": "tech-seamseala"
+            }
+          },
+          "4126d2d6-f009-4644-a998-b396834fc55b": {
+            "type": "technology",
+            "settings": {
+              "title": "Steel Toe",
+              "content": "<p>Our CSA and ASTM-approved steel toe conforms to industry standards for added safety.<\/p>",
+              "tag": "tech-SAFETYTOE"
+            }
+          },
+          "3f7eecd4-4d88-4627-9014-65ec75caf20f": {
+            "type": "technology",
+            "settings": {
+              "title": "LockFIT",
+              "content": "<p>Extra support at the ankle, locking it in place for optimal fit. <\/p>",
+              "tag": "tech-LockFIT"
+            }
+          },
+          "9b76e87a-4508-42a0-bcde-f662499c04f0": {
+            "type": "technology",
+            "settings": {
+              "title": "Vibram®",
+              "content": "<p>Our outsoles featuring Vibram® technology provide superior grip on icy surfaces, cold terrain or snow covered surfaces.<\/p>",
+              "tag": "tech-VIBRAM"
+            }
+          },
+          "08c10815-20c6-4baf-b528-d7ceb26e8ea4": {
+            "type": "technology",
+            "settings": {
+              "title": "Made in USA",
+              "content": "<p>Made in USA or made in Canada with Canadian and foreign materials.<\/p>",
+              "tag": "tech-USA"
+            }
+          },
+          "e163c7d4-4e6f-49f6-a385-f13fed1f38a7": {
+            "type": "technology",
+            "settings": {
+              "title": "-20°C",
+              "content": "<p>Match our boots with your needs for warmth depending on your activity levels and weather conditions.<\/p>",
+              "tag": "tmp-4F_20C"
+            }
+          }
+        },
+        "block_order": [
+          "1589830081520",
+          "1593198593354",
+          "1596578173522",
+          "1596578006947",
+          "1596578204192",
+          "1596578230703",
+          "1595622994365",
+          "1593198710300",
+          "1596577648200",
+          "1596578564481",
+          "1596578743138",
+          "1596748971961",
+          "1596750499898",
+          "1596752147727",
+          "1597086760883",
+          "1597086852063",
+          "1597087031155",
+          "1597087218889",
+          "1597098036045",
+          "1597098828431",
+          "1597679125486",
+          "1597679163033",
+          "1597689894469",
+          "1597689914606",
+          "1598392767080",
+          "1598393792902",
+          "1598392849175",
+          "1598393311275",
+          "1598393472592",
+          "1598393655144",
+          "1598394040094",
+          "4126d2d6-f009-4644-a998-b396834fc55b",
+          "3f7eecd4-4d88-4627-9014-65ec75caf20f",
+          "9b76e87a-4508-42a0-bcde-f662499c04f0",
+          "08c10815-20c6-4baf-b528-d7ceb26e8ea4",
+          "e163c7d4-4e6f-49f6-a385-f13fed1f38a7"
+        ],
+        "settings": {}
+      },
+      "product-related": {
+        "type": "product-related",
+        "blocks": {
+          "1601397715867": {
+            "type": "related_products",
+            "settings": {
+              "prod_attach": "abigail",
+              "prod_related_1": "ariel",
+              "prod_related_2": "",
+              "prod_related_3": "",
+              "prod_related_4": ""
+            }
+          },
+          "1601403828673": {
+            "type": "related_products",
+            "settings": {
+              "prod_attach": "greenbay-4",
+              "prod_related_1": "thermal-guard-8mm-liner-1",
+              "prod_related_2": "",
+              "prod_related_3": "",
+              "prod_related_4": ""
+            }
+          }
+        },
+        "block_order": [
+          "1601397715867",
+          "1601403828673"
+        ],
+        "settings": {
+          "show_product_recommendations": true,
+          "title": "Explore Other Products"
+        }
+      },
+      "product-sizing": {
+        "type": "product-sizing",
+        "settings": {}
+      },
+      "swatch-colors": {
+        "type": "swatch-colors",
+        "blocks": {
+          "1589239362107": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/White Pattern",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/swatch-bw.jpg"
+            }
+          },
+          "1589239382274": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black Pattern",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/swatch-black.jpg"
+            }
+          },
+          "1590018419151": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/swatch-charcoal.jpg"
+            }
+          },
+          "1593114597012": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/White",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NWT.png"
+            }
+          },
+          "1593115998201": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Charcoal",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BCH_c9f4a745-db4d-4c8f-ab45-6572ada3aed9.png"
+            }
+          },
+          "1593116273249": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Blue",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLU.png"
+            }
+          },
+          "1593116304126": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Dark Purple",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/DPU.png"
+            }
+          },
+          "1593115751918": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "",
+              "color1": "",
+              "color2": "",
+              "color3": ""
+            }
+          },
+          "1593116490192": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Rose",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/ROS.jpg"
+            }
+          },
+          "1593201010608": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Dark Red",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/DRD.png"
+            }
+          },
+          "1593201026528": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Mustard",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/MUS.png"
+            }
+          },
+          "1593201040147": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Gum",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NWT.png"
+            }
+          },
+          "1593201491415": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Sparkly",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CHA.png"
+            }
+          },
+          "1593201558933": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Purple\/Sparkly",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PUR.png"
+            }
+          },
+          "1593704332321": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Beige Plaid",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BEI.png"
+            }
+          },
+          "1593704409479": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Khaki Plaid",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/KHA_e9323e36-7fb2-4d7f-9f73-9f0feda9e12a.jpg"
+            }
+          },
+          "1593704437660": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Magenta",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NMA_101d4bab-00bc-476e-a826-b2ed695f09bf.png"
+            }
+          },
+          "1593704805763": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Red Plaid",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PLA.png"
+            }
+          },
+          "1593706911680": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLK.jpg"
+            }
+          },
+          "1593706953565": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NWT.png"
+            }
+          },
+          "1593707195193": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Dark Brown",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/DBR.png"
+            }
+          },
+          "1593707401517": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Jeans",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/JEA.png"
+            }
+          },
+          "1593707503993": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Red",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/RED.jpg"
+            }
+          },
+          "1593707781630": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Yellow",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/YEL.png"
+            }
+          },
+          "1593707918860": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Dewberry",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/DEW.jpg"
+            }
+          },
+          "1593708084800": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Brown",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BRN.jpg"
+            }
+          },
+          "1593708099759": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Beige",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BEI.jpg"
+            }
+          },
+          "1593708398543": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Cognac",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CGN.jpg"
+            }
+          },
+          "1593711387445": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal Black",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CBA_7e372cea-770a-4fbb-a3d8-ae14a021e006.png"
+            }
+          },
+          "1593711892574": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Grey",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/GRY.png"
+            }
+          },
+          "1593711997170": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Plum",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PLU.png"
+            }
+          },
+          "1593715496072": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Tan Plaid",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/TAN.png"
+            }
+          },
+          "1593715971066": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Dark Brown\/Red Plaid",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PLA.png"
+            }
+          },
+          "1593716129255": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Chocolate Brown",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/DB2.png"
+            }
+          },
+          "1593716745228": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Burgundy",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BUR.png"
+            }
+          },
+          "1593716833902": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal Red",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CH2.png"
+            }
+          },
+          "1593716904752": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Black",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLK.jpg"
+            }
+          },
+          "1593716924120": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/White",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BCK.png"
+            }
+          },
+          "1593717030951": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NA2.png"
+            }
+          },
+          "1593717191802": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Red",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/RE2.png"
+            }
+          },
+          "1593717270183": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Light Grey",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/LGY.png"
+            }
+          },
+          "1593717293300": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Viola",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/VIO.png"
+            }
+          },
+          "1593717714354": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "White Floral",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/WHT.png"
+            }
+          },
+          "1593717731158": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black Floral",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLK-FLORAL.png"
+            }
+          },
+          "1593718103433": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Rust",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/RUS.png"
+            }
+          },
+          "1593723673858": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Camouflage",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CAM.png"
+            }
+          },
+          "1594147092455": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black Orange Charcoal",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BOC_eb4575a2-f0e3-4561-b265-b1f1c1609fdc.png"
+            }
+          },
+          "1594147203562": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy Teal",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NTE_aa00c9dc-7196-44d9-b33c-b2a125d7a1b7.png"
+            }
+          },
+          "1594147319206": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Blue Lemon",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLE_64f48f1a-fb0b-484f-920c-2c85bc2a92f8.png"
+            }
+          },
+          "1594147711333": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Grape",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/GRA.png"
+            }
+          },
+          "1594147968655": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Magenta",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/MAG.png"
+            }
+          },
+          "1594148160092": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Purple",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PUR2.png"
+            }
+          },
+          "1594151191252": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Orange",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CH5.png"
+            }
+          },
+          "1594151110550": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Pink",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/rose_pink.png"
+            }
+          },
+          "1594151220594": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Teal",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/TEA.png"
+            }
+          },
+          "1594151260685": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Lime",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NLM.png"
+            }
+          },
+          "1594151363827": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Eggplant",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/EGG.png"
+            }
+          },
+          "1594152080131": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Violet",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PUR2_0d669fab-78ba-44cb-bd41-f91664c4d385.png"
+            }
+          },
+          "1594211309150": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Khaki\/Black",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/KHK_289e825d-b6c6-48d6-a904-4504e604c544.png"
+            }
+          },
+          "1594211690510": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Tan",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/TAN2.png"
+            }
+          },
+          "1594211795988": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Blue",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CIB.png"
+            }
+          },
+          "1594212124635": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Black",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NA2_81c8c921-ccde-407c-befe-18cfcc38b954.png"
+            }
+          },
+          "1594212170845": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Magenta",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CHM.png"
+            }
+          },
+          "1594212200466": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Yellow\/Black Sole",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/YEK.png"
+            }
+          },
+          "1594212339593": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Lime",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CL2.png"
+            }
+          },
+          "1594212537596": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Rose",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NRO.png"
+            }
+          },
+          "1594212613091": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Rose",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BRO.png"
+            }
+          },
+          "1594212726552": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Light Navy",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/LNA.png"
+            }
+          },
+          "1594212811822": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Citrus",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NCI.png"
+            }
+          },
+          "1594212880660": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Lavender",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NLA.png"
+            }
+          },
+          "1594212950496": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Rose",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CRO.png"
+            }
+          },
+          "1594213071487": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Blue",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BAB.png"
+            }
+          },
+          "1596636401324": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Blue",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NA2_81c8c921-ccde-407c-befe-18cfcc38b954.png"
+            }
+          },
+          "1596725281271": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Mid Grey",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/MGY.png"
+            }
+          },
+          "1596725316161": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Pink",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CRO_1a403841-8088-4a9a-b1ea-7dcf2fdfde3b.png"
+            }
+          },
+          "1596725432721": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Med Grey",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/MGY.png"
+            }
+          },
+          "1596725447946": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Purple",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLP.png"
+            }
+          },
+          "1596725617728": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Deep Brown",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/DBR_7b991298-d051-4115-9b16-473d60e49434.png"
+            }
+          },
+          "1596751311518": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Orchid",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/COR.png"
+            }
+          },
+          "1596751345845": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Purple\/Magenta",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PUM.png"
+            }
+          },
+          "1596751431874": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Flame",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CH5_f215171f-526b-4a92-9012-01dfd10c18ba.png"
+            }
+          },
+          "1596751576290": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "LIGHT GREY",
+              "color1": "",
+              "color2": "",
+              "color3": ""
+            }
+          },
+          "1597153538883": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Chocolate",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/DB2_1117757e-1e81-45f1-af8e-7799ac64a785.png"
+            }
+          },
+          "1597153560079": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Taupe",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/TAU.png"
+            }
+          },
+          "1597258016253": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Marin",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NA2_5708bf2f-57eb-4b0a-b80a-065a509b0888.png"
+            }
+          },
+          "1597258480339": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Noir",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLK_8d0315f9-5cd4-42d5-99eb-d2e56e7efa5b.jpg"
+            }
+          },
+          "1597665526444": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Red\/Black",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/REB.png"
+            }
+          },
+          "1597665659551": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Grey\/Black",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/grb.png"
+            }
+          },
+          "1597665683828": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Lt. Grey",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/LGY_9aa850b4-48a4-49b5-9a9f-cbb3036e0dba.png"
+            }
+          },
+          "1597665708522": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Fuschia",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/FUS.png"
+            }
+          },
+          "1597665733320": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Storm Blue",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/ROY.png"
+            }
+          },
+          "1597667533839": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Royal Blue",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/ROY.png"
+            }
+          },
+          "1597679050136": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Mossy Oak Country Camo",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/MOSSY.png"
+            }
+          },
+          "1597679445804": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Gaucho Brown",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/DB2_20857270-bfd9-4d1a-8f1c-80d43f763acd.png"
+            }
+          },
+          "1597758473707": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Crepe",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLK_bcc2a8f2-b3dd-4b0f-b3ab-160c583e2859.jpg"
+            }
+          },
+          "1597761112092": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Purple\/Lilac",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/POR.jpg"
+            }
+          },
+          "1597761145738": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Mid Grey",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/bgy_6dadcf3f-0555-4dbf-a708-dfcd05e5d067.png"
+            }
+          },
+          "1597761215933": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Purple\/Teal",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PTE.png"
+            }
+          },
+          "1597761239877": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Purple\/Orchid",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/POR.jpg"
+            }
+          },
+          "1597947202816": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Khaki Brown",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/KHK_7cbe16c3-77f7-46ba-b582-a38b4c8ce1b8.png"
+            }
+          },
+          "1597947227472": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "BLK\/CREPE",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLK_44998e4a-8eec-44a3-a1b0-df7c681d578d.jpg"
+            }
+          },
+          "1598390494818": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Tide",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/TIDE.png"
+            }
+          },
+          "1598390698522": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Tomato",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/TOM.png"
+            }
+          },
+          "1598390751224": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Lime",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/LIME.png"
+            }
+          },
+          "1598390767808": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Blue Navy",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NBL_1a4e029f-2aa9-4fd0-bc97-e47704fa8959.png"
+            }
+          },
+          "1598391129720": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Pink Print",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NPI_-_Apparel.png"
+            }
+          },
+          "1598391152727": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Blue Print",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/blu_-_Apparel.png"
+            }
+          },
+          "1598391442848": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy Print",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/nav_-_apparel.png"
+            }
+          },
+          "1598391576049": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Berry",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BEZ.png"
+            }
+          },
+          "1598555964059": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Flame",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NFL.png"
+            }
+          },
+          "1598556229507": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Honey",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/HON.png"
+            }
+          },
+          "1600111437845": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Olive",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/OLIVE_GREEN.png"
+            }
+          },
+          "1600793246726": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Orange",
+              "color1": "#f48f28",
+              "color2": "",
+              "color3": ""
+            }
+          },
+          "1603463163456": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Blue\/Sulfur",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLU_4058ea96-23eb-42bd-9c50-53041bbd0093.png"
+            }
+          },
+          "d53d1294-81ac-41a8-83e3-5710d7e90097": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "INK",
+              "color1": "rgba(0,0,0,0)",
+              "color2": "rgba(0,0,0,0)",
+              "color3": "rgba(0,0,0,0)",
+              "image": "shopify:\/\/shop_images\/bay.png"
+            }
+          },
+          "2ba3e736-97bd-44a6-8b32-e51f439a8eea": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Grape Lavender",
+              "color1": "rgba(0,0,0,0)",
+              "color2": "rgba(0,0,0,0)",
+              "color3": "rgba(0,0,0,0)",
+              "image": "shopify:\/\/shop_images\/GRA_85374991-0311-41fe-b96b-f48b13716466.png"
+            }
+          },
+          "071b08e3-c7cd-4773-95a1-d5927b447c48": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black Magenta",
+              "color1": "rgba(0,0,0,0)",
+              "color2": "rgba(0,0,0,0)",
+              "color3": "rgba(0,0,0,0)",
+              "image": "shopify:\/\/shop_images\/BRO_cc16296d-480e-4641-bfa6-7a4c386e7544.png"
+            }
+          },
+          "22ab5000-b6d0-4c74-920e-4f14f632c396": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Gray",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/GRY_5e4f8fa0-04c7-44a7-aba7-dfcf01905390.png"
+            }
+          },
+          "299df100-f1f3-4e19-a037-496f5f78dbba": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Grey Pink",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CHM_04f2f82f-b3a3-4995-933e-a170a1c17549.png"
+            }
+          },
+          "ada5d6a2-b5ac-40cf-9ec0-eb246982d147": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Grey LT Blue",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CIB_6b8c398b-c621-4900-8cfd-b235dd588ff0.png"
+            }
+          },
+          "25e18814-839f-4295-b467-3cc86a77d2dc": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Gray Pink",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CHP_13d060d2-fa8b-40c8-8592-6bb48c55fc86.png"
+            }
+          },
+          "33339688-a6f9-4e3d-adde-439c50743aa2": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black Lime",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLM.png"
+            }
+          },
+          "706c334a-8ca1-4b16-93f6-5ebd72ae44b3": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Khaki",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/KHK_7cbe16c3-77f7-46ba-b582-a38b4c8ce1b8.png"
+            }
+          },
+          "12547c9d-3dfe-4635-8438-30051e92c588": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Dark Olive",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/OLIVE_GREEN.png"
+            }
+          },
+          "12987ae3-d988-4fef-b252-3d1a474077f0": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Light Gray",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/LGY_e3865a3f-9cfc-46e8-aaae-0d4afa661525.png"
+            }
+          },
+          "b2bf9184-6aa1-465c-a4ce-98204584b386": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Red",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/Black_Red.png"
+            }
+          },
+          "ccadfa32-6887-41d3-9085-d7ae2c5906ff": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Mossy Oak Country",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/MOSSY_9b1e29b9-6cc1-452f-b590-3149eec88645.png"
+            }
+          },
+          "6817e4e7-52ce-47bd-b42b-beb5b78c1a02": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Grey\/Fuchsia",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/GFS.png"
+            }
+          },
+          "78066aea-86ae-4f65-a642-752a3f46f883": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Grey",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CBA_0d1a2a8c-a4fc-4d67-a145-aa389b68c4df.png"
+            }
+          },
+          "d76905c1-6e71-4cc0-8265-e7e89bd44e19": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black\/Mid Gray",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CBA_0d1a2a8c-a4fc-4d67-a145-aa389b68c4df.png"
+            }
+          },
+          "f420fa55-f0f4-4de7-8214-1c705514c960": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Navy\/Yellow",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/NAY.png"
+            }
+          },
+          "8f539ea6-2c6b-46de-aaef-b80aab9d7e00": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Green",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/CHG_eaf1644f-ef8b-4218-9143-8ced1456b938.png"
+            }
+          },
+          "f4e5bbd0-8711-4e42-9a93-7b8f59182647": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Charcoal\/Fuchsia",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/GFS_799aa6a7-f62e-493d-a444-2340d40b7e3a.png"
+            }
+          },
+          "8de1ffd1-e5e7-4ef9-8e71-05c804b1b4d8": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Sand",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/SAND.png"
+            }
+          },
+          "821108c9-0710-4dcf-9b4c-0b8749ffed67": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Fuchsia",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/FUS_ed313dcd-d2b6-4bfd-9c60-2516e98ee256.png"
+            }
+          },
+          "2507ecf7-3887-4c4d-b2a4-fd92ec188aab": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Lavender",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/LAV.png"
+            }
+          },
+          "f76397f7-5474-484b-891e-24cb0535d973": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Storm Blue\/Black",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/ROY_088a4d48-803b-4d82-8c01-8ce3848a4890.png"
+            }
+          },
+          "4529d618-e1ad-4d01-976d-ce3376316f22": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Dark Brown Plaid",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/PLA_e3dca4db-0568-481d-8d3d-9c94326dedb6.png"
+            }
+          },
+          "ff75980d-ec90-4892-9a7b-829a770599d1": {
+            "type": "color_swatches",
+            "settings": {
+              "title": "Black 2",
+              "color1": "",
+              "color2": "",
+              "color3": "",
+              "image": "shopify:\/\/shop_images\/BLK_16562ce0-ea5d-4c58-afde-d0c09cdb2530.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "1589239362107",
+          "1589239382274",
+          "1590018419151",
+          "1593114597012",
+          "1593115998201",
+          "1593116273249",
+          "1593116304126",
+          "1593115751918",
+          "1593116490192",
+          "1593201010608",
+          "1593201026528",
+          "1593201040147",
+          "1593201491415",
+          "1593201558933",
+          "1593704332321",
+          "1593704409479",
+          "1593704437660",
+          "1593704805763",
+          "1593706911680",
+          "1593706953565",
+          "1593707195193",
+          "1593707401517",
+          "1593707503993",
+          "1593707781630",
+          "1593707918860",
+          "1593708084800",
+          "1593708099759",
+          "1593708398543",
+          "1593711387445",
+          "1593711892574",
+          "1593711997170",
+          "1593715496072",
+          "1593715971066",
+          "1593716129255",
+          "1593716745228",
+          "1593716833902",
+          "1593716904752",
+          "1593716924120",
+          "1593717030951",
+          "1593717191802",
+          "1593717270183",
+          "1593717293300",
+          "1593717714354",
+          "1593717731158",
+          "1593718103433",
+          "1593723673858",
+          "1594147092455",
+          "1594147203562",
+          "1594147319206",
+          "1594147711333",
+          "1594147968655",
+          "1594148160092",
+          "1594151191252",
+          "1594151110550",
+          "1594151220594",
+          "1594151260685",
+          "1594151363827",
+          "1594152080131",
+          "1594211309150",
+          "1594211690510",
+          "1594211795988",
+          "1594212124635",
+          "1594212170845",
+          "1594212200466",
+          "1594212339593",
+          "1594212537596",
+          "1594212613091",
+          "1594212726552",
+          "1594212811822",
+          "1594212880660",
+          "1594212950496",
+          "1594213071487",
+          "1596636401324",
+          "1596725281271",
+          "1596725316161",
+          "1596725432721",
+          "1596725447946",
+          "1596725617728",
+          "1596751311518",
+          "1596751345845",
+          "1596751431874",
+          "1596751576290",
+          "1597153538883",
+          "1597153560079",
+          "1597258016253",
+          "1597258480339",
+          "1597665526444",
+          "1597665659551",
+          "1597665683828",
+          "1597665708522",
+          "1597665733320",
+          "1597667533839",
+          "1597679050136",
+          "1597679445804",
+          "1597758473707",
+          "1597761112092",
+          "1597761145738",
+          "1597761215933",
+          "1597761239877",
+          "1597947202816",
+          "1597947227472",
+          "1598390494818",
+          "1598390698522",
+          "1598390751224",
+          "1598390767808",
+          "1598391129720",
+          "1598391152727",
+          "1598391442848",
+          "1598391576049",
+          "1598555964059",
+          "1598556229507",
+          "1600111437845",
+          "1600793246726",
+          "1603463163456",
+          "d53d1294-81ac-41a8-83e3-5710d7e90097",
+          "2ba3e736-97bd-44a6-8b32-e51f439a8eea",
+          "071b08e3-c7cd-4773-95a1-d5927b447c48",
+          "22ab5000-b6d0-4c74-920e-4f14f632c396",
+          "299df100-f1f3-4e19-a037-496f5f78dbba",
+          "ada5d6a2-b5ac-40cf-9ec0-eb246982d147",
+          "25e18814-839f-4295-b467-3cc86a77d2dc",
+          "33339688-a6f9-4e3d-adde-439c50743aa2",
+          "706c334a-8ca1-4b16-93f6-5ebd72ae44b3",
+          "12547c9d-3dfe-4635-8438-30051e92c588",
+          "12987ae3-d988-4fef-b252-3d1a474077f0",
+          "b2bf9184-6aa1-465c-a4ce-98204584b386",
+          "ccadfa32-6887-41d3-9085-d7ae2c5906ff",
+          "6817e4e7-52ce-47bd-b42b-beb5b78c1a02",
+          "78066aea-86ae-4f65-a642-752a3f46f883",
+          "d76905c1-6e71-4cc0-8265-e7e89bd44e19",
+          "f420fa55-f0f4-4de7-8214-1c705514c960",
+          "8f539ea6-2c6b-46de-aaef-b80aab9d7e00",
+          "f4e5bbd0-8711-4e42-9a93-7b8f59182647",
+          "8de1ffd1-e5e7-4ef9-8e71-05c804b1b4d8",
+          "821108c9-0710-4dcf-9b4c-0b8749ffed67",
+          "2507ecf7-3887-4c4d-b2a4-fd92ec188aab",
+          "f76397f7-5474-484b-891e-24cb0535d973",
+          "4529d618-e1ad-4d01-976d-ce3376316f22",
+          "ff75980d-ec90-4892-9a7b-829a770599d1"
+        ],
+        "settings": {}
+      },
+      "filters": {
+        "type": "filters",
+        "blocks": {
+          "1590608648658": {
+            "type": "collection_filters",
+            "settings": {
+              "title": "Color",
+              "filter_tags": "color-black,color-black\/white,color-navy,color-rust,color-plum,color-black\/charcoal,color-charcoal,color-grey,color-brown,color-burgundy,color-blue,color-yellow,color-charcoal\/black,color-charcoal\/red,color-dark red,color-dark purple,color-white floral,color-mustard,color-red,color-light grey,color-viola,color-tan plaid,color-beige,color-khaki,color-plaid,color-dewberry,color-jeans,color-chocolate,color-tan,color-dark brown,color-pink,color-purple,color-charcoal orange,color-eggplant,color-violet,color-rose,color-charcoal magenta,color-charcoal blue,color-camouflage,color-yellow\/black sole,color-navy\/Magenta,color-black\/Rose,color-Charcoal\/Rose,color-Navy\/Rose,color-Charcoal\/Lime,color-Light Navy,color-Rose,color-Black\/Blue,color-Mid Grey,color-Teal,color-Navy Pink Print,color-Red\/Black,color-berry,color-Blue print,color-navy print,color-tide,color-tomato,color-lime",
+              "remove": "color-"
+            }
+          },
+          "1590608733816": {
+            "type": "collection_filters",
+            "settings": {
+              "title": "Size",
+              "filter_tags": "size-12M,size-18M,size-3T,size-4T,size-5T,size-6T,size-7T,size-8T,size-9T,size-10T,size-1,size-1.5,size-2,size-3,size-4,size-5,size-6,size-6.5,size-7,size-7.5,size-8,size-8.5,size-9,size-9.5,size-10,size-10.5,size-11,size-12,size-13,size-14,size-15",
+              "remove": "size-"
+            }
+          },
+          "1600714223789": {
+            "type": "collection_filters",
+            "settings": {
+              "title": "Country of Origin",
+              "filter_tags": "tech-Canada,tech-USA",
+              "remove": "tech-"
+            }
+          }
+        },
+        "block_order": [
+          "1590608648658",
+          "1590608733816",
+          "1600714223789"
+        ],
+        "settings": {}
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "blocks": {
+          "1593716715008": {
+            "type": "image",
+            "settings": {
+              "collection": "womens-footwear",
+              "active_1": true,
+              "image_1": "shopify:\/\/shop_images\/PIPPA_SOCIALMEDIA_2.jpg",
+              "alignment_1": "center",
+              "position_1": 3,
+              "textoverlay_1": true,
+              "title_1": "Shop the PIPPA!",
+              "adcopy_1": "Made in Canada and Recyclable.",
+              "adcta_1": "Shop now!",
+              "link_1": "shopify:\/\/products\/pippa",
+              "active_2": false,
+              "alignment_2": "center",
+              "position_2": 5,
+              "textoverlay_2": true,
+              "title_2": "",
+              "adcopy_2": "",
+              "adcta_2": "",
+              "link_2": ""
+            }
+          }
+        },
+        "block_order": [
+          "1593716715008"
+        ],
+        "settings": {
+          "grid": "4",
+          "rows": "5",
+          "show_vendor": false
+        }
+      },
+      "product-technology": {
+        "type": "product-technology",
+        "blocks": {
+          "1589837728787": {
+            "type": "technology",
+            "settings": {
+              "title": "Rubber<sup>He<\/sup>",
+              "tag": "tech-RUBBERHE",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0288\/5858\/1040\/files\/icon-rubberhe.svg?v=1589837935",
+              "connect": "technology\/rubber-he"
+            }
+          },
+          "1589838077109": {
+            "type": "technology",
+            "settings": {
+              "title": "Seam Sealed Waterproof",
+              "tag": "tech-SEAMSEALED",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Waterproof.svg?v=1597097896",
+              "connect": "technology\/seam-sealed-waterproof"
+            }
+          },
+          "1589838106474": {
+            "type": "technology",
+            "settings": {
+              "title": "Leather",
+              "tag": "tech-LEATHER",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0288\/5858\/1040\/files\/icon-leather.svg?v=1589837936",
+              "connect": "technology\/genuine-leather"
+            }
+          },
+          "1589838131010": {
+            "type": "technology",
+            "settings": {
+              "title": "USA",
+              "tag": "tech-usa",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0288\/5858\/1040\/files\/icon-usa.svg?v=1589837935",
+              "connect": ""
+            }
+          },
+          "1591224324073": {
+            "type": "technology",
+            "settings": {
+              "title": "Canada",
+              "tag": "tech-Canada",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0288\/5858\/1040\/files\/icon-canada.svg?v=1591224670",
+              "connect": "technology\/made-in-canada"
+            }
+          },
+          "1594221913307": {
+            "type": "technology",
+            "settings": {
+              "title": "NiteRays",
+              "tag": "tech-NITERAYS",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_NiteRays.svg?v=1597153066",
+              "connect": "technology\/niterays"
+            }
+          },
+          "1594222283247": {
+            "type": "technology",
+            "settings": {
+              "title": "Recyclable",
+              "tag": "tech-RECYCLABLE",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Recycle.svg?v=1597265013",
+              "connect": "technology\/recyclable"
+            }
+          },
+          "1594222410708": {
+            "type": "technology",
+            "settings": {
+              "title": "Odour Control",
+              "tag": "tech-ODOURCTRL",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Intimicrob.svg?v=1597265092",
+              "connect": "technology\/odour-control"
+            }
+          },
+          "1594222723449": {
+            "type": "technology",
+            "settings": {
+              "title": "Vegan",
+              "tag": "tech-VEGAN",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Vegan.svg?v=1597153109",
+              "connect": "technology\/vegan"
+            }
+          },
+          "1594222983687": {
+            "type": "technology",
+            "settings": {
+              "title": "Waterproof",
+              "tag": "tech-WATERPROOF",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Waterproof.svg?v=1597097896",
+              "connect": "technology\/waterproof"
+            }
+          },
+          "1594223095299": {
+            "type": "technology",
+            "settings": {
+              "title": "Wide",
+              "tag": "tech-WIDE",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_WideCalf.svg?v=1597264533",
+              "connect": "technology\/wide"
+            }
+          },
+          "1596748899370": {
+            "type": "technology",
+            "settings": {
+              "title": "Easy Grab Lace Lock",
+              "tag": "tech-EASYGRAB",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_EasyGrabLaceLock.svg?v=1597152966",
+              "connect": "technology\/easy-grab-lace-lock"
+            }
+          },
+          "1596749847649": {
+            "type": "technology",
+            "settings": {
+              "title": "Pull n' Lock",
+              "tag": "tech-PULLNLOCK",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_PullnLock.svg?v=1597097876",
+              "connect": "technology\/pull-n-lock"
+            }
+          },
+          "1596752204324": {
+            "type": "technology",
+            "settings": {
+              "title": "Oil & Acid Resistant",
+              "tag": "tech-OILANDACID",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon-oilrepellant.svg?v=1596483655",
+              "connect": "technology\/oil-acid-resistant"
+            }
+          },
+          "1597085843330": {
+            "type": "technology",
+            "settings": {
+              "title": "-40°C",
+              "tag": "tmp-40F_40C",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_-40C.svg?v=1597086354",
+              "connect": "technology\/comfort-ratings"
+            }
+          },
+          "1597086367314": {
+            "type": "technology",
+            "settings": {
+              "title": "-32°C",
+              "tag": "tmp-25F_32C",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_-32C.svg?v=1597086388",
+              "connect": "technology\/comfort-ratings"
+            }
+          },
+          "1597086942387": {
+            "type": "technology",
+            "settings": {
+              "title": "-20°C",
+              "tag": "tmp-4F_20C",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_-20C.svg?v=1597086477",
+              "connect": "technology\/comfort-ratings"
+            }
+          },
+          "1597087255778": {
+            "type": "technology",
+            "settings": {
+              "title": "-30°C",
+              "tag": "tmp-22F_30C",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_-30.svg?v=1597087268",
+              "connect": ""
+            }
+          },
+          "1597097824823": {
+            "type": "technology",
+            "settings": {
+              "title": "DriDefense",
+              "tag": "tech-DRIDEFENCE",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Waterproof.svg?v=1597097896",
+              "connect": "technology\/dri-defence"
+            }
+          },
+          "1597098779659": {
+            "type": "technology",
+            "settings": {
+              "title": "Waterproof Bottom",
+              "tag": "tech-WTPRFBTM",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Waterproof.svg?v=1597097896",
+              "connect": "technology\/waterproof-bottom"
+            }
+          },
+          "1597258198504": {
+            "type": "technology",
+            "settings": {
+              "title": "-74°C",
+              "tag": "tmp-100F_74C",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_-74C_5215cfbb-2aa7-4bdb-bf63-634f422915fe.svg?v=1597350957",
+              "connect": "technology\/comfort-ratings"
+            }
+          },
+          "1597258270719": {
+            "type": "technology",
+            "settings": {
+              "title": "",
+              "tag": "",
+              "icon": "",
+              "connect": ""
+            }
+          },
+          "1597679086282": {
+            "type": "technology",
+            "settings": {
+              "title": "Safety Composite  Toe",
+              "tag": "tech-COMPTOE",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0439\/1049\/6408\/files\/icon_SteelToecap.svg?v=1597784899",
+              "connect": "technology\/composite-toe"
+            }
+          },
+          "1597688998556": {
+            "type": "technology",
+            "settings": {
+              "title": "Safety Toe and Plate",
+              "tag": "tech-SAFETOEPLA",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0439\/1049\/6408\/files\/icon_SteelToecap.svg?v=1597784899",
+              "connect": "technology\/safety-toe-and-plate"
+            }
+          },
+          "1597706614930": {
+            "type": "technology",
+            "settings": {
+              "title": "Fabriqué au Québec",
+              "tag": "tech-Quebec",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Quebec.svg?v=1597171031",
+              "connect": ""
+            }
+          },
+          "1597711036106": {
+            "type": "technology",
+            "settings": {
+              "title": "LockFIT",
+              "tag": "tech-LOCKFIT",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_LockFit.svg?v=1597710697",
+              "connect": "technology\/lockfit"
+            }
+          },
+          "1597711134734": {
+            "type": "technology",
+            "settings": {
+              "title": "Vibram",
+              "tag": "tech-VIBRAM",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Vibram_Black.svg?v=1600703275",
+              "connect": "technology\/vibram"
+            }
+          },
+          "1597760895231": {
+            "type": "technology",
+            "settings": {
+              "title": "Steel Toe Cap",
+              "tag": "tech-SAFETYTOE",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_SteelToecap_3e8d91fd-c063-440b-ae14-b13f191c102d.svg?v=1598024453",
+              "connect": "technology\/steel-toe-cap"
+            }
+          },
+          "1598392535124": {
+            "type": "technology",
+            "settings": {
+              "title": "Designed in Canada",
+              "tag": "tech-designca",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon-madeincanada.svg?v=1596483654",
+              "connect": "technology\/designed-in-canada"
+            }
+          },
+          "1598392949400": {
+            "type": "technology",
+            "settings": {
+              "title": "Dri-Defence",
+              "tag": "tech-dridefa",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Comfort.svg?v=1598641557",
+              "connect": "technology\/dri-defence-apparel"
+            }
+          },
+          "1598393334903": {
+            "type": "technology",
+            "settings": {
+              "title": "3M® Reflective Details",
+              "tag": "tech-3m",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_apparel_3M_Reflective_Details.svg?v=1598889295",
+              "connect": "technology\/3m-reg-reflective-details"
+            }
+          },
+          "1598393435539": {
+            "type": "technology",
+            "settings": {
+              "title": "PVC Free",
+              "tag": "tech-pvcfree",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_apparel_PVC_free.svg?v=1598889295",
+              "connect": "technology\/pvc-free"
+            }
+          },
+          "1598393621716": {
+            "type": "technology",
+            "settings": {
+              "title": "Waterproof",
+              "tag": "tech-waterprfa",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_Waterproof.svg?v=1597097896",
+              "connect": "technology\/waterproof-1"
+            }
+          },
+          "1598393733657": {
+            "type": "technology",
+            "settings": {
+              "title": "-32°C",
+              "tag": "tmp-25F_32Capp",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_-32C.svg?v=1597086388",
+              "connect": "technology\/comfort-ratings"
+            }
+          },
+          "1598393900930": {
+            "type": "technology",
+            "settings": {
+              "title": "Seam Sealed",
+              "tag": "tech-seamseala",
+              "icon": "https:\/\/cdn.shopify.com\/s\/files\/1\/0281\/2156\/3273\/files\/icon_apparel_SeamSealed.svg?v=1598889295",
+              "connect": "technology\/seam-sealed"
+            }
+          }
+        },
+        "block_order": [
+          "1589837728787",
+          "1589838077109",
+          "1589838106474",
+          "1589838131010",
+          "1591224324073",
+          "1594221913307",
+          "1594222283247",
+          "1594222410708",
+          "1594222723449",
+          "1594222983687",
+          "1594223095299",
+          "1596748899370",
+          "1596749847649",
+          "1596752204324",
+          "1597085843330",
+          "1597086367314",
+          "1597086942387",
+          "1597087255778",
+          "1597097824823",
+          "1597098779659",
+          "1597258198504",
+          "1597258270719",
+          "1597679086282",
+          "1597688998556",
+          "1597706614930",
+          "1597711036106",
+          "1597711134734",
+          "1597760895231",
+          "1598392535124",
+          "1598392949400",
+          "1598393334903",
+          "1598393435539",
+          "1598393621716",
+          "1598393733657",
+          "1598393900930"
+        ],
+        "settings": {
+          "image": "shopify:\/\/shop_images\/bg-boot.jpg"
+        }
+      },
+      "product-videos": {
+        "type": "product-videos",
+        "blocks": {
+          "1589918259377": {
+            "type": "video",
+            "settings": {
+              "title": "Abigail",
+              "tag": "family-heritage",
+              "tab_title": "The Heritage Collection",
+              "tab_image": "shopify:\/\/shop_images\/FW19_LIFESTYLE_HORIZONTAL_NOSTEP-NOTAB_LO-RES_ABIGAIL.jpg",
+              "tab_video_link": "https:\/\/youtu.be\/Eh_bSYZ0JC8",
+              "tab_video_link_fr": "https:\/\/youtu.be\/4iGe4hvEbb4",
+              "tab_video_link_de": "https:\/\/youtu.be\/IMH_loLuRw0"
+            }
+          },
+          "1597098557786": {
+            "type": "video",
+            "settings": {
+              "title": "",
+              "tag": "",
+              "tab_title": "Insert Title",
+              "tab_video_link": "",
+              "tab_video_link_fr": "",
+              "tab_video_link_de": ""
+            }
+          }
+        },
+        "block_order": [
+          "1589918259377",
+          "1597098557786"
+        ],
+        "settings": {
+          "title": "Take a Deeper Look"
+        }
+      },
+      "instagram": {
+        "type": "instagram",
+        "blocks": {
+          "1591310933543": {
+            "type": "excluded_by_page",
+            "settings": {
+              "excluded_page": ""
+            }
+          }
+        },
+        "block_order": [
+          "1591310933543"
+        ],
+        "settings": {
+          "show_instagram": true,
+          "title": "#Kamik\nStepOutside"
+        }
+      },
+      "1590523375374": {
+        "type": "collection-list",
+        "blocks": {
+          "1590523375374-1": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "women",
+              "title": "Women",
+              "collectionimage": "shopify:\/\/shop_images\/SHOP_BYGENDER_WOMAN_NA.jpg",
+              "link_override": "",
+              "colwidth": "4",
+              "alignment": "top"
+            }
+          },
+          "1590523375374-2": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "kids-footwear",
+              "title": "Kids",
+              "collectionimage": "shopify:\/\/shop_images\/SHOP_BYGENDER_KIDS.jpg",
+              "link_override": "",
+              "colwidth": "4",
+              "alignment": "center"
+            }
+          },
+          "1590523453642": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "toddlers",
+              "title": "Toddlers",
+              "collectionimage": "shopify:\/\/shop_images\/SHOP_BYGENDER_TODDLER.jpg",
+              "link_override": "",
+              "colwidth": "4",
+              "alignment": "center"
+            }
+          },
+          "1590523375374-0": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "men-mens-footwear",
+              "title": "Men",
+              "collectionimage": "shopify:\/\/shop_images\/SHOP_BYGENDER_MAN.jpg",
+              "link_override": "",
+              "colwidth": "4",
+              "alignment": "center"
+            }
+          }
+        },
+        "block_order": [
+          "1590523375374-1",
+          "1590523375374-2",
+          "1590523453642",
+          "1590523375374-0"
+        ],
+        "settings": {
+          "mobile_hide": false,
+          "title": "Shop By Gender",
+          "full_width": true,
+          "move_text_below": false
+        }
+      },
+      "1590530352561": {
+        "type": "feature-row",
+        "settings": {
+          "mobile_hide": false,
+          "image": "shopify:\/\/shop_images\/SUSTAINABILITY_HOME_PAGE.jpg",
+          "layout": "right",
+          "icon_image": "shopify:\/\/shop_images\/icons.jpg",
+          "title": "Sustainable Manufacturing Defines Us",
+          "text": "<p>From domestic production to our recycling program, to greener manufacturing initiatives, we&#x27;re doing everything we can to reduce our carbon footprint.<\/p>",
+          "button_label": "How We Do It",
+          "button_link": "shopify:\/\/pages\/sustainability"
+        }
+      },
+      "collection-of-collections-template": {
+        "type": "collection-of-collections-template",
+        "blocks": {
+          "1590704794530": {
+            "type": "image",
+            "settings": {
+              "collection": "womens-footwear",
+              "image_callout": "shopify:\/\/shop_images\/WOMAN_WOMANFOOTWEAR_PAGE.jpg",
+              "collection_callout": "womens-footwear",
+              "callout_title": "Happy Under Any Sky",
+              "content": "<p>Looking good on a runway is one thing. Doing it in the streets in totally unpredictable spring and fall weather is quite another.<\/p>",
+              "btn": "Say Hello to the 2021 Spring Line",
+              "child_title": "Shop by Style",
+              "child_collections": "women-footwear",
+              "colwidth": "4"
+            }
+          },
+          "1594742083151": {
+            "type": "image",
+            "settings": {
+              "collection": "kids-footwear",
+              "image_callout": "shopify:\/\/shop_images\/SS20_LIFESTYLE_HORIZONTAL_ENG_LOW-RES_STOMP_RAINDROPS_84e294e2-f99d-4528-936e-99f5e2cc3631.jpg",
+              "collection_callout": "kids-footwear",
+              "callout_title": "Check out our 2020 Kids Collections",
+              "content": "",
+              "btn": "Shop now",
+              "child_title": "Shop by Style",
+              "child_collections": "kids-footwear",
+              "colwidth": "4"
+            }
+          },
+          "1594744221848": {
+            "type": "image",
+            "settings": {
+              "collection": "men",
+              "image_callout": "shopify:\/\/shop_images\/M_SS17_lifestyle_Vertical_without_TAB_Larslo.jpg",
+              "collection_callout": "",
+              "callout_title": "Men's Collection",
+              "content": "<p>Cold, wet feet can really put a damper on your day. Whether you&rsquo;re heading to work or running around doing errands, step into a pair of our men&rsquo;s rain boots. They&rsquo;re 100% waterproof, offer superior grip and feature state-of-the art technologies for safety and comfort.<\/p>",
+              "btn": "Shop Now",
+              "child_title": "Shop by Style",
+              "child_collections": "men-footwear",
+              "colwidth": "4"
+            }
+          }
+        },
+        "block_order": [
+          "1590704794530",
+          "1594742083151",
+          "1594744221848"
+        ],
+        "settings": {}
+      },
+      "page-sidebar": {
+        "type": "page-sidebar",
+        "blocks": {
+          "1590728849627": {
+            "type": "sidebar_nav",
+            "settings": {
+              "title": "About Kamik",
+              "quick_links": "footer"
+            }
+          },
+          "1595435349675": {
+            "type": "sidebar_nav",
+            "settings": {
+              "title": "Customer Service",
+              "quick_links": "footer-menu-customer-service"
+            }
+          }
+        },
+        "block_order": [
+          "1590728849627",
+          "1595435349675"
+        ],
+        "settings": {}
+      },
+      "page-template--size-chart": {
+        "type": "page-template--size-chart",
+        "blocks": {
+          "1590764831463": {
+            "type": "csv",
+            "settings": {
+              "title": "Womens",
+              "tag": "size--women-boots",
+              "csv": "US Size,Foot Length (mm)\n5,217\n6,226\n6.5,230\n7,234\n7.5,238\n8,242\n8.5,247\n9,251\n9.5,255\n10,259\n10.5,263\n11,268",
+              "mobile_breakdown": "by_col",
+              "key_both": false,
+              "link": "",
+              "link_text": ""
+            }
+          },
+          "1592336006258": {
+            "type": "csv",
+            "settings": {
+              "title": "Mens",
+              "tag": "size--men-boots",
+              "csv": "US Size,Foot Length (mm)\n6,234\n7,242\n7.5,247\n8,250\n8.5,256\n9,260\n9.5,264\n10,268\n10.5,273\n11,277\n11.5,281\n12,285\n13,293\n14,302",
+              "mobile_breakdown": "by_col",
+              "key_both": false,
+              "link": "",
+              "link_text": ""
+            }
+          },
+          "1596484384747": {
+            "type": "csv",
+            "settings": {
+              "title": "Kids",
+              "tag": "size--kids-boots",
+              "csv": "US Size,Foot Length (mm)\n3T,108\n4T,116\n5T,124\n6T,132\n7T, 141\n8T,149\n9T,158\n10T,166\n10.5,170\n11,175\n12,183\n13,192\n1,200\n1.5,204\n2,209\n3,217\n4,226\n5,234\n6,243\n7,251",
+              "mobile_breakdown": "by_col",
+              "key_both": false,
+              "image": "shopify:\/\/shop_images\/kamik_Kids_Size_Guide_ENG_2-01.jpg",
+              "link": "shopify:\/\/pages\/kamik-kids-printable-measuring-tool",
+              "link_text": "Click here for our kids measuring tool!"
+            }
+          },
+          "1603372980861": {
+            "type": "csv",
+            "settings": {
+              "title": "Kids Apparel",
+              "tag": "size--kids-apparel",
+              "csv": "Size,Chest (cm),Waist (cm),Hip (cm),Sleeve Length (cm),Pant Inseam (cm)\t\n12M\t,48,46,48,40.5,22.5\n18M,51,48,51,44.5,27\n2,53,51,53,48,32\n3,56,52,56,52,36\n4,58.5,53.5,58.5,56,40.5\n5,61,55,61,60,45\n6,64,56,64,63.5,49.5\n7,66,57,66,68.5,55.5\n8,69,58.5,69,71,60\n10,72.5,61,72.5,75,64.5\n12,76,63.5,76,79,69\n14,80,66,80,82.5,73",
+              "mobile_breakdown": "by_row",
+              "key_both": false,
+              "image": "shopify:\/\/shop_images\/Apparel_Size_Chart_-Kamik.JPG",
+              "link": "",
+              "link_text": ""
+            }
+          }
+        },
+        "block_order": [
+          "1590764831463",
+          "1592336006258",
+          "1596484384747",
+          "1603372980861"
+        ],
+        "settings": {}
+      },
+      "page-template--faq": {
+        "type": "page-template--faq",
+        "blocks": {
+          "1590770888390": {
+            "type": "heading",
+            "settings": {
+              "title": "Order Details"
+            }
+          },
+          "1590770912418": {
+            "type": "text",
+            "settings": {
+              "title": "Order Processing",
+              "text": "<p>Due to high demand and collective efforts against COVID-19, we’ve taken precautionary health and safety measures in our warehouse. As a result, you may experience some delays in your order, both coming from our Distribution Centre and our shipping partner.\nYour order will be ready for shipment in 3-7 business days. <\/p>"
+            }
+          },
+          "1590774400819": {
+            "type": "text",
+            "settings": {
+              "title": "Order confirmations and Tracking e-mails",
+              "text": "<p>If you have placed an order on Kamik.com and have not received your <strong>order confirmation<\/strong>, please check your <strong>spam or junk folders<\/strong><\/p>\n<p>If you have placed an order on Kamik.com and have not received your <strong>tracking details<\/strong>, please check your <strong>spam or junk folders<\/strong><\/p>"
+            }
+          },
+          "1595615691391": {
+            "type": "heading",
+            "settings": {
+              "title": "kamik.com RETURNS"
+            }
+          },
+          "1595615738146": {
+            "type": "text",
+            "settings": {
+              "title": "Returns",
+              "text": "<p>You can review our return policy <a href=\"\/pages\/warranty-return-policies\" title=\"Warranty & Return Policies\">here<\/a><\/p>"
+            }
+          },
+          "1595434902071": {
+            "type": "text",
+            "settings": {
+              "title": "Lost or Misplaced return form?",
+              "text": "<p>Download a copy of the Kamik.com return form here.<\/p>"
+            }
+          },
+          "1595615772827": {
+            "type": "heading",
+            "settings": {
+              "title": "SHIPPING"
+            }
+          },
+          "1595434927028": {
+            "type": "text",
+            "settings": {
+              "title": "Shipping",
+              "text": "<p>All shipments are shipped via Canada Post ground service. At this time we do not offer expedited shipping options.<\/p>\n<p>Approximate transit times:<\/p>\n<p>Quebec, Ontario : 1-2 business days<\/p>\n<p>Manitoba, Saskatchewan: 3-7 business days<\/p>\n<p>Alberta: 5-7 business days<\/p>\n<p>British Columbia: 5-10 business days<\/p>\n<p>Newfoundland, P.E.I., Nova Scotia, New Brunswick: 4-6 business days<\/p>\n<p>Yukon, N.W.T - 10 + business days<\/p>\n<p>Remote regions - quote provided at check out<\/p>\n<p><strong>Transit times are not guaranteed<\/strong><\/p>"
+            }
+          },
+          "1595435017201": {
+            "type": "heading",
+            "settings": {
+              "title": "Warranty"
+            }
+          },
+          "1595435030076": {
+            "type": "text",
+            "settings": {
+              "title": "Kamik Warranty Policy",
+              "text": "<p>Kamik products carry a one-year warranty on manufacturing defects. If you think your Kamik footwear is defective, please contact us via our \"I have a defective product\" subject line in our \"contact us\" form. Please note that this warranty does not cover products that have been damaged by misuse, accident, modification or unauthorized repair, natural wear of materials over time or purchased from a third-party seller that is not an authorized Kamik dealer.<\/p>\n<p>PLEASE NOTE: if an after market waterproofing spray or substance is applied to the product, the warranty is now void. You will no longer be covered under the Kamik warranty program.<\/p>"
+            }
+          },
+          "1595435060300": {
+            "type": "text",
+            "settings": {
+              "title": "What do I do if I think I have a defective product?",
+              "text": "<p>If you believe your Kamik footwear is defective, the best and fastest way to resolve the issue is to bring it back to the store you bought it from. If that isn’t possible, please choose subject line \"I have a defective product - Kamik boots\" on our \"contact us\" form along with a scanned copy of your sales receipt, your contact information, a brief description of the problem and a photo of the product showing the problem area. Please allow 15 business days for us to respond, while we investigate.<\/p>"
+            }
+          },
+          "1595435079808": {
+            "type": "heading",
+            "settings": {
+              "title": "Product Q&A (Footwear)"
+            }
+          },
+          "1595435106239": {
+            "type": "text",
+            "settings": {
+              "title": "How do you temperature test your products?",
+              "text": "<p>We test all Kamik products to ensure they meet our strict quality standards. For temperature testing, we send our boots to an outside agency, the Centre for Textile Technologies Group CTT (Performance Testing Council (PTC) of Canada). The Kamik Certified Comfort Rating that results from these tests helps you pick the right boot for your needs.<\/p>"
+            }
+          },
+          "1595435119706": {
+            "type": "text",
+            "settings": {
+              "title": "How do you test your products?",
+              "text": "<p>Our products are tested and certified in many ways. We receive various independent, certified test reports before production. We receive certificates of compliances from all our raw material suppliers. We subject our products to a variety of in-house laboratory tests, including tests for waterproofness, cold flexing, abrasion resistance, electrical shock resistance, and impact testing for steel protective toes. As well, our materials are tested to ensure they do not contain phthalates, lead or other harmful chemicals.<\/p>"
+            }
+          },
+          "1595435130160": {
+            "type": "text",
+            "settings": {
+              "title": "Where do I find sizing information?",
+              "text": "<p>To find sizing information, just click here to view Kamik's <a href=\"\/pages\/size-chart\" title=\"Size Chart\">size chart<\/a>.<\/p>"
+            }
+          },
+          "1595435144583": {
+            "type": "text",
+            "settings": {
+              "title": "How do I know what shoe size I should be wearing?",
+              "text": "<p>For basic Kamik sizing information, you can check the Kamik size conversion chart by <a href=\"\/pages\/size-chart\" title=\"Size Chart\">clicking here<\/a>. But feet are three dimensional, which can make it difficult for some individuals to know which size will fit them best. So, we recommend being fitted with the use of a Brannock device, which will give you the most accurate size information. If you would like to find a local Kamik dealer who will measure your feet for you, <a href=\"\/pages\/dealer-locator\" title=\"Dealer Locator\">click here.<\/a><\/p>"
+            }
+          },
+          "1595435163169": {
+            "type": "text",
+            "settings": {
+              "title": "How many pairs of socks should I wear",
+              "text": "<p>Just one! Yes, we said it, ONE. Your feet should be comfortable and warm with just one pair of socks. Check the Kamik Certified Comfort Rating to determine which boots will be best for the temperature conditions you are expecting.<\/p>"
+            }
+          },
+          "1595435178802": {
+            "type": "text",
+            "settings": {
+              "title": "Are leather boots better than nylon boots?",
+              "text": "<p>Both leather and nylon are good looking, high quality boot materials. Choosing one over the other is just a personal style preference.<\/p>"
+            }
+          },
+          "1595435187364": {
+            "type": "text",
+            "settings": {
+              "title": "How do I clean my boots?",
+              "text": "<p><strong>Leather boots<\/strong> - We carefully selected the leather uppers used in your Kamik boots to last a long time. But if you wear your boots a lot, they can get scuffed or dirty. If you want to clean them, we recommend using a good quality leather cleaner and conditioner, which you can find at most of the better footwear dealers and outdoor gear shops. Follow the directions on the product label. Note that these cleaners should not be applied to the rubber portions of your boots. <\/p>\n<p><strong>Nylon boots<\/strong> - To keep the nylon uppers of your Kamik boots looking their best, we recommend hand washing in cold water with mild soap or detergent, rinsing, and then letting them air dry away from heat. <\/p>\n<p><strong>Rubber Boots<\/strong> - Simply wipe clean after use with warm water and a mild soap. Rinse. Air dry.<\/p>"
+            }
+          },
+          "1595435199767": {
+            "type": "text",
+            "settings": {
+              "title": "Do you have wide widths?",
+              "text": "<p>We sure do! Kamiks come in wide widths in certain Kids', Men's, and Women's styles. Simply select \"Technology\" filter on any page, and apply \"WIDE WIDTH\" to refresh the results.<\/p>"
+            }
+          },
+          "1595435208042": {
+            "type": "text",
+            "settings": {
+              "title": "Do you recycle boots?",
+              "text": "<p>YES! Our Rubber<sup>He<\/sup> products are part of our recycling program! Please contact us for more information via our <a href=\"\/pages\/contact\" title=\"Contact\">\"contact us\"<\/a> form.<\/p>"
+            }
+          },
+          "1595435217067": {
+            "type": "text",
+            "settings": {
+              "title": "How can I write a product review?",
+              "text": "<p>It's easy, and we very much appreciate your comments about our products. To write a review, you must first log in. Then go to the page of the product you want to review and click on the \"WRITE YOUR REVIEW\" button. Click on it, and a fillable form will appear.<\/p>"
+            }
+          },
+          "1595435224171": {
+            "type": "heading",
+            "settings": {
+              "title": "PRODUCT Q&A (Liners)"
+            }
+          },
+          "1595435234689": {
+            "type": "text",
+            "settings": {
+              "title": "What is the difference between a fixed liner and a removable liner?",
+              "text": "<p>Removable liners can be removed from the boot, to wash and dry or simply to air out. Fixed liners are sewn into the boot and cannot be removed.<\/p>"
+            }
+          },
+          "1595435248894": {
+            "type": "text",
+            "settings": {
+              "title": "How can I buy replacement liners?",
+              "text": "<p>Replacement liners are available for many of our Kamik boots. Simply choose the \"LINERS\" category in any gender to shop now!.<\/p>"
+            }
+          },
+          "1595435257876": {
+            "type": "text",
+            "settings": {
+              "title": "How do I clean my removable liners?",
+              "text": "<p>If you want to clean your removable liners, simply remove them from your boots and hand wash using a mild detergent. For machine washing, use a \"Delicates\" or \"Hand Wash\" cycle. After washing, air-dry your liners away from heat.<\/p>"
+            }
+          },
+          "1595435266581": {
+            "type": "text",
+            "settings": {
+              "title": "Will your replacement liners fit other brands?",
+              "text": "<p>Kamik liners are designed to fit Kamik boots. They might not fit other makers' boots.<\/p>"
+            }
+          },
+          "1595435280718": {
+            "type": "text",
+            "settings": {
+              "title": "Do you recycle liners?",
+              "text": "<p>Not yet, but we are working on it. For now, please know that every pair of Kamik liners is made from recycled material. When you buy a pair, you help to give new life to at least three plastic water bottles.<\/p>"
+            }
+          },
+          "1595435276648": {
+            "type": "heading",
+            "settings": {
+              "title": "General\/Misc."
+            }
+          },
+          "1595435303556": {
+            "type": "text",
+            "settings": {
+              "title": "I have a really cute picture of my child(ren) wearing your boots. Can I send it to you?",
+              "text": "<p>For sure! Kamik kids are our favorite kids! Tag us anywhere on social media using #FreeYourPlay or #KamikStepOutside<\/p>"
+            }
+          },
+          "1595435316038": {
+            "type": "text",
+            "settings": {
+              "title": "I made an inukshuk! How can I send you a picture of it?",
+              "text": "<p>We love inukshuks! Tag us anywhere on social media using #FreeYourPlay or #KamikStepOutside<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1590770888390",
+          "1590770912418",
+          "1590774400819",
+          "1595615691391",
+          "1595615738146",
+          "1595434902071",
+          "1595615772827",
+          "1595434927028",
+          "1595435017201",
+          "1595435030076",
+          "1595435060300",
+          "1595435079808",
+          "1595435106239",
+          "1595435119706",
+          "1595435130160",
+          "1595435144583",
+          "1595435163169",
+          "1595435178802",
+          "1595435187364",
+          "1595435199767",
+          "1595435208042",
+          "1595435217067",
+          "1595435224171",
+          "1595435234689",
+          "1595435248894",
+          "1595435257876",
+          "1595435266581",
+          "1595435280718",
+          "1595435276648",
+          "1595435303556",
+          "1595435316038"
+        ],
+        "settings": {
+          "image": "shopify:\/\/shop_images\/bg-boot.jpg"
+        }
+      },
+      "page-template--about": {
+        "type": "page-template--about",
+        "blocks": {
+          "1590781251384": {
+            "type": "timeline",
+            "settings": {
+              "year": "1898",
+              "text": "<p>Our first manufacturing plant opens in Contrecoeur, Quebec<\/p>"
+            }
+          },
+          "1590781261909": {
+            "type": "timeline",
+            "settings": {
+              "year": "1932",
+              "text": "<p>William Cook overhauls the company to focus on modern footwear for men, women and children<\/p>"
+            }
+          },
+          "1590781273236": {
+            "type": "timeline",
+            "settings": {
+              "year": "1940",
+              "text": "<p>William sees a demand for new products and is one of the first North Americans to travel to Japan to source rubber footwear, which remains one of the company&#x27;s strengths<\/p>"
+            }
+          },
+          "1590781280712": {
+            "type": "timeline",
+            "settings": {
+              "year": "1957",
+              "text": "<p>William Cook passes the torch to his son Gordon thus a new generation carries on the Cook legacy<\/p>"
+            }
+          },
+          "1590781320102": {
+            "type": "timeline",
+            "settings": {
+              "year": "1991",
+              "text": "<p>Kamik expands its distribution and begins selling products in Europe<\/p>"
+            }
+          },
+          "1590781335247": {
+            "type": "timeline",
+            "settings": {
+              "year": "1993",
+              "text": "<p>Kamik adapts to become a more sustainable manufacturer and introduces just-in-time production<\/p>"
+            }
+          },
+          "78a3f0f1-4bcc-46b0-9973-e1370d2546e3": {
+            "type": "timeline",
+            "settings": {
+              "year": "1993",
+              "text": "<p>Our second manufacturing plant opens in Littleton, NH, USA.<\/p>"
+            }
+          },
+          "1590781345273": {
+            "type": "timeline",
+            "settings": {
+              "year": "2016",
+              "text": "<p>Kamik launches the Heritage 1898 Collection, a tribute to our 120 years of expertise and craftsmanship, with updated technologies and styling<\/p>"
+            }
+          },
+          "1590781352637": {
+            "type": "timeline",
+            "settings": {
+              "year": "2018",
+              "text": "<p><a title=\"#FreeYourPlay\" href=\"\/blogs\/freeyourplay\">#FreeYourPlay<\/a><\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1590781251384",
+          "1590781261909",
+          "1590781273236",
+          "1590781280712",
+          "1590781320102",
+          "1590781335247",
+          "78a3f0f1-4bcc-46b0-9973-e1370d2546e3",
+          "1590781345273",
+          "1590781352637"
+        ],
+        "settings": {
+          "image": "shopify:\/\/shop_images\/AUT_WINTER_ABOUT-US_HERITAGE.jpg",
+          "title": "The Kamik Heritage",
+          "text": "<p>The Kamik story starts with the Cook family: dedicated footwear manufacturers who set out to deliver comfort and quality. To this day, we are still looking for new ways to improve. It’s part of our pioneering tradition. And a longstanding heritage we’re always happy to share. <\/p>"
+        }
+      },
+      "page-template--about-content": {
+        "type": "page-template--about-content",
+        "settings": {
+          "title": "A Mission to Go Beyond",
+          "subheading": "",
+          "text": "<p>At Kamik, we have learned that developing a variety of operations around the world and shipping internationally allows us to get our products to market easier, be a leading eco-manufacturer by reducing fuel costs and water consumption and treat our employees better by paying a higher wage. <\/p>"
+        }
+      },
+      "page-template--about-connections": {
+        "type": "page-template--about-connections",
+        "blocks": {
+          "1590791428687": {
+            "type": "featured_page",
+            "settings": {
+              "url": "#",
+              "image": "shopify:\/\/shop_images\/AUG_WINTER_ABOUT-US_FREE-YOUR-PLAY.jpg",
+              "title": "#FreeYourPlay",
+              "description": "The #FreeYourPlay movement is Kamik’s invitation to encourage parents to step outside the overcrowded repetition of their family’s daily routine and to rediscover an offline-no-agenda creative balance with their kids!",
+              "btn": "How to Get Involved"
+            }
+          },
+          "1590791531564": {
+            "type": "featured_page",
+            "settings": {
+              "url": "#",
+              "image": "shopify:\/\/shop_images\/PART_2_RECYCLING_PROGRAM_PH_45252148-8f3e-44f3-b4de-e16adf509a6d.jpg",
+              "title": "Sustainable Manufacturing",
+              "description": "From domestic production to a recycling program to greener manufacturing initiatives, we’re doing everything we can to reduce our carbon footprint. And a dedication to products families can feel good about wearing.",
+              "btn": "Learn More"
+            }
+          }
+        },
+        "block_order": [
+          "1590791428687",
+          "1590791531564"
+        ],
+        "settings": {}
+      },
+      "blog-template--freeyourplay": {
+        "type": "blog-template--freeyourplay",
+        "blocks": {
+          "1591124350576": {
+            "type": "row",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/89045848_796291804214916_2413019666067750912_o.jpg",
+              "layout": "right",
+              "title": "Join the Kamik Club Today!",
+              "text": "<p>By joining the Kamik Club, you will opt-in to receive regular newsletters along with an introductory download of a fun activity book from your friends at Kamik.<\/p>",
+              "button_label": "Enroll Now",
+              "button_link": "shopify:\/\/pages\/kamik-club",
+              "popup": "<!--[if lte IE 8]>\n            <script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2-legacy.js\"><\/script>\n          <![endif]-->\n          <script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2.js\"><\/script>\n          <script>\n            hbspt.forms.create({\n              portalId: \"7221585\",\n              formId: \"2bbc7d95-c927-440d-83ac-ed1b332cf3b7\"\n            });\n          <\/script>"
+            }
+          }
+        },
+        "block_order": [
+          "1591124350576"
+        ],
+        "settings": {
+          "image": "shopify:\/\/shop_images\/klub.png",
+          "title": "#FreeYourPlay",
+          "content": "<p><strong>What is the #FreeYourPlay movement?<\/strong><\/p>\n<p>What was it like to play outside when we were young?<\/p>\n<p>In a recent survey, Kamik found that nowadays, children participate in over 5-6 structured activities per week. Hence, there is hardly ever any time left to play freely, outside.<\/p>\n<p>In fact, children spend 30-35% less time playing outside than their parents did. The #FreeYourPlay movement is Kamik&rsquo;s invitation to encourage parents to step outside the overcrowded repetition of their family&rsquo;s daily routine and to rediscover an offline-no-agenda creative balance with their kids!<\/p>",
+          "tags": "Activities[activity],Articles[article],Product Features[technology]"
+        }
+      },
+      "blog-template": {
+        "type": "blog-template",
+        "blocks": {
+          "e79265bd-70da-4042-8f47-fec727bcc13c": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/the-rain-boot-edition",
+              "image_1": "shopify:\/\/shop_images\/SS21_JENNIFER_OUTFIT.jpg",
+              "image_2": "shopify:\/\/shop_images\/SS21_PIPPA_OUTFIT.jpg",
+              "image_3": "shopify:\/\/shop_images\/SS21_HEIDI_OUTFIT.jpg"
+            }
+          },
+          "a539df72-6bd0-4e84-99d3-2daafb88f857": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/winter-wonderlands-are-the-best-playgrounds",
+              "image_1": "shopify:\/\/shop_images\/CLASSIC_SNOBUG_STORIES_83ec3ff1-88a4-4808-a210-a60e1743cf2b.jpg",
+              "image_2": "shopify:\/\/shop_images\/CLASSIC_LUKE_STORIES_70d1f5e7-2b73-46a3-b296-d197813eb54d.jpg",
+              "image_3": "shopify:\/\/shop_images\/CLASSIC_POWDERY_STORIES_250ec272-aaf8-47cb-aa2c-d6f031df072b.jpg"
+            }
+          },
+          "c913bc86-d2e4-481f-90b9-694c1f6fefb1": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/let-it-snow",
+              "image_1": "shopify:\/\/shop_images\/CLASSIC_SNOWPEARL_OUTFIT.jpg",
+              "image_3": "shopify:\/\/shop_images\/CLASSIC_MOMENTUM_OUTFIT_c85cc195-77b0-4b87-add7-b27cb148b9c2.jpg"
+            }
+          },
+          "4b379333-6e00-4912-9c72-55abb31dd2d6": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/everyday-style-without-compromise",
+              "image_1": "shopify:\/\/shop_images\/METRO_ARIELLO_OUTFIT.jpg",
+              "image_2": "shopify:\/\/shop_images\/METRO_JULIET_OUTFIT.jpg",
+              "image_3": "shopify:\/\/shop_images\/METRO_ROGUEMID_OUTFIT.jpg"
+            }
+          },
+          "0d896d15-3c23-4719-9e08-3fae8fb10692": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/styles-by-kamik-get-inspired",
+              "image_1": "shopify:\/\/shop_images\/H1898_ABIGAIL_OUTFIT.jpg",
+              "image_2": "shopify:\/\/shop_images\/H1898_SIENNAMID_OUTFIT.jpg",
+              "image_3": "shopify:\/\/shop_images\/H1898_SIENNA2_OUTFIT.jpg"
+            }
+          },
+          "1602172751252": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/heritage",
+              "image_1": "shopify:\/\/shop_images\/FALL_FAMILY_WEBSITESTORIE.jpg",
+              "image_2": "shopify:\/\/shop_images\/SOFTWINTER_FAMILY_WEBSITESTORIE.jpg",
+              "image_3": "shopify:\/\/shop_images\/WINTER_FAMILY_WEBSITESTORIE.jpg"
+            }
+          },
+          "81bbd0f7-7e34-4677-bf1d-141687d31c82": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/the-rain-boots-edition",
+              "image_1": "shopify:\/\/shop_images\/RAIN_MIRANDA_OUTFIT_395d4dd8-da5a-47ab-be3b-6b9aa6ef01ae.jpg",
+              "image_2": "shopify:\/\/shop_images\/RAIN_JENNIFER_OUTFIT_998945d0-2b13-4387-9d1b-2dafcf22c87e.jpg",
+              "image_3": "shopify:\/\/shop_images\/RAIN_PIPPA_OUTFIT_cbf1db0c-73f4-4d0e-a650-b17887c70190.jpg"
+            }
+          },
+          "f02c9f83-495e-45de-9236-ea1f2cdb8936": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/kids-rain-boots-are-here",
+              "image_1": "shopify:\/\/shop_images\/RAIN_STOMP_STORIES.jpg",
+              "image_2": "shopify:\/\/shop_images\/RAIN_RIPETIDE_STORIES.jpg",
+              "image_3": "shopify:\/\/shop_images\/RAIN_RAINDROPS_STORIES.jpg"
+            }
+          },
+          "1592610639548": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "freeyourplay\/are-we-squeezing-too-many-activities-into-our-childrens-schedule",
+              "image_1": "shopify:\/\/shop_images\/71961145_680693955774702_932125366292578304_n.jpg",
+              "image_2": "shopify:\/\/shop_images\/45693022_339346696615576_154840089276486349_n.jpg",
+              "image_3": "shopify:\/\/shop_images\/69821244_662600237584074_1045978167556177920_n.jpg"
+            }
+          },
+          "1592842828960": {
+            "type": "featured-article",
+            "settings": {
+              "featured": "stories\/5-things-that-adventurous-families-do",
+              "image_1": "shopify:\/\/shop_images\/72626969_510741906146858_3502240214350166251_n.jpg",
+              "image_2": "shopify:\/\/shop_images\/KAMIK_WELCOME_NEWSLETTER.jpg",
+              "image_3": "shopify:\/\/shop_images\/55935294_149355282771345_9108146855048321742_n_800x800_c7dd4d71-d9bf-49ca-9037-28105dc4296e.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "e79265bd-70da-4042-8f47-fec727bcc13c",
+          "a539df72-6bd0-4e84-99d3-2daafb88f857",
+          "c913bc86-d2e4-481f-90b9-694c1f6fefb1",
+          "4b379333-6e00-4912-9c72-55abb31dd2d6",
+          "0d896d15-3c23-4719-9e08-3fae8fb10692",
+          "1602172751252",
+          "81bbd0f7-7e34-4677-bf1d-141687d31c82",
+          "f02c9f83-495e-45de-9236-ea1f2cdb8936",
+          "1592610639548",
+          "1592842828960"
+        ],
+        "settings": {
+          "blog_show_author": false,
+          "blog_show_date": false
+        }
+      },
+      "article-template--technology": {
+        "type": "article-template--technology",
+        "blocks": {
+          "1591228129408": {
+            "type": "technology",
+            "settings": {
+              "title": "RubberHe",
+              "connect": "shopify:\/\/blogs\/technology\/rubber-he",
+              "video": "https:\/\/www.youtube.com\/watch?v=zk2M-lS6eAY"
+            }
+          },
+          "1595617679833": {
+            "type": "technology",
+            "settings": {
+              "title": "Recyclable",
+              "connect": "shopify:\/\/blogs\/technology\/recyclable",
+              "video": "https:\/\/youtu.be\/2RvLxdTQ1F4"
+            }
+          },
+          "1595617773475": {
+            "type": "technology",
+            "settings": {
+              "title": "NiteRays",
+              "connect": "shopify:\/\/blogs\/technology\/niterays",
+              "video": "https:\/\/youtu.be\/6Cz2YXgYr0Q"
+            }
+          },
+          "1597098595120": {
+            "type": "technology",
+            "settings": {
+              "title": "DriDefense",
+              "connect": "shopify:\/\/blogs\/technology\/dri-defence",
+              "video": "https:\/\/youtu.be\/lW9Yccpjfl4"
+            }
+          }
+        },
+        "block_order": [
+          "1591228129408",
+          "1595617679833",
+          "1595617773475",
+          "1597098595120"
+        ],
+        "settings": {}
+      },
+      "blog-template--technology": {
+        "type": "blog-template--technology",
+        "settings": {
+          "image": "",
+          "title": "Innovation At Your Feet",
+          "content": "<p><strong>SUSTAINABLE MANUFACTURING IS<br><\/strong><strong>MORE THAN WHAT WE DO. <br><\/strong><strong>IT&rsquo;S A SIGNIFICANT PART OF WHO WE ARE.<\/strong><\/p>"
+        }
+      },
+      "page-template--sustainability-parts": {
+        "type": "page-template--sustainability-parts",
+        "blocks": {
+          "1591384677652": {
+            "type": "part",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/sustainability.v2b_03.png",
+              "title": "Our Circular Economy",
+              "content": "<p>We keep resources in use for as long as possible, extracting their maximum value, to then recover and recycle products and materials at the end of each life cycle,&nbsp;so we begin anew every time.<\/p>"
+            }
+          },
+          "1591385110495": {
+            "type": "part",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/sustainability.v2b_06.png",
+              "title": "Liners made from old plastics",
+              "content": "<p>Our Canadian Made winter boot felt liners are made of up to 100% recycled plastic content. For every pair you purchase, you help give a new life to a minimum of 3 plastic bottles. That's a total of 3 million water bottles per year!<\/p>"
+            }
+          },
+          "1591385162346": {
+            "type": "part",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/sustainability.v2b_09.png",
+              "title": "Give Old Boots New Life",
+              "content": "<p>Did you know you can send us your well-loved Kamik rain boots to be recycled and transformed into something new? Now you do! Send us an email at recycling@kamik.com to receive a prepaid shipping label to return back to us your old rain boots.<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1591384677652",
+          "1591385110495",
+          "1591385162346"
+        ],
+        "settings": {}
+      },
+      "page-template--sustainability-future": {
+        "type": "page-template--sustainability-future",
+        "blocks": {
+          "1591395589313": {
+            "type": "sustainable_image",
+            "settings": {
+              "title": "",
+              "image": "shopify:\/\/shop_images\/AUG_SUSTAINABILITY_RECYCLING.jpg"
+            }
+          },
+          "1591396863382": {
+            "type": "sustainable_image",
+            "settings": {
+              "title": "We recycle 90% of cooling water used by our Canadian factory, the equivalent of 15 Olympic swimming pools",
+              "image": "shopify:\/\/shop_images\/AUG_SUSTAINABILITY_waterL.jpg"
+            }
+          },
+          "1591396927384": {
+            "type": "sustainable_image",
+            "settings": {
+              "title": "360,000 black rain boots are produced in our North American factories from recycled rubber",
+              "image": "shopify:\/\/shop_images\/AUG_SUSTAINABILITY_blackboots.jpg"
+            }
+          },
+          "1591396852207": {
+            "type": "sustainable_image",
+            "settings": {
+              "title": "Rain boots made in our North American plants are 100% recyclable",
+              "image": "shopify:\/\/shop_images\/AUG_SUSTAINABILITY_ZEROWASTE.jpg"
+            }
+          },
+          "1591396900826": {
+            "type": "sustainable_image",
+            "settings": {
+              "title": "Our recycled and recyclable packaging saves approximately 132 cars CO<sub>2<\/sub> emissions",
+              "image": "shopify:\/\/shop_images\/AUG_SUSTAINABILITY_NAMATERIAL.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "1591395589313",
+          "1591396863382",
+          "1591396927384",
+          "1591396852207",
+          "1591396900826"
+        ],
+        "settings": {
+          "title": "in a year",
+          "content": "<p>Here's a quick summary of everything we're able to accomplish in a year:<\/p>"
+        }
+      },
+      "page-template--sustainability-more": {
+        "type": "page-template--sustainability-more",
+        "blocks": {
+          "1591397861822": {
+            "type": "row",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/AUG_SUSTAINABILITY_PAGE_OUR_TECHNOLOGIES.jpg",
+              "layout": "left",
+              "image_small": "shopify:\/\/shop_images\/icons.jpg",
+              "title": "Our technologies",
+              "text": "<p>Curious about what makes your Kamik's special? Learn all about the technologies that are in our footwear<\/p>",
+              "button_label": "Technology Overview",
+              "button_link": "shopify:\/\/blogs\/technology"
+            }
+          }
+        },
+        "block_order": [
+          "1591397861822"
+        ],
+        "settings": {}
+      },
+      "feature-row--technology": {
+        "type": "feature-row--technology",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/SUSTAINABILITY_HOME_PAGE.jpg",
+          "layout": "left",
+          "title": "Sustainability",
+          "text": "<p>Here at Kamik, sustainable manufacturing is more than what we do. It's a significant part of who we are. We hold sustainable practices to the highest of standards and will continue to innovate to ensure that we uphold the highest of standards for years to come.<\/p>",
+          "button_label": "Learn About Our Initiatives",
+          "button_link": "shopify:\/\/pages\/sustainability"
+        }
+      },
+      "page-template--kamik-club-lead": {
+        "type": "page-template--kamik-club-lead",
+        "blocks": {
+          "1591913960089": {
+            "type": "image",
+            "settings": {
+              "text": "Children take part in over 5-6 structured activities a week",
+              "bg": "#f5a42a",
+              "url": ""
+            }
+          },
+          "1591913990294": {
+            "type": "text",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/AUG_WINTER_FYP_1.jpg"
+            }
+          },
+          "1591914394886": {
+            "type": "image",
+            "settings": {
+              "text": "Children spend 30-35% less time playing outside than their parents did",
+              "bg": "#5cc1bc",
+              "url": ""
+            }
+          },
+          "1591914451604": {
+            "type": "image",
+            "settings": {
+              "text": "What is the #FreeYourPlay movement?",
+              "bg": "#e74044",
+              "url": "shopify:\/\/blogs\/freeyourplay"
+            }
+          }
+        },
+        "block_order": [
+          "1591913960089",
+          "1591913990294",
+          "1591914394886",
+          "1591914451604"
+        ],
+        "settings": {}
+      },
+      "page-template--kamik-club-blog": {
+        "type": "page-template--kamik-club-blog",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/klub.png",
+          "title": "",
+          "content": "",
+          "blog": "freeyourplay"
+        }
+      },
+      "feature-row--kamik-club": {
+        "type": "feature-row--kamik-club",
+        "settings": {
+          "bg": "shopify:\/\/shop_images\/bg-club.jpg",
+          "image": "shopify:\/\/shop_images\/101540502_859175881259841_957190688057851904_n.jpg",
+          "layout": "left",
+          "title": "Join the Kamik Club Today!",
+          "text": "<p>By Joining the Kamik Club, you will opt-in to receive regular newsletters and mailings with a <strong>fun activity book<\/strong> from your friends at Kamik!<\/p>",
+          "button_label": "Join Now",
+          "button_link": "#",
+          "popup": "<!--[if lte IE 8]>\n            <script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2-legacy.js\"><\/script>\n          <![endif]-->\n          <script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2.js\"><\/script>\n          <script>\n            hbspt.forms.create({\n              portalId: \"7221585\",\n              formId: \"2bbc7d95-c927-440d-83ac-ed1b332cf3b7\"\n            });\n          <\/script>"
+        }
+      },
+      "page-template--about-image-text": {
+        "type": "page-template--about-image-text",
+        "blocks": {
+          "1592853605449": {
+            "type": "row",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/AUT_WINTER_ABOUT-US_FAMILY-STORY.jpg",
+              "layout": "left",
+              "title": "A Family Story Since 1898",
+              "text": "<p>To this day, we’re still family owned and operated in Canada, alongside an extended family of over 400 employees. Each new pair of Kamiks comes with over 120+ years of history and expertise. But that’s not to say we’re old fashioned. Even after four generations of proven quality, we’re still looking for new, sustainable ways to improve— from our manufacturing process right down to the finished product. It’s a longstanding commitment to keeping feet warm, dry, comfortable and happy.<\/p>",
+              "button_label": "",
+              "button_link": ""
+            }
+          }
+        },
+        "block_order": [
+          "1592853605449"
+        ],
+        "settings": {}
+      },
+      "megamenu2": {
+        "type": "megamenu2",
+        "blocks": {
+          "1593723079491": {
+            "type": "megamenu_menu",
+            "settings": {
+              "title": "Kids",
+              "url": "shopify:\/\/collections\/kids-footwear",
+              "linklist": "kids-footwear",
+              "title_2": "",
+              "url_2": "",
+              "linklist_2": "",
+              "column_width": "col"
+            }
+          },
+          "1594150618853": {
+            "type": "megamenu_menu",
+            "settings": {
+              "title": "Toddlers",
+              "url": "shopify:\/\/collections\/toddlers",
+              "linklist": "toddlers-footwear",
+              "title_2": "",
+              "url_2": "",
+              "linklist_2": "",
+              "column_width": "col"
+            }
+          },
+          "1600793098706": {
+            "type": "megamenu_menu",
+            "settings": {
+              "title": "Apparel",
+              "url": "shopify:\/\/collections\/kids-apparel",
+              "linklist": "kids-apparel",
+              "title_2": "Accessories",
+              "url_2": "shopify:\/\/collections\/kids-accessories-liners",
+              "linklist_2": "kids-accessories",
+              "column_width": "col"
+            }
+          },
+          "c5acf9f3-c7cf-4683-a33d-4d6eb0038300": {
+            "type": "megamenu_image",
+            "settings": {
+              "title": "Sandals",
+              "image": "shopify:\/\/shop_images\/DROPDOWNMENU_KIDS_SANDALS.jpg",
+              "link": "shopify:\/\/collections\/kids-kids-footwear-sandals",
+              "column_width": "col-15"
+            }
+          },
+          "1594909790275": {
+            "type": "megamenu_image",
+            "settings": {
+              "title": "Kids Rain Boots",
+              "image": "shopify:\/\/shop_images\/MARCH_KIDS.jpg",
+              "link": "shopify:\/\/collections\/kids-rain-boots",
+              "column_width": "col-15"
+            }
+          }
+        },
+        "block_order": [
+          "1593723079491",
+          "1594150618853",
+          "1600793098706",
+          "c5acf9f3-c7cf-4683-a33d-4d6eb0038300",
+          "1594909790275"
+        ],
+        "settings": {}
+      },
+      "megamenu3": {
+        "type": "megamenu3",
+        "blocks": {
+          "1593723236122": {
+            "type": "megamenu_menu",
+            "settings": {
+              "title": "Men",
+              "url": "shopify:\/\/collections\/men",
+              "linklist": "men-footwear",
+              "title_2": "",
+              "url_2": "",
+              "linklist_2": "",
+              "column_width": "col"
+            }
+          },
+          "1600795065963": {
+            "type": "megamenu_menu",
+            "settings": {
+              "title": "Accessories",
+              "url": "shopify:\/\/collections\/men-accessories-liners",
+              "linklist": "men-accessories",
+              "title_2": "",
+              "url_2": "",
+              "linklist_2": "",
+              "column_width": "col"
+            }
+          },
+          "d6f6c66c-6914-4b23-924e-1cd74f246cb8": {
+            "type": "megamenu_image",
+            "settings": {
+              "title": "Sandals",
+              "image": "shopify:\/\/shop_images\/DROPDOWNMENU_MEN_SANDALS.jpg",
+              "link": "shopify:\/\/collections\/men-mens-footwear-sandals",
+              "column_width": "col"
+            }
+          }
+        },
+        "block_order": [
+          "1593723236122",
+          "1600795065963",
+          "d6f6c66c-6914-4b23-924e-1cd74f246cb8"
+        ],
+        "settings": {}
+      },
+      "cart-template": {
+        "type": "cart-template",
+        "settings": {
+          "cart_notes_enable": false
+        }
+      },
+      "page-template--dealer-locator": {
+        "type": "page-template--dealer-locator",
+        "blocks": {
+          "1595611492863": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-dsw.jpg",
+              "link": "http:\/\/dsw.townshoes.ca\/store\/dsw\/en\/Brands\/Kamik\/c\/tsl-br-118"
+            }
+          },
+          "1595611649910": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-shoecompany.jpg",
+              "link": "http:\/\/theshoecompany.townshoes.ca\/store\/shoeCompany\/en\/Brands\/Kamik\/c\/tsl-br-118"
+            }
+          },
+          "1595611670038": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-shoewarehouse.jpg",
+              "link": "http:\/\/shoewarehouse.townshoes.ca\/store\/shoeWarehouse\/en\/Brands\/Kamik\/c\/tsl-br-118"
+            }
+          },
+          "1595611699251": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-rubino.jpg",
+              "link": "http:\/\/rubinoshoes.com\/en\/41_kamik"
+            }
+          },
+          "1595611719078": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-softmoc.jpg",
+              "link": "http:\/\/www.softmoc.com\/ca\/kamik"
+            }
+          },
+          "1595611740630": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-amazon.jpg",
+              "link": "https:\/\/www.amazon.ca\/s\/ref=w_bl_sl_s_sh_web_8604915011?ie=UTF8&node=8604915011&field-brandtextbin=Kamik"
+            }
+          },
+          "1595611761129": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-altitudesports.jpg",
+              "link": "http:\/\/www.altitude-sports.com\/en\/kamik\/all"
+            }
+          },
+          "1595611778952": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-cabelas.jpg",
+              "link": "http:\/\/www.cabelas.ca\/search?q=kamik"
+            }
+          },
+          "1595611794047": {
+            "type": "featured",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/logo-dealer-globoshoes.jpg",
+              "link": "http:\/\/www.globoshoes.com\/ca\/en\/brands\/kamik\/c\/917"
+            }
+          }
+        },
+        "block_order": [
+          "1595611492863",
+          "1595611649910",
+          "1595611670038",
+          "1595611699251",
+          "1595611719078",
+          "1595611740630",
+          "1595611761129",
+          "1595611778952",
+          "1595611794047"
+        ],
+        "settings": {
+          "title": "Shop Online Dealers",
+          "lat": "45.4924",
+          "lon": "-73.6177"
+        }
+      },
+      "page-template--contact": {
+        "type": "page-template--contact",
+        "settings": {
+          "contact_form": "<!--[if lte IE 8]>\n<script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2-legacy.js\"><\/script>\n<![endif]-->\n<script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2.js\"><\/script>\n<script>\n  hbspt.forms.create({\n\tportalId: \"7221585\",\n\tformId: \"59e98f27-d75e-497b-b5b5-fcd97cf932fa\"\n});\n<\/script>"
+        }
+      },
+      "page-template--default": {
+        "type": "page-template--default",
+        "blocks": {
+          "1596496989501": {
+            "type": "modal",
+            "settings": {
+              "title": "Return Form",
+              "div_id": "return-form",
+              "popup": "<!--[if lte IE 8]>\n<script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2-legacy.js\"><\/script>\n<![endif]-->\n<script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2.js\"><\/script>\n<script>\n  hbspt.forms.create({\n\tportalId: \"7221585\",\n\tformId: \"bc722652-07ac-4ebf-a514-15021f752357\"\n});\n<\/script>"
+            }
+          },
+          "1597708819064": {
+            "type": "modal",
+            "settings": {
+              "title": "Formulaire de Retour",
+              "div_id": "formulaire-retour",
+              "popup": "<!--[if lte IE 8]>\n<script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2-legacy.js\"><\/script>\n<![endif]-->\n<script charset=\"utf-8\" type=\"text\/javascript\" src=\"\/\/js.hsforms.net\/forms\/v2.js\"><\/script>\n<script>\n  hbspt.forms.create({\n\tportalId: \"7221585\",\n\tformId: \"2e6379d5-72a1-4a43-90c8-1eebb8000bb0\"\n});\n<\/script>"
+            }
+          }
+        },
+        "block_order": [
+          "1596496989501",
+          "1597708819064"
+        ],
+        "settings": {}
+      },
+      "alert-geo": {
+        "type": "alert-geo",
+        "blocks": {
+          "1600970305904": {
+            "type": "regions",
+            "settings": {
+              "title": "CAD",
+              "code": "CA",
+              "connect": "https:\/\/kamik.com",
+              "image": "shopify:\/\/shop_images\/m000181884_57b4ae22-4328-4d25-99bb-c1ddc8ce5fa0.jpg",
+              "image_header": "shopify:\/\/shop_images\/m000181884_57b4ae22-4328-4d25-99bb-c1ddc8ce5fa0.jpg"
+            }
+          },
+          "1598991080784": {
+            "type": "regions",
+            "settings": {
+              "title": "USD",
+              "code": "US",
+              "connect": "https:\/\/us.kamik.com",
+              "image": "shopify:\/\/shop_images\/usa.png",
+              "image_header": "shopify:\/\/shop_images\/usa.png",
+              "image_footer": "shopify:\/\/shop_images\/usa.png"
+            }
+          },
+          "1598991579411": {
+            "type": "regions",
+            "settings": {
+              "title": "EUR",
+              "code": "DE",
+              "connect": "https:\/\/eu.kamik.com",
+              "image": "shopify:\/\/shop_images\/eu.jpg",
+              "image_header": "shopify:\/\/shop_images\/eu.jpg",
+              "image_footer": "shopify:\/\/shop_images\/eu.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "1600970305904",
+          "1598991080784",
+          "1598991579411"
+        ],
+        "settings": {
+          "title": "Currently shopping:",
+          "currently_shopping": "shopify:\/\/shop_images\/m000181884_57b4ae22-4328-4d25-99bb-c1ddc8ce5fa0.jpg",
+          "text": "<p><strong>CAD<\/strong><\/p>"
+        }
+      },
+      "article-template": {
+        "type": "article-template",
+        "settings": {
+          "blog_show_author": false,
+          "blog_show_date": false,
+          "show_share_buttons": true
+        }
+      },
+      "login-page": {
+        "type": "login-page",
+        "settings": {
+          "logncreate": false,
+          "b2b_alert": "<b>Attention Retailers and B2B users: \n<br>Due to COVID protocols, your B2B order may take up to one week to ship.<br>\nThank you for your patience and understanding.<\/b>"
+        }
+      },
+      "blog-technology": {
+        "type": "blog-technology",
+        "settings": {
+          "filters": "Kamik Technology,Warmth,Dry,Lightness,Other"
+        }
+      }
+    },
+    "content_for_index": [
+      "slideshow",
+      "featured-collections",
+      "1590523375374",
+      "1590530352561"
+    ]
+  },
+  "presets": {
+    "Default": {
+      "color_text": "#3d4246",
+      "color_body_text": "#788188",
+      "color_sale_text": "#7796A8",
+      "color_borders": "#e8e9eb",
+      "color_button": "#7796A8",
+      "color_button_text": "#fff",
+      "color_small_button": "#fff",
+      "color_small_button_text": "#3d4246",
+      "color_text_field": "#fff",
+      "color_text_field_text": "#000",
+      "color_image_overlay_text": "#fff",
+      "color_image_overlay": "#3d4246",
+      "image_overlay_opacity": "60",
+      "color_body_bg": "#fff",
+      "type_header_family": "Google_Work+Sans_600_sans",
+      "type_header_base_size": "26px",
+      "type_base_family": "Google_Work+Sans_400_sans",
+      "type_base_size": "16px",
+      "type_bold_product_titles": false,
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "sections": {
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "text_size": "large"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "slideshow-1": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {}
+        },
+        "featured-collections": {
+          "type": "collection",
+          "settings": {}
+        },
+        "feature-row": {
+          "type": "feature-row",
+          "settings": {}
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {}
+        }
+      },
+      "content_for_index": [
+        "hero",
+        "featured-collections",
+        "feature-row",
+        "slideshow"
+      ]
+    }
+  }
+}

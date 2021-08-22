@@ -1,0 +1,69 @@
+{% if section.settings.blog != blank %}
+  {%- assign blog_handle = section.settings.blog -%}
+  {%- assign blog = blogs[blog_handle] -%}
+  <div id="blog-content">
+    <section id="kamik-club-blog">
+      <article class="container">
+        <div class="row justify-content-center">
+          <div class="col-xxl-30 col-lg-40 col-md-50 rte text-center">
+            {% if section.settings.image != blank %}
+              {% render 'image', class:'feature-row__icon', file: section.settings.image, default_size: '500x', alt: section.settings.image.alt | escape %}
+            {% endif %}
+            {% if section.settings.title != blank %}<h2>{{ section.settings.title }}</h2>{% endif %}
+            {% if section.settings.content != blank %}{{ section.settings.content }}{% endif %}
+          </div>
+        </div>
+      </article>
+    </section>
+    <div class="section--blog section--blog-kamik-club">
+      <div class="container">
+        <div class="row blog-row justify-content-center">
+          {% for article in blog.articles %}
+            <article class="col-lg-15 col-md-20 blog-single">
+              <a class="article-simple text-center" href="{{ article.url }}">
+                <span class="article-simple--image" style="background-image:url({{ article.image.src | img_url: '800x' }})"></span>
+                <span class="h4">{{ article.title }}</span>
+              </a>
+            </article>
+          {% endfor %}
+        </div>
+        <div class="row blog-link">
+          <div class="col-60 text-center">
+            <a class="btn" href="{{ blog.url }}">{{ 'blogs.article.view_all' | t }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <style>#shopify-section-{{ section.id }} { display: none; }</style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Kamik Club Blog",
+    "class": "section--kamik-club-blog section--blog",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image Above Title"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "type": "blog",
+        "id": "blog",
+        "label": "Blog for Articles"
+      }
+    ]
+  }
+{% endschema %}

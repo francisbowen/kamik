@@ -1,0 +1,14 @@
+{%- assign src_scale = 1 -%}
+{%- assign srcset_scale = 2 -%}
+{% if alt == '' %}{%- assign alt_text = file -%}{% else %}{%- assign alt_text = alt | escape -%}{% endif %}
+{% if default_size == '' %}{%- assign default_size = '600x' -%}{% endif %}
+{%- assign img_url = file | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+<img
+     {% if id != '' %} id="{{ id }}"{% endif %}
+     class="lazyload {{ class }}"
+     data-og="{{ file | img_url: '2000x' }}"
+     data-src="{% if file contains 'https://' %}{{ file }}{% else %}{{ img_url }}{% endif %}"
+     data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+     data-aspectratio="{{ file.aspect_ratio }}"
+     data-sizes="auto"
+     alt="{{ alt_text | escape }}" />

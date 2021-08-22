@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row justify-content-center">
+    {% for block in section.blocks %}
+      <div class="col-lg-15 col-md-30 kamik-club-lead">
+        {% if block.settings.url != blank %}
+          <a class="kamik-club-lead--link" href="{{ block.settings.url }}">
+        {% endif %}
+        <div role="img"
+                 class="kamik-club-lead--single d-flex align-items-center{% if block.settings.image != blank %} lazyload{% endif %}"
+             {% if block.settings.image != blank %}
+                 data-bg="{{ block.settings.image | img_url: '300x300' }}"
+                 data-bgset="{% render 'image-bg', image: block.settings.image %}"
+                 data-sizes="auto"
+                 data-parent-fit="cover"
+                 style="background-image: url('{{ block.settings.image | img_url: '300x300' }}');"
+             {% endif %}
+             {% if block.settings.bg != blank %} style="background-color: {{ block.settings.bg }};"{% endif %}>
+          {% if block.settings.text != blank %}
+            <h3>{{ block.settings.text }}</h3>
+          {% endif %}
+        </div>
+        {% if block.settings.url != blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Kamik Club - Lead In",
+    "class": "section-spacing section--kamik-club-lead",
+    "max_blocks": 4,
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Intro Block - Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Intro Block - text",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "color",
+            "id": "bg",
+            "label": "Background Color"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Linked To",
+            "label": "Optional"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

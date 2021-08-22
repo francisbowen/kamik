@@ -1,0 +1,109 @@
+{% if section.blocks.size > 0 %}
+  <div class="container">
+    <div class="row">
+      {% for block in section.blocks %}
+        <div class="col-lg sustainability-parts--col" {{ block.shopify_attributes }}>
+          <div class="sustainability-parts--single">
+            <button class="sustainability-parts--single-btn" type="button" data-toggle="collapse" data-target="#collapse-{{ block.id }}" aria-expanded="false" aria-controls="collapse-{{ block.id }}">
+              {{ block.settings.title }}
+            </button>
+            <div class="sustainability-parts--single-content collapse rte" id="collapse-{{ block.id }}">
+              {{ block.settings.content }}
+            </div>
+            <div role="img"
+                 class="sustainability-parts--image lazyload"
+                 data-bg="{{ block.settings.image | img_url: '300x300' }}"
+                 data-bgset="{% render 'image-bg', image: block.settings.image %}"
+                 data-sizes="auto"
+                 data-parent-fit="cover"
+                 style="background-image: url('{{ block.settings.image | img_url: '300x300' }}');"></div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <style> #shopify-section-{{ section.id }} { display: none; } </style>
+{% endif %}
+
+{% javascript %}
+  var max_height = 0,
+      transEnd = 'transitionend MSTransitionEnd webkitTransitionEnd oTransitionEnd';
+
+  function updateHeights(new_height){
+    $('.sustainability-parts--single').css('height', new_height).addClass('calculated');
+  }
+
+  function findHeights(els){
+    if (els.length > 0) {
+      var el = els.shift(),
+          temp = el;
+      $(temp).collapse('show').on(transEnd, function(e){
+        var curr_height = $(this).closest('.sustainability-parts--single').outerHeight();
+        max_height = curr_height > max_height ? curr_height : max_height;
+        $(temp).off(transEnd).collapse('hide');
+        findHeights(els);
+      });
+    } else {
+      updateHeights(max_height + 100);
+      return;
+    }
+  }
+  
+  $(document).ready(function(){
+    var elements = $.makeArray($('.section--sustainability-parts .collapse'));
+    findHeights(elements);
+  });
+  
+  $(document).on('shopify:section:load,shopify:block:deselect', function(event) {
+    if($(this).attr('id') == 'shopify-section-page-template--sustainability-parts') {
+      var elements = $.makeArray($('.section--sustainability-parts .collapse'));
+      findHeights(elements);
+    }
+  });
+
+  $(document).on('shopify:block:select', function(event) {
+    if(event.detail.sectionId == 'page-template--sustainability-parts'){
+      $(event.target).find('.collapse').collapse('show');
+    }
+  });
+
+  $(document).on('shopify:block:deselect', function(event) {
+    if(event.detail.sectionId == 'page-template--sustainability-parts'){
+      var elements = $.makeArray($('.section--sustainability-parts .collapse'));
+      findHeights(elements);
+    };
+  });
+{% endjavascript %}
+
+{% schema %}
+  {
+    "name": "Sustainability Parts",
+    "class": "section-spacing section--sustainability-parts",
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "part",
+        "name": "Sustainable Part",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

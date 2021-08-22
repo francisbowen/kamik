@@ -1,0 +1,318 @@
+{% include 'netterms-check' %}
+{% assign social_icons = false %}
+
+{% if
+  settings.social_twitter_link != blank
+  or settings.social_facebook_link != blank
+  or settings.social_pinterest_link != blank
+  or settings.social_instagram_link != blank
+  or settings.social_tumblr_link != blank
+  or settings.social_snapchat_link != blank
+  or settings.social_youtube_link != blank
+  or settings.social_vimeo_link != blank
+  or settings.social_tiktok_link != blank
+%}
+  {% assign social_icons = true %}
+{% endif %}
+
+{% if section.settings.footer_newsletter_alone %}
+  <div class="site-newsletter">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-36 offset-lg-12 col-md-40 offset-md-10">
+          <div class="site-footer__newsletter">
+            {% include 'newsletter', newsletter_alone: true %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .site-newsletter {
+      {% if section.settings.background != blank %}
+        background-color: {{ section.settings.background }};
+      {% endif %}
+      {% if section.settings.newsletter_background != blank %}
+        background-color: {{ section.settings.newsletter_background }};
+      {% endif %}
+      {% if section.settings.newsletter_color != blank %}
+        color: {{ section.settings.newsletter_color }}
+      {% endif %}
+    }
+  </style>
+{% endif %}
+
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="row justify-content-around">
+
+      {% for block in section.blocks %}
+        {% assign footer_linklist = block.settings.linklist %}
+        {% if linklists[footer_linklist].links.size > 0 %}
+          {% if netavail %}
+            {% unless block.settings.where_to_show == 'b2c' %}
+              <div class="col-md-auto">
+                {% if block.settings.title != blank %}<h4 class="mobile-toggler">{{ block.settings.title }}</h4>{% endif %}
+                <ul class="site-footer__linklist">
+                  {% for link in linklists[footer_linklist].links %}
+                    <li class="site-footer__linklist-item">
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endunless %}
+          {% else %}
+            {% unless block.settings.where_to_show == 'b2b' %}
+              <div class="col-md-auto">
+                {% if block.settings.title != blank %}<h4 class="mobile-toggler">{{ block.settings.title }}</h4>{% endif %}
+                <ul class="site-footer__linklist">
+                  {% for link in linklists[footer_linklist].links %}
+                    <li class="site-footer__linklist-item">
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endunless %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% if section.settings.footer_newsletter_enable and section.settings.footer_newsletter_alone == false %}
+        <div class="{% if section.settings.footer_newsletter_alone %}col-md-12{% else %}col-md-20{% endif %}">
+          {% if section.settings.footer_newsletter_enable and section.settings.footer_newsletter_alone == false %}
+            <div class="site-footer__newsletter">
+              {% include 'newsletter' %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+    </div>
+    
+    <div class="site-footer__copyright--middle">
+      <ul id="footer-switcher">
+      </ul>
+    </div>
+
+    <div class="site-footer__copyright--bottom">
+      <small class="site-footer__copyright-content">&copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}</small>
+      <small class="site-footer__copyright-content"><ly-as-46287>Built on Inferno Framework by</ly-as-46287> <a href="http://wickcreative.com" target="_blank"><ly-as-46288>Wick Creative</ly-as-46288></a></small>
+      {% if social_icons and section.settings.footer_socials_enable %}
+        <ul class="list--inline site-footer__social-icons social-icons">
+          {% if settings.social_facebook_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_facebook_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+              {% include 'icon-facebook' %}
+              <span class="icon__fallback-text"><ly-as-46289>Facebook</ly-as-46289></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if settings.social_twitter_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_twitter_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+              {% include 'icon-twitter' %}
+              <span class="icon__fallback-text"><ly-as-46290>Twitter</ly-as-46290></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if settings.social_pinterest_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_pinterest_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+              {% include 'icon-pinterest' %}
+              <span class="icon__fallback-text"><ly-as-46291>Pinterest</ly-as-46291></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if settings.social_instagram_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_instagram_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+              {% include 'icon-instagram' %}
+              <span class="icon__fallback-text"><ly-as-46292>Instagram</ly-as-46292></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if settings.social_tumblr_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_tumblr_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+              {% include 'icon-tumblr' %}
+              <span class="icon__fallback-text"><ly-as-46293>Tumblr</ly-as-46293></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if settings.social_snapchat_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_snapchat_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+              {% include 'icon-snapchat' %}
+              <span class="icon__fallback-text"><ly-as-46294>Snapchat</ly-as-46294></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if settings.social_youtube_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_youtube_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+              {% include 'icon-youtube' %}
+              <span class="icon__fallback-text"><ly-as-46295>YouTube</ly-as-46295></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if settings.social_vimeo_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_vimeo_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+              {% include 'icon-vimeo' %}
+              <span class="icon__fallback-text"><ly-as-46296>Vimeo</ly-as-46296></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if settings.social_tiktok_link != blank %}
+          <li>
+            <a class="social-icons__link" href="{{ settings.social_tiktok_link }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'TikTok' }}">
+              {% include 'icon-tiktok' %}
+              <span class="icon__fallback-text"><ly-as-46296>TikTok</ly-as-46296></span>
+            </a>
+          </li>
+          {% endif %}
+          {% if template contains 'blog' or template contains 'article' %}
+          <li>
+            <a class="social-icons__link" href="{{ shop.url }}{{ blog.url }}.atom">
+              {% include 'icon-rss' %}
+              <span class="icon__fallback-text"><ly-as-46297>RSS</ly-as-46297></span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+
+  </div>
+</footer>
+
+{% if settings.newsletter_poup %}
+  <div id="newsletter-signup" class="white-popup mfp-hide mfp-with-anim"{% if settigns.newsletter_bg != blank %} style="background:url({{ settings.newsletter_bg | img_url: 'grande' }});"{% endif %}>
+    <div class="row">
+      <div class="col-md-30 offset-md-15">
+        {% if settings.newsletter_popup_title != blank %}
+          <h3>{{ settings.newsletter_popup_title }}</h3>
+          <hr />
+        {% endif %}
+        {% if settings.newsletter_popup_content != blank %}
+          <p>{{ settings.newsletter_popup_content }}</p>
+        {% endif %}
+        {% include 'newsletter' %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    if(Cookies.get('newslettersign') != 'true') {
+      Cookies.set('newslettersign', 'true'{% unless settings.newsletter_popup_length == '0' %}, { expires: {{ settings.newsletter_popup_length }} }{% endunless %});
+      $.magnificPopup.open({
+        removalDelay: 1000,
+        callbacks: {
+          beforeOpen: function() {
+            this.st.mainClass = 'mfp-move-horizontal'
+          }
+        },
+        items: {
+          src: '#newsletter-signup',
+          type: 'inline'
+        }
+      });
+    }
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo",
+        "info": "If left blank, will default to header logo"
+      },
+      {
+        "type": "header",
+        "content": "Socials"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_socials_enable",
+        "label": "Show social icons",
+        "default": true,
+        "info": "Links are set in General Settings"
+      },
+      {
+        "type": "header",
+        "content": "Newsletter"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_newsletter_enable",
+        "label": "Show newsletter signup",
+        "default": false,
+        "info": "Form action set in General Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_newsletter_alone",
+        "label": "Display newsletter before footer",
+        "info": "Use this to have the newsletter stand on it's own"
+      },
+      {
+        "type": "color",
+        "id": "newsletter_background",
+        "label": "Newsletter background color",
+        "info": "Only applicable if 'Display newsletter before footer' is checked"
+      },
+      {
+        "type": "color",
+        "id": "newsletter_color",
+        "label": "Newsletter text color",
+        "info": "Only applicable if 'Display newsletter before footer' is checked"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "menu",
+        "name": "Menu",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Linklist",
+            "default": "footer"
+          },
+          {
+            "type": "select",
+            "id": "where_to_show",
+            "label": "Who to Show to",
+            "default": "everyone",
+            "options": [
+              {
+                "label": "Everyone",
+                "value": "everyone"
+              },
+              {
+                "label": "B2C Only",
+                "value": "b2c"
+              },
+              {
+                "label": "B2B Only",
+                "value": "b2b"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

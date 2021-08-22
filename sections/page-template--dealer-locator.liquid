@@ -1,0 +1,301 @@
+{% for block in section.blocks %}
+  {% capture ad_blocks %}{{ ad_blocks }}<div class="{% if request.page_type == 'page' %}col-md-30{% else %}dealer-locator--footer-single{% endif %}"><a class="dealer-locator--location-ad" href="{{ block.settings.link }}" style="background-image:url({{ block.settings.image | img_url: '600x' }});" target="_blank"></a></div>{% endcapture %}
+{% endfor %}
+
+{% if request.page_type == 'page' %}
+  <div id="store-locator--single">
+    <div id="map-canvas" class="dealer-locator--map"></div>
+    <div class="container dealer-locator-push">
+      <div class="row">
+        <div class="col-md-20 rte dealer-locator--locations">
+          <h2>{{ section.settings.title }}</h2>
+          <label>
+            {% if shop.domain contains 'us.' %}ZIP Code{% else %}Postal Code{% endif %}
+            <input type="text" maxlength="8" />
+            <a class="btn btn--secondary postal_search">{% include 'icon-search' %}</a>
+          </label>
+          <hr />
+          <div id="store-locator--ads" class="row">
+            {{ ad_blocks }}
+          </div>
+          <ol id="store-locator--locations">
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#store-locator--locations').css('height',$('#store-locator--ads').outerHeight());
+    });
+  </script>
+{% else %}
+  <div id="dealer-locator-ads">
+    {{ ad_blocks }}
+  </div>
+  <script>
+    $(document).ready(function(){
+      $('#store-locator .featured-slideshow').html('{{ ad_blocks }}');
+    });
+  </script>
+  <style>
+    #shopify-section-{{ section.id }} { display: none; }
+  </style>
+{% endif %}
+
+<script id="StoreTemplate" type="text/template">
+  {% raw %}
+    {{#each stores}}
+        <li class="store-locator--locations-single">
+          <h5>{{NAME}}<span>{{DISTANCE}} km.</span></h5>
+          <p>{{ADDRESS_1}}, {{CITY}}<br />{{STATE_PROVINC}} {{ZIPCODE}}{{#if PHONE}}<br />{{PHONE}}{{/if}}</p>
+          <p class="d-flex justify-content-between">
+            <a class="this_map" href="#" data-lat="{{LATITUDE}}" data-lon="{{LONGITUDE}}" data-id="{{@index}}">View On Map</a>
+            <a class="external_map" href="https://www.google.com/maps/dir/?api=1&destination={{ADDRESS_1}} {{CITY}} {{STATE_PROVINC}} {{ZIPCODE}}" target="_blank">Get Directions</a>
+          </p>
+        </li>
+    {{/each}}
+  {% endraw %}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgwSiIxNq4Bava_XrmC9hdboavxLa6z-k{% if request.page_type == 'page' %}&callback=initMap{% endif %}" async defer></script>
+<script>
+
+  var geocoder;
+  var map;
+  var markers = [];
+  var no_popups = {% if request.page_type == 'page' %}true{% else %}false{% endif %};
+
+  Handlebars.registerHelper('if_equal', function(a, operator, b, opts) {
+    var bool = false;
+    switch(operator) {
+      case '==':
+        bool = a == b;
+        break;
+      case '!=':
+        bool = a != b;
+        break;
+      case '>':
+        bool = a > b;
+        break;
+      case '<':
+        bool = a < b;
+        break;
+      default:
+        throw "Unknown operator " + operator;
+    }
+
+    if (bool) {
+      return opts.fn(this);
+    } else {
+      return opts.inverse(this);
+    }
+  });
+  
+  function initMap(lat,lon,storeslist) {
+    lat = lat || '{{ section.settings.lat }}';
+    lon = lon || '{{ section.settings.lon }}';
+    var mapOptions = {
+      zoom: 12,
+      center: new google.maps.LatLng(lat, lon),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      panControl: false,
+      scrollwheel: false,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.TOP_RIGHT
+      },
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_RIGHT
+      }
+    };
+
+    map =
+      new google.maps.Map(
+      document.getElementById('map-canvas'),
+      mapOptions
+    );
+    
+    if (typeof storeslist !== 'undefined') {
+      codeAddress(storeslist);
+    }
+  }
+  
+  function setCenter(lat, lon, $el) {
+    map.setCenter({lat: lat, lng: lon});
+    markers[$el.data('id')]._marker.setZIndex(100);
+    new google.maps.event.trigger(markers[$el.data('id')]._marker, 'click' );
+  }
+  
+  function markerCallback(el,normal,selected,info) {
+    for (var i=0; i < markers.length; i++) {
+      markers[i]._marker.setIcon(normal);
+      markers[i]._info.close(map,markers[i]._marker);
+    }
+    el.setIcon(selected);
+    info.open(map,el);
+  }
+  
+  function addmarker(lat, lon, id, info) {
+    var icon = {
+      url: '{{ 'icon-logo.svg' | asset_url }}',
+      scaledSize: new google.maps.Size(57, 53)
+    };
+    
+    var icon_selected = {
+      url: '{{ 'icon-logo-green.svg' | asset_url }}',
+      scaledSize: new google.maps.Size(70, 65)
+    };
+    
+    var marker = new google.maps.Marker({
+      id: id,
+      map: map,
+      icon: icon,
+      position: new google.maps.LatLng(lat,lon)
+    });
+    
+    var infowindow = new google.maps.InfoWindow({
+      content: info
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      map.setZoom(13);
+      map.setCenter(marker.getPosition());
+      markerCallback(this,icon,icon_selected,infowindow);
+    });
+
+    markers.push({'_marker': marker, '_info': infowindow});
+
+    return new Object({'_marker': marker, '_info': infowindow});
+    
+    map.setCenter(marker.getPosition());
+  }
+  
+  function codeAddress(storeslist) {
+    geocoder = new google.maps.Geocoder();
+
+    $.each(storeslist,function(_index, _address){
+      var info =   '<h1>'+_address.NAME + '</h1>'
+      + _address.ADDRESS_1[0] + '</br>'
+      + _address.CITY + ' '
+      + _address.ZIPCODE + '</br>'
+      + _address.PHONE;
+      addmarker(_address.LATITUDE[0], _address.LONGITUDE[0], _index, info);
+    });
+  }
+
+  function find_stores(pocode) {
+    $('.btn--find-locally').removeClass('emptyresults');
+    $.ajax({
+      type: 'POST',
+      url: '//hook.integromat.com/1kzffnv29x9fy6gmkgkl48ayn37v8d19',
+      dataType: 'json',
+      data: { language: '{% if shop.domain contains 'us.' %}US{% elsif shop.domain contains 'eu.' %}DE{% else %}CA{% endif %}', zip: pocode, radius: 50{% if request.page_type == 'product' %}{% unless product.tags contains 'dl-nostyle' %}{%- assign prod_title_split = product.title | split: '(' -%},style: '{{ prod_title_split[0] | strip | replace: ' ', '' }}'{% endunless %}{% endif %} },
+      success: function(response){
+        $('body').removeClass('loading');
+        if(response[0].ADDRESS_1 != '') {
+          var modalSource = $("#StoreTemplate").html(),
+              modalTemplate = Handlebars.compile(modalSource),
+              nonEmptyResponse = response.filter(function(v){return v.NAME[0] !== ''}),
+              storeData = {stores: nonEmptyResponse};
+          $('#store-locator--locations').addClass('loaded').html(modalTemplate(storeData));
+          $('#store-locator--ads').hide();
+          $('#store-locator--zip').html(pocode);
+          $('#store-locator .refind input').val(pocode);
+          if($.magnificPopup.instance.isOpen || no_popups) {
+            initMap(response[0].LATITUDE[0],response[0].LONGITUDE[0],response);
+          } else {
+            $.magnificPopup.open({
+              items: {
+                src: '#store-locator',
+                type: 'inline'
+              },
+              callbacks: {
+                open: function(item) {
+                  initMap(response[0].LATITUDE[0],response[0].LONGITUDE[0],response);
+                  $('.featured-slideshow').slick({
+                    infinite: true,
+                    arrows: false,
+                    dots: false,
+                    touchMove: false,
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 3500
+                  });
+                }
+              }
+            });
+          }
+        } else {
+          $('.btn--find-locally').addClass('emptyresults');
+        }
+      },
+      error: function(jqXHR, status, err) {
+        $('body').removeClass('loading');
+        console.log(jqXHR);
+        console.log(status);
+        console.log(err);
+      }
+    });
+  }
+    
+  $('#store-locator, #store-locator--single').on('click','.this_map',function(e){
+    e.preventDefault();
+    var lat = $(this).data('lat'),
+        lon = $(this).data('lon');
+    setCenter(lat,lon,$(this));
+    $(this).closest('.store-locator--locations-single').addClass('active').siblings().removeClass('active');
+  });
+    
+  $('.btn--find-locally, #store-locator, #store-locator--single').on('click', '.postal_search', function(){
+    $('body').addClass('loading');
+    find_stores($(this).prev('input').val());
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Dealer Locator",
+    "class": "dealer-locator-container",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "lat",
+        "label": "Default latitude",
+        "default": "45.4924"
+      },
+      {
+        "type": "text",
+        "id": "lon",
+        "label": "Default longitude",
+        "default": "-73.6177"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Featured Business",
+        "type": "featured",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "AD link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

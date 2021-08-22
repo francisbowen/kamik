@@ -1,0 +1,49 @@
+<div class="cart-dropdown closed">
+  <div class="shopping-cart">
+    {% if cart.item_count > 0 %}
+      <ul class="shopping-cart-items">
+        {% for item in cart.items %}
+          <li id="cart-item-{{ item.id }}" class="cart-item">
+            <a class="delete-cart-item" data-itemid="{{ item.key }}"><em class="fal fa-times"></em></a>
+            <div class="d-flex align-items-center">
+              <a href="{{ item.url }}" class="align-self-stretch cart-item--image">
+                {% include 'image', file: item.image, default_size: '200x' %}
+              </a>
+              <div class="cart-item--product-details">
+                <h5><a href="{{ item.url }}">{{ item.product.title }}</a></h5>
+                {% unless item.product.has_only_default_variant %}
+                  {% for option in item.options_with_values %}
+                    <p><strong>{{ option.name }}:</strong> {{ option.value }}</p>
+                  {% endfor %}
+                {% endunless %}
+                <div class="cart-item--updates d-flex justify-content-between">
+                  <div class="cart-item--qty">
+                    <select class="cart-prod-qty pretty-dropdown" data-item="{{ item.variant_id }}" name="cart-prod-qty">
+                      {% for i in (1..10) %}
+                        <option value="{{i}}"{% if i == item.quantity %} selected{% endif %}>{{i}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="cart-sidebar-item--price text-right">
+                    {{ item.final_price | money }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="shopping-cart-header">
+        {{ 'cart.general.subtotal' | t }}: {{ cart.total_price | money }}
+      </div>
+      <a href="/cart" class="btn btn--secondary half"><ly-as-87378>Cart</ly-as-87378></a>
+      <a href="/checkout" class="btn btn--secondary half"><ly-as-87379>Checkout</ly-as-87379></a>
+    {% else %}
+      <p class="text-center">{{ 'cart.general.empty' | t }}</p>
+      <a href="/" class="btn btn--secondary full">{{ 'general.404.link' | t }}{% include 'icon-arrow-right' %}</a>
+    {% endif %}
+  </div>
+</div>
+<div class="cart-black-overlay"></div>
+
+{% include 'cart-scripts' %}

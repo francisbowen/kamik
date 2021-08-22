@@ -1,0 +1,169 @@
+{% if settings.header_sticky %}
+  <script>
+    var headerCompare = 0;
+    function header_check(n){
+      var headerHeight = $('#header-container').outerHeight(),
+          top_style = headerHeight + 100,
+          style = $('<style>body #header-container.sticky-header.nav-up { top: -'+ top_style +'px; }</style>');
+      setTimeout(function(){
+        if(headerCompare == headerHeight) {
+          if(n == 4) {
+            $('html > head').append(style);
+            $('#shopify-section-header').height(headerHeight).find('#header-container').addClass('sticky-header');
+          } else {
+            n++
+            header_check(n);
+          }
+        } else {
+          headerCompare = headerHeight;
+          header_check(0);
+        }
+      },200)
+    }
+    $(document).ready(function(){
+      header_check(0);
+    });
+    function offsetUpdate(n) {
+      if (typeof scene  !== 'undefined') {
+        scene.offset(n);
+      }
+    }
+    var scene,
+        lastScrollTop = 0,
+        delta = 5,
+        navbarHeight = $('#header-container').outerHeight() + 100;
+    function sticky_relocate() {
+      var window_top = $(window).scrollTop();
+      if(Math.abs(lastScrollTop - window_top) <= delta)
+        return;
+      if (window_top > lastScrollTop && window_top > navbarHeight){
+        $('#header-container').removeClass('nav-down').addClass('nav-up');
+        {% if request.page_type == 'product' %}
+          offsetUpdate($('#header-container').outerHeight());
+        {% endif %}
+      } else {
+        if(window_top + $(window).height() < $(document).height()) {
+          $('#header-container').removeClass('nav-up').addClass('nav-down');
+          {% if request.page_type == 'product' %}
+            offsetUpdate(0);
+          {% endif %}
+        }
+      }
+      lastScrollTop = window_top;
+    }
+    $(window).scroll( $.throttle( 250, sticky_relocate ) );
+    
+    $(document).ready(function(){
+      $('#region_switcher').on('change',function(){
+        if($(this).val() != '{{ shop.url }}') {
+          window.location.href = $(this).val() + window.location.pathname +'?locale='+ $(this).find('option:selected').data('region');
+        }
+      });
+    });
+  </script>
+{% endif %}
+
+<header data-section-type="header-section" id="header-container">
+  <div id="header-top"></div>
+  <div class="container site-header" role="banner">
+    <div class="row align-items-stretch">
+
+      {% include 'header-menu_icon' %}
+      
+      <div class="col-auto order-{% if settings.align_logo == 'center' %}3{% else %}1{% endif %}">
+        {% include 'header-logo' %}
+      </div>
+      <div class="col order-2">
+        <div class="row align-items-center justify-content-between top-menu">
+          <div class="col-auto d-none d-lg-block">
+            <div class="region-switcher">
+              <select class="custom-select pretty-dropdown" name="RegionSwitcher" id="region_switcher">
+              </select>
+              <label for="RegionSwitcher">Change Shipping Location</label>
+            </div>
+            {% include 'ly-languages-switcher' %}
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <nav id="menu--customer">
+              <ul>
+                <li><a href="/pages/dealer-locator" class="normal"><ly-as-46314>Dealer Locator</ly-as-46314></a></li>
+                <li><a href="#swym-wishlist" class="swym-wishlist"><i aria-hidden="true" focusable="false" role="presentation" class="fa fa-heart"></i> <ly-as-46315>Wishlist</ly-as-46315></a></li>
+                <li>{% include 'header-account' %}</li>
+                <li><a href="/pages/help">{% include 'icon-support' %}</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="row align-items-center justify-content-end row--menu">
+          <div class="col d-none d-lg-block order-2">
+            <nav class="text-{{ settings.align_menu_text }}" id="AccessibleNav" role="navigation">
+              {% include 'site-nav' %}
+            </nav>
+          </div>
+
+          <div class="col{% unless settings.align_logo == 'center' %}-auto{% endunless %} order-5 text-right site-header__icons">
+            <div class="site-header__icons-wrapper">
+
+              {% if shop.customer_accounts_enabled %}
+                {% if customer %}
+                  <a href="/account" class="site-header__account">
+                    {% include 'icon-account' %}
+                  </a>
+                {% else %}
+                  <a href="/account/login" class="site-header__account">
+                    {% include 'icon-account' %}
+                  </a>
+                {% endif %}
+              {% endif %}
+
+              <div class="site-header__wishlist">
+                <a href="#swym-wishlist" class="swym-wishlist">
+                  <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-heart"></i>
+                </a>
+              </div>
+              
+              {% include 'search-toggle' %}
+
+              {% include 'header-cart_icon' %}
+
+            </div>
+
+            {% if settings.cartdropdown == 'dropdown' %}
+              {% include 'cart-dropdown' %}
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  {% if settings.logo != blank %}
+    .site-header__logo-image {
+      width: {{ settings.logo_max_width | minus: 75 }}px;
+    }
+    @media screen and (min-width: 768px) {
+      .site-header__logo-image {
+        width: {{ settings.logo_max_width | minus: 50 }}px;
+      }
+    }
+    @media screen and (min-width: 992px) {
+      .site-header__logo-image {
+        width: {{ settings.logo_max_width | minus: 25 }}px;
+      }
+    }
+    @media screen and (min-width: 1200px) {
+      .site-header__logo-image {
+        width: {{ settings.logo_max_width }}px;
+      }
+    }
+  {% endif %}
+
+  {% if settings.align_logo == 'left' %}
+    .site-header__logo-image {
+      margin: 0;
+    }
+  {% endif %}
+</style>

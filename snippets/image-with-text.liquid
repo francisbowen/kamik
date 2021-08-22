@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-lg-30{% if layout == 'right' %} order-lg-1{% endif %} feature-row__image feature-row__image--{{ layout }}">
+      {% if normal_title %}
+        {% if title != blank %}
+          <h3 class="h2 d-lg-none d-block">{{ title }}</h3>
+        {% endif %}
+      {% endif %}
+      {% if video != blank %}
+        <a class="mp-video" href="{{ video }}">
+          {% render 'icon-video' %}
+      {% endif %}
+      {% if image != blank %}
+        <div class="feature-row__image-container">
+          {% render 'image', file: image, default_size: '800x550', alt: image.alt | escape %}
+        </div>
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+      {% unless normal_title %}
+        {% if title != blank %}
+          <h3 class="h2">{{ title }}</h3>
+        {% endif %}
+      {% endunless %}
+      {% if video != blank %}
+      </a>
+      {% endif %}
+    </div>
+
+    <div class="col-lg-26 feature-row__text rte">
+      {% if icon != blank %}
+        {% render 'image', class:'feature-row__icon', file: icon, default_size: '500x', alt: icon.alt | escape %}
+      {% endif %}
+      {% if content != blank %}
+        <div class="rte-setting featured-row__subtext">
+          {% if normal_title %}
+            {% if title != blank %}
+              <h3 class="h2 d-lg-block d-none">{{ title }}</h3>
+            {% endif %}
+          {% endif %}
+          {{ content }}
+        </div>
+      {% endif %}
+      {% if popup != blank %}
+        {%- assign href = '#kamik-club--popup' -%}
+        {% if popupid != blank %}
+          {%- assign href = '#' | append: popupid -%}
+        {% endif %}
+      {% endif %}
+      {% if btn != blank and href != blank %}
+        <a href="{{ href }}" class="btn{% if popup != blank %} mp-inline{% endif %}">
+          {{ btn }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

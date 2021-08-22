@@ -1,0 +1,8 @@
+{% capture image_size %}{{ settings.logo_max_width }}x{% endcapture %}
+<div>
+  <img src="{{ settings.logo | img_url: image_size }}"
+       srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+       alt="{{ settings.logo.alt | default: shop.name }}"
+       itemprop="logo">
+</div>
+<span class="visually-hidden">{{ shop.name }}</span>

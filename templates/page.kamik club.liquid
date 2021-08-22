@@ -1,0 +1,15 @@
+{% if page.content != blank %}
+  <div class="container section-push">
+    <div class="row justify-content-center">
+      <article class="col-xxl-30 col-lg-40 col-md-50 rte text-center">
+        {{ page.content }}
+      </article>
+    </div>
+  </div>
+{% endif %}
+
+{% section 'page-template--kamik-club-lead' %}
+
+{% section 'page-template--kamik-club-blog' %}  
+
+{% section 'feature-row--kamik-club' %}

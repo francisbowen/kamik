@@ -1,0 +1,145 @@
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ shop.url }}{{ article.url }}"
+    },
+    "headline": "{{ article.title }}",
+    "image": [
+      "https:{{ article.image.src | img_url: 'original' }}"
+    ],
+    "datePublished": "{{ article.published_at }}",
+    "dateModified": "{{ article.published_at | date: "%Y-%m-%dT%H:%M:%SZ" }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ article.author }}"
+    },
+     "publisher": {
+      "@type": "Organization",
+      "name": "{{ shop.name }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https:{{ settings.logo | img_url: 'original' }}"
+      }
+    },
+    "description": "{{ article.excerpt_or_content | strip_html | truncatewords: 100 | escape }}"
+  }
+</script>
+
+<article id="article-single" itemscope itemtype="http://schema.org/Article">
+  
+  {%- assign article_content_parts = article.content | split: '<h6>' -%}
+  {% for article_content_part in article_content_parts %}
+    {% unless article_content_part contains '</h6>' %}
+  	  {% render 'article-content', content: article_content_part %}
+    {% else %}
+      {%- assign article_part_split = article_content_part | split: '</h6>' -%}
+  	  {%- assign article_part_type = article_part_split[0] | downcase -%}
+      {% case article_part_type %}
+        {% when 'image left' or 'image right' or 'image full' %}
+          {% render 'article-image', align: article_part_type, content: article_part_split[1] %}
+        {% when 'collection' %}
+  		  {%- assign collection_handle = article_part_split[1] | strip_html | strip -%}
+          {% render 'collection-featured', handle: collection_handle, btn: true %}
+  		{% else %}
+          {% render 'article-content', content: article_part_split[1] %}
+      {% endcase %}
+    {% endunless %}
+  {% endfor %}
+
+</article>
+
+{% if section.settings.show_share_buttons %}
+  <div class="container section-spacing">
+    <div class="row">
+      <div class="col-60 text-center">
+        {% include 'social-sharing', share_title: article.title, share_permalink: article.url, share_image: article.image %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if blog.previous_article or blog.next_article %}
+  <div id="article-siblings" class="section-spacing">
+    <div class="container">
+      <div class="row">
+        <div class="col-60 text-center">
+          <h3 class="thin">Additional {{ blog.title }}</h3>
+        </div>
+      </div>
+      <div class="row justify-content-center row--article-siblings">
+        {% if blog.previous_article %}
+          {% capture removal_part %}{% if cart.attributes.language == "fr" %}/fr{% elsif cart.attributes.language == "de" %}/de{% endif %}/blogs/{% endcapture %}
+          {%- assign prev_article_location = blog.previous_article | remove: removal_part -%}
+          {%- assign prev_article = articles[prev_article_location] -%}
+          {% if prev_article.excerpt.size > 0 %}
+            {%- assign excerpt = prev_article.excerpt -%}
+          {% else %}
+            {%- assign excerpt = prev_article.content | strip_html | truncate: 150 -%}
+          {% endif %}
+          <div class="col-xxl-15 col-md-20">
+            {% render 'infoblock-single', url: prev_article.url, image: prev_article.image, title: prev_article.title, description: excerpt %}
+          </div>
+        {% endif %}
+        {% if blog.next_article %}
+          {% capture removal_part %}{% if cart.attributes.language == "fr" %}/fr{% elsif cart.attributes.language == "de" %}/de{% endif %}/blogs/{% endcapture %}
+          {%- assign next_article_location = blog.next_article | remove: removal_part -%}
+          {%- assign next_article = articles[next_article_location] -%}
+          {% if next_article.excerpt.size > 0 %}
+            {%- assign excerpt = next_article.excerpt -%}
+          {% else %}
+            {%- assign excerpt = next_article.content | strip_html | truncate: 150 -%}
+          {% endif %}
+          <div class="col-xxl-15 col-md-20">
+            {% render 'infoblock-single', url: next_article.url, image: next_article.image, title: next_article.title, description: excerpt %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+<script>
+  const colorThief = new ColorThief();
+  const img = document.querySelectorAll('.img_bg_find');
+  $(document).on('lazyloaded', function(e){
+    if($(e.target).hasClass('img_bg_find')){
+      const img = new Image();
+      img.addEventListener('load', function() {
+        $(e.target).closest('.article-image-align').find('span').css('background-color','rgb('+ colorThief.getColor(img)[0] +','+ colorThief.getColor(img)[1] +','+ colorThief.getColor(img)[2] +')');
+      });
+      
+      img.crossOrigin = 'Anonymous';
+      img.src = $(e.target).data('og');
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Article Settings",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

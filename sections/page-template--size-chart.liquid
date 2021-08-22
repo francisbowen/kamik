@@ -1,0 +1,125 @@
+{% for block in section.blocks %}
+  {% capture sizing_types %}
+    {{ sizing_types }}
+    <li>
+      <a class="nav-link{% if forloop.first %} active{% endif %}" id="{{ block.settings.title | handleize }}-tab" data-toggle="tab" href="#{{ block.settings.title | handleize }}" role="tab" aria-controls="{{ block.settings.title | handleize }}"{% if forloop.first %} aria-selected="true"{% endif %}>{{ block.settings.title }}</a>
+    </li>
+  {% endcapture %}
+  {% capture sizing_blocks %}
+    {% if product.tags contains block.settings.tag %}
+      {%- assign prod_type = block.settings.title -%}
+      {% capture product_specific_block %}
+        {% include 'size-chart', content: block.settings.csv, header: false %}
+      {% endcapture %}
+      {% break %}
+    {% endif %}
+    {{ sizing_blocks }}
+    <div class="tab-pane fade{% if forloop.first %} show active{% endif %}" id="{{ block.settings.title | handleize }}" role="tabpanel" aria-labelledby="{{ block.settings.title | handleize }}-tab">
+      <div class="d-md-flex">
+        {% include 'size-chart', content: block.settings.csv, header: true %}
+      </div>
+    </div>
+  {% endcapture %}
+{% endfor %}
+
+{% if request.page_type == 'product' %}
+  {% if product_specific_block != blank %}
+    <div id="size-chart" class="white-popup mfp-hide">
+      <h4 class="h5">{{ prod_type }} Sizing</h4>
+      <div class="container">
+        <div class="row">
+          <div class="col-60 rte">
+            {{ product_specific_block }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <style>
+      #shopify-section-{{ section.id }} { display: none; }
+      .swatch--size a { display: none; }
+    </style>
+  {% endif %}
+{% else %}
+  <ul class="nav sizing-tabs d-flex" id="sizingTabs" role="tablist">
+    {{ sizing_types }}
+  </ul>
+  <div class="tab-content sizing-content rte" id="sizingTabsContent">
+    {{ sizing_blocks }}
+  </div>
+{% endif %}
+
+{% javascript %}
+  $('.size-chart').on('mouseenter','.tr',function(){
+    $(this).addClass('hover');
+  }).on('mouseleave','.tr',function(){
+    $(this).removeClass('hover');
+  });
+{% endjavascript %}
+
+{% schema %}
+  {
+    "name": "Size Chart",
+    "class": "size-chart",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "csv",
+        "name": "Size Table",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Size Chart title"
+          },
+          {
+            "type": "text",
+            "id": "tag",
+            "label": "Tag to connect to Product"
+          },
+          {
+            "type": "textarea",
+            "id": "csv",
+            "label": "CSV Plain Text",
+            "info": "CSV code as formatted within a plain text editor (will have commas)"
+          },
+          {
+            "type": "radio",
+            "id": "mobile_breakdown",
+            "label": "Collapse table",
+            "options": [
+              { "value": "by_col", "label": "By column" },
+              { "value": "by_row", "label": "By row" }
+            ],
+            "default": "by_col",
+            "info": "For mobile breakdown"
+          },
+          {
+            "type": "checkbox",
+            "id": "key_both",
+            "label": "Is this a comparison table?",
+            "info": "Both first column and row should be used for labeling"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Demonstration image",
+            "info": "Optional"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link to larger image",
+            "info": "Optional"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "Text to accompany image",
+            "info": "Optional"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

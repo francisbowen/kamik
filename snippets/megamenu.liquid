@@ -1,0 +1,55 @@
+{%- assign new_px = settings.logo_max_width | plus: 30 -%}
+<div class="container">
+  <div class="row" style="padding-left: {{ new_px }}px">
+    {% for block in section.blocks %}
+      <div class="{{ block.settings.column_width }}">
+
+        {% case block.type %}
+          {% when 'megamenu_image' %}
+            {% if block.settings.column_width == 'col-10' %}
+              {%- assign image_size = '250x' -%}
+            {% elsif block.settings.column_width == 'col-20' %}
+              {%- assign image_size = '500x' -%}
+            {% elsif block.settings.column_width == 'col-30' %}
+              {%- assign image_size = '750x' -%}
+            {% elsif block.settings.column_width == 'col-40' %}
+              {%- assign image_size = '1000x' -%}
+            {% elsif block.settings.column_width == 'col-50' %}
+              {%- assign image_size = '1250x' -%}
+            {% elsif block.settings.column_width == 'col-60' %}
+              {%- assign image_size = '1500x' -%}
+            {% else %}
+              {%- assign image_size = '700x' -%}
+            {% endif %}
+            <a class="megamenu_image" href="{{ block.settings.link }}">
+              {% include 'image', file: block.settings.image, default_size: image_size %}
+              {% if block.settings.title != blank %}<h4>{{ block.settings.title }}</h4>{% endif %}
+            </a>
+
+          {% when 'megamenu_menu' %}
+            {% if block.settings.title != blank %}
+              <h4>{% if block.settings.url != blank %}<a href="{{ block.settings.url }}">{% endif %}{{ block.settings.title }}{% if block.settings.url != blank %}</a>{% endif %}</h4>
+            {% endif %}
+            {% if block.settings.linklist %}
+              <ul class="submenu_links">
+                {% for link in linklists[block.settings.linklist].links %}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            {% if block.settings.title_2 != blank %}
+              <h4>{% if block.settings.url_2 != blank %}<a href="{{ block.settings.url_2 }}">{% endif %}{{ block.settings.title_2 }}{% if block.settings.url_2 != blank %}</a>{% endif %}</h4>
+            {% endif %}
+            {% if block.settings.linklist != blank %}
+              <ul class="submenu_links">
+                {% for link in linklists[block.settings.linklist_2].links %}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+        {% endcase %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

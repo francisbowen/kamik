@@ -1,0 +1,266 @@
+<div id="geopop" class="white-popup mfp-hide mfp-with-anim">
+  <div class="row">
+    <div class="col-md-60 text-center rte">
+      <h2>{{ section.settings.title }}</h2>
+      {% if section.settings.currently_shopping != blank %}
+        {% render 'image', file: section.settings.currently_shopping, default_size: '800x', class: image-geo %}
+      {% endif %}
+      <a href="#" class="btn btn--secondary continue" data-locale="{% if shop.domain contains 'us.' %}US{% elsif shop.domain contains 'eu.' %}DE{% else %}CA{% endif %}">Continue on Current Site</a><br/><br/>
+      <p id="geo--currently">{{ section.settings.text }}</p>
+      <hr />
+      <p>Looking to ship to a different location?</p>
+      <div class="d-flex justify-content-center">
+        {% for block in section.blocks %}
+          <a href="#" class="continue {{ block.settings.code | downcase }}" data-locale="{{ block.settings.code }}">{% if block.settings.image != blank %}<img src="{{ block.settings.image | img_url: '100x' }}" alt="{{ block.settings.title | escape }}" /><br />{% endif %}{{ block.settings.title }}</a>
+          {% capture header_switcher %}{{ header_switcher }}<option value="{{ block.settings.connect }}" data-prefix="<img src=\'{{ block.settings.image_header | img_url: '100x' }}\' />" data-region="{{ block.settings.code }}"{% if forloop.first %} selected{% endif %}> {{ block.settings.title }}</option>{% endcapture %}
+          {% capture footer_switcher %}{{ footer_switcher }}<li><a class="footer-switcher {{ block.settings.code | downcase }}" href="{{ block.settings.connect }}"><img src="{{ block.settings.image_footer | img_url: '100x' }}" alt="{{ block.settings.title | escape }}" /> {{ block.settings.title }}</a></li>{% endcapture %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .continue{% if shop.domain contains 'us.' %}.us{% elsif shop.domain contains 'eu.' %}.eu{% else %}.ca{% endif %} { display: none; }
+  .footer-switcher{% if shop.domain contains 'us.' %}.us{% elsif shop.domain contains 'eu.' %}.eu{% else %}.ca{% endif %} { display: none; }
+</style>
+
+<script>
+  $(document).ready(function(){
+    $('#region_switcher').append('{{ header_switcher }}');
+    $('#footer-switcher').append('{{ footer_switcher }}');
+  });
+  
+  function postToCart(locale) {
+    $.ajax({
+      type: 'POST',
+      url: '/cart/update.js',
+      dataType: 'json',
+      data: {
+        attributes: {
+          'geoalert': locale
+        }
+      },
+      success: function(d){
+        console.log(d)                          
+      }
+    });
+  }
+
+  function cookieSet(locale) {
+    Cookies.set('geolocale', locale, { domain: '{{ shop.domain }}', expires: 30 });
+    postToCart(locale);
+  }
+
+  function openGEOpopup(el,loc,reg) {
+    $.magnificPopup.open({
+      removalDelay: 1000,
+      callbacks: {
+        close: function() {
+          if(typeof Cookies.get('geolocale') == 'undefined') {
+            switch (reg) {
+              case 'DE':
+              case 'US':
+              case 'CA':
+                cookieSet(reg);
+                break;
+              case 'none':
+                break;
+              default:
+                cookieSet('CA');
+            }
+          }
+        }
+      },
+      items: {
+        src: el,
+        type: 'inline'
+      }
+    });
+  }
+    
+  function regionCheck(region) {
+    switch (region) {
+      case '{% if shop.domain contains 'us.' %}US{% elsif shop.domain contains 'eu.' %}DE{% else %}CA{% endif %}':
+        break;
+      case 'CA':
+        window.location.href = 'https://kamik.com'+ window.location.pathname +'?locale='+ region;
+        break;
+      case 'US':
+        window.location.href = 'https://us.kamik.com'+ window.location.pathname +'?locale='+ region;
+        break;
+      case 'DE':
+        window.location.href = 'https://eu.kamik.com'+ window.location.pathname +'?locale='+ region;
+        break;
+      default:
+        window.location.href = 'https://kamik.com'+ window.location.pathname +'?locale='+ region;
+    }
+  }
+
+  function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+    for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] === sParam) {
+        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+    }
+  };
+
+  var fromus = getUrlParameter('locale'),
+      myLocale = Cookies.get('geolocale'),
+      myCartNote = {% if cart.attributes.geoalert != blank %}'{{ cart.attributes.geoalert }}'{% else %}null{% endif %};
+    
+    console.log(myLocale);
+  /* TESTING ITEMS
+  $(document).ready(function(){
+    Cookies.remove('geolocale');
+    postToCart('');
+  });
+  */
+      if (window.location.href.indexOf("myshopify") > -1) {
+     
+    } else {      
+  if(typeof fromus != 'undefined') {
+    cookieSet(fromus);
+  } else {
+    if(typeof myLocale != 'undefined') {
+      regionCheck(myLocale);
+    } else if (myCartNote != null) {
+      regionCheck(myCartNote);
+    } else {
+      $.ajax({
+        type: 'GET',
+        url: '//ipinfo.io?token=f886ab94ffe3e5',
+        dataType: 'json',
+        crossDomain: true,
+        beforeSend: function(xhr){
+          xhr.withCredentials = true;
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        success: function(response){
+          console.log(response);
+          var ipcountry = response.country;
+          switch (ipcountry) {
+            // {{ shop.domain }}
+            case '{% if shop.domain contains 'us.' %}US{% elsif shop.domain contains 'eu.' %}DE{% else %}CA{% endif %}':
+              cookieSet('{% if shop.domain contains 'us.' %}US{% elsif shop.domain contains 'eu.' %}DE{% else %}CA{% endif %}');
+              break;
+            case 'CA':
+              openGEOpopup('#geopop','ca',ipcountry);
+              break;
+            case 'US':
+              openGEOpopup('#geopop','us',ipcountry);
+              break;
+            case 'DE':
+              openGEOpopup('#geopop','eu',ipcountry);
+              break;
+            default:
+              openGEOpopup('#geopop','other',ipcountry);
+          }
+        },
+        error: function(xhr, status, error) {
+          console.log(xhr);
+        }
+      });
+    }
+  }
+    }
+  $('body').on('click', '#geopop .continue', function(e){
+    e.preventDefault();
+    var $el = $(this),
+        geo_locale = $el.data('locale');
+    cookieSet(geo_locale);
+    if(geo_locale == '{% if shop.domain contains 'us.' %}US{% elsif shop.domain contains 'eu.' %}DE{% else %}CA{% endif %}') {
+      $.magnificPopup.close();
+    } else if(geo_locale == 'CA') {
+      window.location.href = 'https://kamik.com'+ window.location.pathname +'?locale='+ geo_locale;
+    } else if(geo_locale == 'US') {
+      window.location.href = 'https://us.kamik.com'+ window.location.pathname +'?locale='+ geo_locale;
+    } else if(geo_locale == 'DE') {
+      window.location.href = 'https://eu.kamik.com'+ window.location.pathname +'?locale='+ geo_locale;
+    } else {
+      $.magnificPopup.close();
+    }
+  });
+  
+  $(document).on('shopify:section:select', function(event) {
+    if(event.detail.sectionId == 'alert-geo'){
+      openGEOpopup('#geopop','ca','none');
+    }
+  });
+  
+  $(document).on('shopify:section:deselect', function(event) {
+    if(event.detail.sectionId == 'alert-geo'){
+      $.magnificPopup.close();
+    }
+  });
+    
+</script>
+
+{% schema %}
+  {
+    "name": "Geo Alert",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "image_picker",
+        "id": "currently_shopping",
+        "label": "Currently Shopping"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text"
+      }
+    ],
+    "blocks":[
+      {
+        "name": "Regions",
+        "type": "regions",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Country Name"
+          },
+          {
+            "type": "text",
+            "id": "code",
+            "label": "Country Code",
+            "info": "2 letter ISO code, [found here](https:\/\/countrycode.org\/)"
+          },
+          {
+            "type": "text",
+            "id": "connect",
+            "label": "URL to connect to"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Country Flag"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_header",
+            "label": "Header Flag"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_footer",
+            "label": "Footer Flag"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

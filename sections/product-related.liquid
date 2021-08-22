@@ -1,0 +1,155 @@
+{% if section.settings.show_product_recommendations %}
+  {%- assign connect = false -%}
+  {%- assign connect_no = 4 -%}
+  {%- assign related_products_preset = '' -%}
+  {% for block in section.blocks %}
+    {%- assign prod_attach_handle = block.settings.prod_attach -%}
+	{% if product.handle == prod_attach_handle %}
+      {%- assign connect = true -%}
+      {% for i in (1..4) %}
+        {% capture prod_related_current %}prod_related_{{ i }}{% endcapture %}
+        {%- assign prod_related_handle = block.settings[prod_related_current] -%}
+        {% if prod_related_handle != blank %}
+          {%- assign prod_related = all_products[prod_related_handle] -%}
+          {%- assign connect_no = connect_no | minus: 1 -%}
+          {% capture related_products_preset %}
+            {{ related_products_preset }}
+            <div class="col-lg-15 col-md-30 grid-view-preset">
+              {% include 'product-card-grid', product: prod_related %}
+            </div>
+          {% endcapture %}
+        {% endif %}
+      {% endfor %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  <div class="product-recommendations" data-product-id="{{ product.id }}" data-limit="{{ connect_no }}">
+    <div class="container">
+      {% if section.settings.title != blank %}
+        <div class="row">
+          <div class="col-60 text-center">
+            <h3 class="thin section-title">{{ section.settings.title | escape }}</h3>
+          </div>
+        </div>
+      {% endif %}
+      <div class="row justify-content-center product-recommendations--row">
+        {{ related_products_preset }}
+        {% if recommendations.products_count > 0 %}
+          {% for product in recommendations.products %}
+            <div class="col-lg-15 col-md-30 grid-view-col">
+              {% include 'product-card-grid' %}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(window).load(function(){
+      if (window.matchMedia("(max-width: 767px)").matches) {
+        $('.product-recommendations--row').slick({
+          infinite: true,
+          arrows: true,
+          dots: false
+        });
+      }
+    });
+    var loadProductRecommendationsIntoSection = function() {
+      var productRecommendationsSection = document.querySelector(".product-recommendations");
+      var productRecommendationsRow = document.querySelector('.product-recommendations--row');
+      if (productRecommendationsSection === null) { return; }
+      var productId = productRecommendationsSection.dataset.productId;
+      var limit = productRecommendationsSection.dataset.limit;
+      var requestUrl = window.root_url + "/recommendations/products?section_id=product-related&limit="+limit+"&product_id="+productId;
+      var request = new XMLHttpRequest();
+      request.open("GET", requestUrl);
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 300) {
+          var container = document.createElement("div");
+          container.innerHTML = request.response;
+          var element = container.querySelector('.grid-view-item'),
+              columns = container.querySelectorAll('.grid-view-col');
+          console.log(columns);
+          for (var i = 0; i < columns.length; i++) {
+            productRecommendationsRow.appendChild(columns[i])
+          }
+          /*
+          productRecommendationsSection.parentElement.innerHTML = container.querySelector(".product-recommendations").innerHTML;
+          */
+          if(typeof(element) == 'undefined' || element == null){
+            document.getElementById('shopify-section-{{ section.id }}').style.display = 'none';
+          }
+        }
+      };
+      request.send();
+    };
+    document.addEventListener("shopify:section:load", function(event) {
+      if (event.detail.sectionId === "product-related") {
+        loadProductRecommendationsIntoSection();
+      }
+    });
+    loadProductRecommendationsIntoSection();
+  </script>
+{% else %}
+  <style>
+    #shopify-section-{{ section.id }} { display: none; }
+  </style>
+{% endif %}
+                                                      
+{% schema %}
+  {
+    "name": "Related Products",
+    "class": "product-related section-spacing",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_product_recommendations",
+        "label": "Show Product Recommendations?"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Related section title"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "related_products",
+        "name": "Specific Related",
+        "settings": [
+          {
+            "type": "product",
+            "id": "prod_attach",
+            "label": "Product to Attach to"
+          },
+          {
+            "type": "header",
+            "content": "Related Products",
+            "info": "Up to 4 available, will be programatically filled out for any remaining from the predictive Shopify related script"
+          },
+          {
+            "type": "product",
+            "id": "prod_related_1",
+            "label": "Product Related 1"
+          },
+          {
+            "type": "product",
+            "id": "prod_related_2",
+            "label": "Product Related 2"
+          },
+          {
+            "type": "product",
+            "id": "prod_related_3",
+            "label": "Product Related 3"
+          },
+          {
+            "type": "product",
+            "id": "prod_related_4",
+            "label": "Product Related 4"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

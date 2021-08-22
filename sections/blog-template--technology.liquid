@@ -1,0 +1,52 @@
+<section id="technology">
+  <article class="container">
+    <div class="row justify-content-center">
+      <div class="col-xxl-30 col-lg-40 col-md-50 rte text-center">
+        {% if section.settings.image != blank %}
+          {% render 'image', class:'feature-row__icon', file: section.settings.image, default_size: '500x', alt: section.settings.image.alt | escape %}
+        {% endif %}
+        {% if section.settings.title != blank %}<h2>{{ section.settings.title }}</h2>{% endif %}
+        {% if section.settings.content != blank %}{{ section.settings.content }}{% endif %}
+      </div>
+    </div>
+  </article>
+</section>
+
+{% paginate blog.articles by 24 %}
+  <section class="section-spacing section--blog section--technology-articles">
+    <div class="container">
+      <div id="AjaxinateContainer" class="row grid--blog">
+        {% for article in blog.articles %}
+          {% render 'technology-grid-item', url: article.url, handle: article.handle, image: article.image.src, title: article.title -%}
+        {% endfor %}          
+      </div>
+    </div>
+    {% if paginate.pages > 1 %}
+      {% include 'pagination' %}
+    {% endif %}
+  </section>
+{% endpaginate %}
+
+{% schema %}
+  {
+    "name": "Technology",
+    "class": "section-spacing section--technology section--blog",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image Above Title"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,52 @@
+{% for block in section.blocks %}
+  {% if block.settings.div_id != blank and block.settings.popup != blank %}
+    <div id="{{ block.settings.div_id }}" class="white-popup mfp-hide">
+      <div class="container">
+        <div class="row">
+          <div class="col-60 rte">
+            {{ block.settings.popup }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}
+
+<style>
+  #shopify-section-{{ section.id }} { display: none; }
+</style>
+
+{% schema %}
+  {
+    "name": "Page Modals",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "modal",
+        "name": "Modal",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Modal name"
+          },
+          {
+            "type": "text",
+            "id": "div_id",
+            "label": "Div ID",
+            "info": "Create a link with this as the href (preceeded by #) and the class mp-inline"
+          },
+          {
+            "type": "paragraph",
+            "content": "For example: <a href='#div_id' class='mp-inline'>Link Here</a>"
+          },
+          {
+            "type": "textarea",
+            "id": "popup",
+            "label": "Modal content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

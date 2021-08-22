@@ -1,0 +1,50 @@
+<aside class="page-sidebar">
+  {% for block in section.blocks %}
+    <nav class="page-sidebar--single">
+      <h3>{{ block.settings.title }}</h3>
+      <ul>
+        {% for link in linklists[block.settings.quick_links].links %}
+          <li{% if page.url == link.url %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% if page.url == link.url %}
+            {% capture page_script %}
+              $(document).ready(function(){
+              $('.header-image--text').find('h1').text('{{ block.settings.title }}');
+              });
+            {% endcapture %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+  {% endfor %}
+</aside>
+
+<script>
+  {{ page_script }}
+</script>
+
+{% schema %}
+  {
+    "name": "Page Sidebar",
+    "class": "col-lg-18 section-push",
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "sidebar_nav",
+        "name": "Sidebar Navigation",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "link_list",
+            "id": "quick_links",
+            "label": "Linklist to use"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

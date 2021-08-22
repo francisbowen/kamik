@@ -1,0 +1,26 @@
+{% if section.settings.title %}<h2>{{ section.settings.title }}</h2>{% endif %}
+{% if section.settings.subheading %}<h4>{{ section.settings.subheading }}</h4>{% endif %}
+{{ section.settings.text }}
+
+{% schema %}
+  {
+    "name": "About Us - Content",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text"
+      }
+    ]
+  }
+{% endschema %}

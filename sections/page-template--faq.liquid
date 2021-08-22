@@ -1,0 +1,59 @@
+{% if section.settings.image != blank %}
+  <div id="faqImage" class="jarallax" data-jarallax data-speed="0.85">
+    {% include 'image', file: section.settings.image, default_size: '1500x400', class: 'jarallax-img' %}
+  </div>
+{% endif %}
+<div class="accordion accordion--faq" id="faqAccordion">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'text' %}
+        {% render 'accordion-block', cardclass: 'description_part', title: block.settings.title, content: block.settings.text, accordion_id: '#faqAccordion' %}
+      {% when 'heading' %}
+  		<div class="accordion-heading">
+          <h4>{{ block.settings.title }}</h4>
+        </div>
+    {% endcase %}
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "FAQs",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Intro Image"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "heading",
+        "name": "Heading",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Section Heading"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "FAQ Row",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading"
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

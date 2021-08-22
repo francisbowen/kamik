@@ -1,0 +1,58 @@
+{% if limit == blank %}{%- assign limit = 3 -%}{% endif %}
+{% if column_title == blank %}{%- assign column_title = 'col-xl-15 col-lg-18' -%}{% endif %}
+{% if column == blank %}{%- assign column = 'grid__item col-xl-15 col-lg-14 col-md-20 col-sm-30' -%}{% endif %}
+{% if size == blank %}{%- assign size = '1000x' -%}{% endif %}
+<div class="container-fluid{% if mobile_hide %} d-none d-lg-block{% endif %}">
+
+  {%- assign collection = collections[handle] -%}
+
+  <div class="grid--view-items row justify-content-center">
+    <div class="{{ column_title }}">
+      <div class="d-flex align-items-center justify-content-center grid--view-items-content">
+        <div class="grid--view-items-title">
+          <h2>{% if title != blank %}{{ title | escape }}{% else %}{{ collection.title }}{% endif %}</h2>
+          {%- assign subhead_check = collection.description | slice: 0, 3 -%}
+          {% if subhead_check contains 'h5' %}
+            {%- assign subtitle_text_split = collection.description | split: '</h5>' -%}
+            {%- assign subtitle = subtitle_text_split[0] | remove_first: '<h5>' -%}
+          {% endif %}
+          {% if content != blank or subtitle != blank %}
+            <p>{% if content != blank %}{{ content }}{% else %}{{ subtitle }}{% endif %}</p>
+          {% endif %}
+          {% if btn %}
+            <a href="{{ collection.url }}" class="btn btn--secondary">
+              {% if btn_text != blank %}
+                {{ btn_text }}
+              {% else %}
+                {{ 'collections.general.view_all' | t }}
+              {% endif %}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% for product in collection.products limit: limit %}
+      <div class="grid__item {{ column }}">
+        {% render 'product-card-grid', product: product, grid_image_width: image_size, title_only: true %}
+      </div>
+    {% else %}
+      {% for i in (1..product_limit) %}
+        <div class="grid__item {{ column }}">
+          <div class="grid-view-item">
+            <a href="#" class="grid-view-item__link">
+              <div class="grid-view-item__image">
+                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="h4 grid-view-item__title">{{ 'homepage.onboarding.product_title' | t }}</div>
+              <div class="grid-view-item__meta">
+                {% include 'product-price' %}
+              </div>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+</div>

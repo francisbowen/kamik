@@ -1,0 +1,7 @@
+{% unless linklists[settings.main_linklist] == blank %}
+  <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+    {% include 'icon-hamburger' %}
+    {% include 'icon-close' %}
+    <span class="icon__fallback-text">{{ 'layout.navigation.toggle' | t }}</span>
+  </button>
+{% endunless %}

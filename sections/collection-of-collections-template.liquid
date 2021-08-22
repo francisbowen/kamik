@@ -1,0 +1,227 @@
+{% for block in section.blocks %}
+  {% if block.settings.collection == collection.handle %}
+    {% case block.settings.colwidth %}
+      {% when '2' %}
+        {%- assign grid_item_width = 'col-lg-30 col-md-30' -%}
+        {%- assign collection_image_size = '1200x' -%}
+      {% when '3' %}
+        {%- assign grid_item_width = ',col-md-20 col-30' -%}
+        {%- assign collection_image_size = '900x' -%}
+      {% when '4' %}
+        {%- assign grid_item_width = 'col-lg-15 col-md-20 col-30' -%}
+        {%- assign collection_image_size = '600x' -%}
+    {% endcase %}
+	{% capture callout_block %}
+	  {%- assign collect_handle = block.settings.collection_callout -%}
+	  {%- assign collect = collections[collect_handle] -%}
+      <div class="col-md-30">
+        <div class="callout_image_contain">
+          <div role="img"
+               class="callout_image lazyload"
+               data-bg="{{ block.settings.image_callout | img_url: '300x' }}"
+               data-bgset="{% render 'image-bg', image: block.settings.image_callout %}"
+               data-sizes="auto"
+               data-og="{{ block.settings.image_callout | img_url: '2000x' }}"
+               data-parent-fit="cover"
+               style="background-image: url('{{ block.settings.image_callout  | img_url: '300x' }}');">
+            {%- assign collection_title_split = collection.title | split: ':' -%}
+            {% for collection_title_single in collection_title_split %}
+              {% if forloop.last %}
+                <h1>{{ collection_title_single | strip }}</h1>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+	  <div class="col-md-30">
+        <div class="callout_description">
+          <h2 class="thin">{{ block.settings.callout_title }}</h2>
+          {{ block.settings.content }}
+          <a class="btn btn--secondary" href="{{ collect.url }}">{{ block.settings.btn }}</a>
+        </div>
+        <div class="row callout_products">
+          <div class="col-60 callout_products--slider">
+            {% for product in collect.products limit: 10 %}
+              <div class="col-lg-30 grid-view-item--single">
+                {% include 'product-card-grid', grid_image_width: image_size, title_only: true %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endcapture %}
+	{% capture nav_block %}
+      {%- assign nav_block_index = 1 -%}
+	  {%- assign nav_block_title = block.settings.child_title -%}
+      {% for link in linklists[block.settings.child_collections].links %}
+		{% if link.type == 'collection_link' %}
+          {%- assign collection = link.object -%}
+          {% if nav_block_index != 5 %}
+            <div class="{{ grid_item_width }}">
+          {% endif %}
+            {% if nav_block_index == 4 or nav_block_index == 5 %}
+              <div class="row shorter_row">
+                <div class="col-60">
+            {% endif %}
+            {% include 'collection-grid-item' %}
+            {% if nav_block_index == 4 or nav_block_index == 5 %}
+                </div>
+              </div>
+            {% endif %}
+          {% if nav_block_index != 4 %}
+            </div>
+          {% endif %}
+          {%- assign nav_block_index = nav_block_index | plus: 1 -%}
+        {% endif %}
+      {% endfor %}
+    {% endcapture %}
+	{% break %}
+  {% endif %}
+{% endfor %}
+
+{% if callout_block != blank %}
+  <div class="callout_blocks">
+    <div class="container">
+      <div class="row">
+        {{ callout_block }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if nav_block != blank %}
+<div class="callout_blocks callout_blocks--nav">
+  <div class="container">
+    <div class="row">
+      <div class="col-60 section-header text-center">
+        <h3>{{ nav_block_title }}</h3>
+      </div>
+    </div>
+    <nav class="row justify-content-center" role="navigation">
+      {{ nav_block }}
+    </nav>
+  </div>
+</div>
+{% endif %}
+
+{% if callout_block == blank and nav_block == blank %}
+  <style>#shopify-section-{{ section.id }} { display: none; }</style>
+{% endif %}
+
+<script>
+  $(document).ready(function(){
+    $('.callout_products--slider').slick({
+      infinite: false,
+      slidesToShow: 2,
+      slidesToScroll: 2,
+      arrows: false,
+      dots: true,
+      responsive: [
+        {
+          breakpoint: 769,
+          settings: {
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false
+          }
+        },
+        {
+          breakpoint: 577,
+          settings: {
+            infinite: true,
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            arrows: true,
+            dots: false
+          }
+        }
+      ]
+    });
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Collection of Collections",
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Collection Callout & Nav",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Attached Collection"
+          },
+          {
+            "type": "header",
+            "content": "Collection Callout"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_callout",
+            "label": "Collection Callout image"
+          },
+          {
+            "type": "collection",
+            "id": "collection_callout",
+            "label": "Collection Callout referenced"
+          },
+          {
+            "type": "text",
+            "id": "callout_title",
+            "label": "Collection Callout title"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Collection Callout content"
+          },
+          {
+            "type": "text",
+            "id": "btn",
+            "label": "Collection Callout button text"
+          },
+          {
+            "type": "header",
+            "content": "Child Collections"
+          },
+          {
+            "type": "text",
+            "id": "child_title",
+            "label": "Menu of Collections title",
+            "default": "Shop by Style"
+          },
+          {
+            "type": "link_list",
+            "id": "child_collections",
+            "label": "Menu of Collections"
+          },
+          {
+            "type": "select",
+            "id": "colwidth",
+            "label": "Column Width",
+            "options": [
+              {
+                "value": "4",
+                "label": "1/4"
+              },
+              {
+                "value": "3",
+                "label": "1/3"
+              },
+              {
+                "value": "2",
+                "label": "1/2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

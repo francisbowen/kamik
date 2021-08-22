@@ -1,0 +1,601 @@
+<!-- canadatest -->
+{% include 'netterms-check' %}
+<div class="header-image cartheader{% if section.settings.image != blank %} image-bar__overlay jarallax{% else %} minimal{% endif %}"{% if section.settings.image != blank %} data-jarallax data-speed="0.75"{% endif %}>
+  <div class="header-image--text">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-30">
+          <h1>{{ 'cart.general.title' | t }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container section-spacing cart-container" data-section-id="{{ section.id }}" data-section-type="cart-template">
+
+  {% if cart.item_count > 0 %}
+  {% unless netavail %}
+    {% if settings.show_free_shipping %}
+      <div class="free-shipping-text">
+        {% assign threshold = settings.free_shipping_threshold | times: 100 %}
+        {% if threshold > cart.total_price %}
+          {% assign threshold_left_money = threshold | minus: cart.total_price | money %}
+          {% assign threshold_text = settings.free_shipping_left_text | replace: '|amount|', threshold_left_money %}
+          {{ threshold_text }}
+        {% else %}
+          {{ settings.free_shipping_met_text }}
+        {% endif %}
+      </div>
+    {% endif %}
+  {%endunless%}
+    <form action="/cart" method="post" novalidate class="cart shopping-cart row">
+      <div class="col-lg-40">
+        <table>
+
+          {% assign cart_total = 0 %}
+          {% assign cart_items = cart.items | reverse %}
+          {% assign item_key_array = '' %}
+          {% for item in cart_items %}
+            {% assign calendar_date = false %}
+            {% assign preorder = false %}
+            {% for p in item.properties %}
+              {% unless p.last == blank %}
+                {% if p.first == 'PREORDER' %}
+                  {% assign preorder = true %}
+                  {% if p.last == 'true' %}
+                    {% assign calendar_date = true %}
+                  {% endif %}
+                  {% break %}
+                {% endif %}
+              {% endunless %}
+            {% endfor %}
+
+            {% assign item_key = item.key %}
+            {% assign item_image = item.image %}
+            {% assign item_url = item.url %}
+            {% assign item_product_title = item.product.title %}
+            {% assign item_title = item.variant.title %}
+            {% assign item_sku = item.sku %}
+            {% assign item_isbn = item.variant.barcode %}
+            {% capture item_options %}
+              {% unless item.product.has_only_default_variant %}
+                {% for option in item.options_with_values %}
+                  <p><strong>{{ option.name }}:</strong> {{ option.value }}</p>
+                {% endfor %}
+              {% endunless %}
+            {% endcapture %}
+            {% assign item_qty = item.quantity %}
+            {% assign product_id = item.product_id %}
+            {% assign variant_id = item.variant_id %}
+            {% assign item_sku = item.sku %}
+            {% assign item_price = item.price %}
+            {% assign item_final_price = item.final_price %}
+          	{% if netavail %}
+          	{% assign item_price = item.properties.NETPRICE %}
+            {% assign item_final_price = item.properties.NETPRICE %}
+          	{% endif%}
+            {% if netavail and preorder %}
+              {% for p in item.properties %}
+                {% unless p.last == blank %}
+                  {% if p.first == 'Product Handle' %}
+                    {% assign product_handle = p.last %}
+                    {% assign preorder_product = all_products[p.last] %}
+                  {% endif %}
+                  {% if p.first == 'Variant ID' %}
+                    {% assign variant_id = p.last | times: 1 %}
+                  {% endif %}
+                  {% if p.first == 'NETPRICE' %}
+                    {% assign variant_netprice = p.last | times: 1 %}
+                  {% endif %}          
+                  {% if p.first == 'Product Color' %}
+                    {% assign variant_color = p.last %}
+                  {% endif %}
+          			{% capture var-price%}{{variant_id}}-{{variant_netprice}}{%endcapture%}
+                {% endunless %}
+              {% endfor %}          
+
+          
+          
+          
+          
+          
+          
+          
+          
+              {% assign connected = '' %}
+              {% assign item_key_array = '' %}
+              {% assign net_combined_cost = 0 %}
+              {% for similar_item in cart_items %}
+                {% assign product_here = false %}
+                {% assign color_here = false %}
+                {% assign show_row = true %}
+                {% for p in similar_item.properties %}
+                  {% if p.first == 'Product Handle' %}
+                    {% if p.last == product_handle %}
+                      {% assign product_here = true %}
+                      {% assign connect_product = all_products[p.last] %}
+                    {% endif %}
+                  {% endif %}
+                  {% if p.first == 'Variant ID' %}
+                    {% assign connect_variant_id = p.last | times: 1 %}
+                  {% endif %}
+                  {% if p.first == 'NETPRICE' %}
+                    {% assign connect_variant_price = p.last | times: 1 %}
+                  {% endif %}
+                  {% if p.first == 'Product Color' %}
+                    {% if p.last == variant_color %}
+                      {% assign color_here = true %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                {% if product_here and color_here %}
+                  {% assign item_key_array = item_key_array | join: ',' | append: ',' | append: similar_item.key | split: ',' %}
+                  {% for connect_variant in connect_product.variants %}
+                    {% if connect_variant.id == connect_variant_id %}
+                      {% assign net_combined_total = connect_variant.price | times: similar_item.quantity %}
+                      {% if netavail %}
+          				{% assign net_combined_total = connect_variant_price |times:1| times: similar_item.quantity %}
+                      {% endif%}          
+                      {% assign net_combined_cost = net_combined_cost | plus: net_combined_total %}
+                      {% capture connected %}
+                        {{ connected }}
+                        <div class="net-sizes--single">
+                          {% unless preorder_product.has_only_default_variant %}
+                            {% if connect_variant.option1 != blank %}
+                              {% if connect_product.options_with_values[0].name == 'Size' or connect_product.options_with_values[0].name == 'Taille' or connect_product.options_with_values[0].name == 'Größe' %}
+                                <label class="d-flex justify-content-between net-sizes">
+                                  <span class="align-self-center">{{ connect_variant.option1 }}</span>
+                                  <input id="cart-qty--{{ similar_item.key }}" type="number" class="cart-prod-qty" data-item="{{ similar_item.key }}" data-price="{% if netavail %}{{connect_variant.properties.NETPRICE}}{%else%}{{ connect_variant.price }}{%endif%}" value="{{ similar_item.quantity | times: 1 }}" max="{{ connect_variant.metafields.global.b2b_qty }}" />
+                                </label>
+                                <input id="cart-detail--{{ similar_item.key }}" class="d-none integro-passthrough" type="text" name="product[all]" value="{{ similar_item.quantity }},{{ connect_product.title }} :: {{ connect_variant.title }} :: {{ connect_variant.barcode }} :: {{ connect_variant.sku }},{%if netavail%}{{ connect_variant_price | money_without_currency | replace: ',', '.' }}{%else%}{{ connect_variant.price | money_without_currency | replace: ',', '.' }}{% endif%},{{ connect_variant.id }},{{ connect_product.id }}">               
+                                {% if connect_variant_price < 1 %}
+                                  {% capture items_to_remove %}{{ items_to_remove }},{{ similar_item.key }}{% endcapture %}
+                                {% endif %}
+                              {% endif %}
+                            {% endif %}
+                            {% if connect_variant.option2 != blank %}
+                              {% if connect_product.options_with_values[1].name == 'Size' or connect_product.options_with_values[1].name == 'Taille' or connect_product.options_with_values[1].name == 'Größe' %}
+                                <label class="d-flex justify-content-between net-sizes">
+                                  <span class="align-self-center">{{ connect_variant.option2 }}</span>
+                                  <input id="cart-qty--{{ similar_item.key }}" type="number" class="cart-prod-qty" data-item="{{ similar_item.key }}" data-price="{% if netavail %}{{connect_variant.properties.NETPRICE}}{%else%}{{ connect_variant.price }}{%endif%}" value="{{ similar_item.quantity | times: 1 }}" max="{{ connect_variant.metafields.global.b2b_qty }}" />
+                                </label>
+                                <input id="cart-detail--{{ similar_item.key }}" class="d-none integro-passthrough" type="text" name="product[all]" value="{{ similar_item.quantity }},{{ connect_product.title }} :: {{ connect_variant.title }} :: {{ connect_variant.barcode }} :: {{ connect_variant.sku }},{%if netavail%}{{ connect_variant_price | money_without_currency | replace: ',', '.' }}{%else%}{{ connect_variant.price | money_without_currency | replace: ',', '.' }}{% endif%},{{ connect_variant.id }},{{ connect_product.id }}">               
+                                {% if connect_variant_price < 1 %}
+                                  {% capture items_to_remove %}{{ items_to_remove }},{{ similar_item.key }}{% endcapture %}
+                                {% endif %}
+                              {% endif %}
+                            {% endif %}
+                            {% if connect_variant.option3 != blank %}
+                              {% if connect_product.options_with_values[2].name == 'Size' or connect_product.options_with_values[2].name == 'Taille' or connect_product.options_with_values[2].name == 'Größe' %}
+                                <label class="d-flex justify-content-between net-sizes">
+                                  <span class="align-self-center">{{ connect_variant.option3 }}</span>
+                                  <input id="cart-qty--{{ similar_item.key }}" type="number" class="cart-prod-qty" data-item="{{ similar_item.key }}" data-price="{% if netavail %}{{connect_variant.properties.NETPRICE}}{%else%}{{ connect_variant.price }}{%endif%}" value="{{ similar_item.quantity | times: 1 }}" max="{{ connect_variant.metafields.global.b2b_qty }}" />
+                                </label>
+                                <input id="cart-detail--{{ similar_item.key }}" class="d-none integro-passthrough" type="text" name="product[all]" value="{{ similar_item.quantity }},{{ connect_product.title }} :: {{ connect_variant.title }} :: {{ connect_variant.barcode }} :: {{ connect_variant.sku }},{%if netavail%}{{ connect_variant_price | money_without_currency | replace: ',', '.' }}{%else%}{{ connect_variant.price | money_without_currency | replace: ',', '.' }}{% endif%},{{ connect_variant.id }},{{ connect_product.id }}">               
+                                {% if connect_variant_price < 1 %}
+                                  {% capture items_to_remove %}{{ items_to_remove }},{{ similar_item.key }}{% endcapture %}
+                                {% endif %}
+                              {% endif %}
+                            {% endif %}
+                          {% endunless %}
+                        </div>
+                      {% endcapture %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+          
+          
+          
+          
+          
+          
+          
+          
+
+              {% for preorder_variant in preorder_product.variants %}
+
+                {% if preorder_variant.id == variant_id %}
+                  {% assign item_image = preorder_variant.image %}
+                  {% assign item_url = preorder_variant.url %}
+                  {% assign item_title = preorder_variant.title %}
+                  {% capture item_options %}
+                    {% unless preorder_product.has_only_default_variant %}
+                      {% if preorder_variant.option1 != blank %}
+                        <p><strong>{{ preorder_product.options_with_values[0].name }}:</strong> {{ preorder_variant.option1 }}</p>
+                      {% endif %}
+                      {% if preorder_variant.option2 != blank %}
+                        <p><strong>{{ preorder_product.options_with_values[1].name }}:</strong> {{ preorder_variant.option2 }}</p>
+                      {% endif %}
+                      {% if preorder_variant.option3 != blank %}
+                        <p><strong>{{ preorder_product.options_with_values[2].name }}:</strong> {{ preorder_variant.option3 }}</p>
+                      {% endif %}
+                    {% endunless %}
+                  {% endcapture %}
+                  {% assign variant_id = preorder_variant.id %}
+                  {% assign item_sku = preorder_variant.sku %}
+          			
+                  {% assign item_price = preorder_variant.price %}
+          			{% if netavail %}
+          				{% assign item_price = variant_netprice %}
+          			{% endif%}
+                  {% assign item_final_price = item_price | times: item_qty %}
+                  {% assign item_sku = preorder_variant.sku %}
+                  {% assign item_isbn = preorder_variant.barcode %}
+                  {% assign cart_total = cart_total | plus: item_final_price %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+              {% assign item_product_title = preorder_product.title %}
+              {% assign product_id = preorder_product.id %}
+            {% endif %}
+
+          {% if item_key_array == '' %}
+            {% assign show_row = true %}
+          {% elsif item_key_array[1] == item.key %}
+            {% assign show_row = true %}
+          {% else %}
+            {% assign show_row = false %}
+          {% endif %}
+
+          
+            <tr class="cart__row line{{ forloop.index }} cart-flex{% unless show_row %} hide{% endunless %}">
+              <td class="cart__image-wrapper">
+                <a href="{{ item_url }}">
+                  {% include 'image', class:'cart__image', file: item_image, default_size: '100x', alt: item_product_title | escape %}
+                </a>
+              </td>
+              <td class="cart__meta small--text-left">
+                <div class="list-view-item__title text-uppercase">
+                  <a href="{{ item_url }}" class="h5">
+                    {{ item_product_title }}
+                  </a>
+                </div>
+
+                <div class="cart__meta-text">
+                  {% if netavail and preorder and show_row %}
+                    <div class="net-details">
+                      <p><strong><ly-as-101210>Color:</ly-as-101210></strong><br />{{ variant_color }}</p>
+                      <p><strong><ly-as-101211>Style No:</ly-as-101211></strong><br />{% assign sku_parts = item_sku | split: '-' %}{{ sku_parts[0] }}</p>
+                      <p><strong><ly-as-101212>Unit Price:</ly-as-101212></strong><br />{{item_price | money}}</p>
+                    </div>
+                  {% else %}
+                    {{ item_options }}
+                  {% endif %}
+                </div>
+
+                {% unless netavail and preorder %}
+                  <small class="d-none d-md-block">
+                    <a href="/cart/change?id={{ item_key }}&amp;quantity=0" data-itemid="{{ item_key }}" class="cart__remove">{{ 'cart.general.remove' | t }}</a>
+                  </small>
+                {% endunless %}
+              </td>
+
+              <td class="cart__update-wrapper text-right">
+                {% if netavail and preorder %}
+                  {% if show_row %}
+                    <div class="net-qty">
+                      <p class="d-flex justify-content-between"><strong><ly-as-101213>Size/Qty:</ly-as-101213></strong></p>
+                      {{ connected }}
+                    </div>
+                  {% endif %}
+                {% else %}
+                  <a href="/cart/change?id={{ item_key }}&amp;quantity=0" class="btn btn--small btn--secondary cart__remove d-md-none" data-itemid="{{ item_key }}">{{ 'cart.general.remove' | t }}</a>
+                  <div class="cart__qty">
+                    <select name="updates[{{ item.id }}]" class="cart-prod-qty pretty-dropdown" data-item="{{ item_key }}">
+                     {% if netavail %} {% for i in (1..20) %}
+                      <option value="{{ i }}" {% if item_qty == i %}
+                              selected
+                              {% endif %}>{{ i }}</option>
+                      {% endfor %}
+                      {%else%}
+                      {% for i in (1..5) %}
+                      <option value="{{ i }}" {% if item_qty == i %}
+                              selected
+                              {% endif %}>{{ i }}</option>
+                      {% endfor %}
+                      {%endif%}
+                    </select>
+                  </div>
+                {% endif %}
+              </td>
+              <td class="text-right orignal-total-price">
+                {% if net_combined_cost > 0 %}{{ net_combined_cost | money }}{% else %}{{ item_final_price | money }}{% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+
+        {%if netavail %}
+        	{% if dropship %}
+        		{% assign location = "/collections/all" %}
+        	{%endif%}
+        	{%if preorder %}
+        		{% assign location = "/collections/all" %}
+        	{% endif%}
+        	{%if cart.attributes.netneed == 'net_now' %}
+        		{% assign location = "/collections/all" %}
+        	{%endif%}
+        {%else%}
+        	{% assign location = "/collections/all" %}        
+        {%endif%}
+        <a class="btn" href="{{location}}"><ly-as-101214>Continue Shopping</ly-as-101214></a>
+      </div>
+      <div class="col-lg-20">
+        <footer class="cart__footer">
+          {% if section.settings.cart_notes_enable %}
+            <div class="col-md-30 cart-note">
+              <label for="CartSpecialInstructions" class="cart-note__label small--text-center">{{ 'cart.general.note' | t }}</label>
+              <textarea name="note" id="CartSpecialInstructions" class="cart-note__input">{{ cart.note }}</textarea>
+            </div>
+          {% endif %}
+          <div class="text-right small--text-center{% if section.settings.cart_notes_enable %} col-md-30{% else %} col{% endif %}">
+            <div>
+              <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
+              <span class="cart__subtotal cart-subtotals">{% if cart_total > 0 %}{{ cart_total | money }}{% else %}{{ cart.total_price | money }}{% endif %}</span>
+            </div>
+            {% unless netavail %}
+              {% if cart.total_discounts > 0 %}
+                <div class="cart__savings">
+                  {{ 'cart.general.savings' | t }}
+                  <span class="cart__savings-amount">{{ cart.total_discounts | money }}</span>
+                </div>
+              {% endif %}
+            {% endunless %}
+            {% if netavail and preorder %}
+              {% assign sold_to = customer.metafields.global.sold_to %}
+              {% assign ship_tos = customer.metafields.global.ship_to | split: '||' %}
+              <input class="d-none" type="text" name="customer[id]" value="{{ customer.id }}">
+            	<div class="row bbfields">
+                  <style>
+                    .bbfields label{font-size:12px;text-align:left;}
+                  </style>
+                  
+            <div class="col-md-60 billing-address netterms-extra">
+                <label for="customer-shipto-address"><ly-as-101215>Ship to Address</ly-as-101215></label>
+                <select id="customer-shipto-address" name="customer[ship_to_address_line]" class="bill_to">
+                  <option value="Please Select" disabled selected><ly-as-101216>Please Select Address</ly-as-101216></option>
+                  {% for address in customer.addresses %}
+                  {%assign adpart = address.company | split:"ship_to:" %}
+                  {% assign adsfinal = adpart[1] | split:"||" %}
+                  {%capture addyfin%}{{address.address1}} {{address.address2}}||{{address.city}}||{{address.province}}||{{address.zip}}||{{address.country}}{%endcapture%}
+                    <option data-account="{{adsfinal[0]}}" data-ship="{{adsfinal[1] | remove: "sold_to:"}}" value="{{addyfin}}">{{addyfin | replace: "||"," "}}</option>
+                  {% endfor %}
+
+                </select>
+              </div>
+                  <script>
+                    $( document ).ready(function() {
+                      var dacc = $('#customer-shipto-address option:selected').data( "account" ),
+                        dship = $('#customer-shipto-address option:selected').data( "ship" );
+                    $('#customer-billing-address').val(dacc);
+                    $('#customer-shipping-address').val(dship);
+                      });
+                    
+                  $( "#customer-shipto-address" ).change(function() {
+                    var dacc = $('#customer-shipto-address option:selected').data( "account" ),
+                        dship = $('#customer-shipto-address option:selected').data( "ship" );
+                    $('#customer-billing-address').val(dacc);
+                    $('#customer-shipping-address').val(dship);
+                  });
+                  </script> 
+                  
+              <div class="col-md-30 billing-address netterms-extra hidden" style="display:none;">
+                <label for="customer-billing-address"><ly-as-101217>Account Number</ly-as-101217></label>
+                <input id="customer-billing-address" name="customer[bill_to_address]" class="bill_to" value""/>
+              </div>
+                  
+              <div class="col-md-30 shipping-address netterms-extra hidden" style="display:none;">
+                <label for="customer-shipping-address"><ly-as-101218>Shipping Number</ly-as-101218></label>
+                <input id="customer-shipping-address" name="customer[ship_to_address]" class="bill_to" />
+              </div>
+
+                <div class="col-md-30 purchase-order-no netterms-extra dp1">
+                  <label for="datepicker"><ly-as-101219>Start Ship</ly-as-101219></label>
+                  <input id="datepicker" name="customer[ship_by]" readonly="readonly" />
+                </div>
+
+                <div class="col-md-30 purchase-order-no netterms-extra dp2">
+                  <label for="datepicker2"><ly-as-101220>Cancel Date</ly-as-101220></label>
+                  <input id="datepicker2" name="customer[cancel_by]" readonly="readonly" />
+                </div>  
+            
+              <div class="col-md-60 purchase-note netterms-extra">
+                <label for="purchase-note"><ly-as-101221>Comments to Kamik</ly-as-101221></label>
+                <input id="purchase-note" name="customer[note]" style="width:100%;" type="text" />
+              </div>            
+
+              <div class="col-md-60 purchase-order-no actualpo netterms-extra">
+                <label for="purchase-order-no"><ly-as-101222>PO Number* (Required)</ly-as-101222></label>
+                <input id="purchase-order-no" name="customer[purchase_order_no]" type="text" />
+              </div>
+            </div>
+            {% else %}
+              <div class="cart__shipping">{{ 'cart.general.shipping_at_checkout' | t }}</div>
+            {% endif %}
+            <input type="submit" name="checkout" {% if dropship %}{%unless preorder %}{% unless cart.attributes.netneed == 'net_now'%} carturl="{{shop.url}}/cart/{% for item in cart.items%}{{item.variant.id}}:{{item.quantity}}{% unless forloop.last%},{%endunless%}{%endfor%}" {%endunless%}{%endunless%}{%endif%} class="btn btn--small-wide{% if dropship %}{%unless preorder %}{% unless cart.attributes.netneed == 'net_now'%} dropcart {%endunless%}{%endunless%}{%endif%}{% if netavail and preorder %} netterms-checkout{% endif %}" value="{{ 'cart.general.checkout' | t }}">
+            <div class="interror" style="color:red;"></div>
+          </div>
+        </footer>
+      </div>
+      {%if netavail %}
+      	<input id="cart-json" class="d-none integro-passthrough" type="text" name="cart[json]" value="">
+      <input id="cart-json" class="d-none integro-passthrough" type="text" name="cart[reorderdisc]" value="{{reorder_discount_amt }}">
+      <script>
+       $.ajax({
+        url: '/cart.js',
+        dataType: 'json',
+        success: function(data){
+          $('#cart-json').val(JSON.stringify(data));
+        }
+      });
+      </script>
+      {%endif%}
+    </form>
+  {% else %}
+    <div class="empty-page-content text-center">
+      <h1>{{ 'cart.general.title' | t }}</h1>
+      <p>{{ 'cart.general.empty' | t }}</p>
+      <a href="/" class="btn btn--has-icon-after">{{ 'general.404.link' | t }}{% include 'icon-arrow-right' %}</a>
+    </div>
+  {% endif %}
+</div>
+
+<div id="removal_items" class="white-popup mfp-hide">
+  <div class="container">
+    <div class="row">
+      <div class="col-60 text-center">
+        <h2>{{ section.settings.b2b_error_title }}</h2>
+        {{ section.settings.b2b_error_content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if netavail and preorder %}
+  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js" defer="defer"></script>
+  <script>
+    $('.shopping-cart').on('change','#same-as-billing', function(){
+      $(this).prop('checked') == true ? $('.shipping-address').addClass('hidden').find('select').attr('disabled',true) : $('.shipping-address').removeClass('hidden').find('select').attr('disabled',false);
+    });
+
+    $('.shopping-cart').on('change','#customer-billing-address', function(){
+      var $checker = $(this).closest('.shopping-cart').find('#same-as-billing');
+      $checker.prop('checked') == true ? $('#customer-shipping-address').val($('#customer-billing-address').val()).trigger('change') : null;
+    });
+    $(document).ready(function(){
+        
+      {% if items_to_remove != blank %}
+        $.magnificPopup.open({
+          type: 'inline',
+          items: {
+            src: '#removal_items' 
+          },
+          callbacks: {
+            close: function() {
+              function removeItems(items) {
+                var itemsProcessed = '{{ items_to_remove | remove_first: ',' }}';
+                var itemsArray = itemsProcessed.split(',');
+                var qty = 0;
+                var data = { updates: {} };
+
+                for (i = 0; i < itemsArray.length; i++) {
+                  data.updates[itemsArray[i]] = qty;
+                }
+
+                $.ajax({
+                  type: 'POST',
+                  url: '/cart/update.js',
+                  data: data,
+                  dataType: 'json',
+                  success: function() { 
+                    location.reload();
+                  }
+                });
+              }
+            }
+          }
+        });
+      {% endif %}
+
+        
+      var now = new Date();
+      var d = new Date();
+      d.setDate(d.getDate()-1);
+      var picker = new Litepicker({ 
+        element: document.getElementById('datepicker'),
+        firstDay: 1,
+        format: 'MMM D, YYYY',
+        autoRefresh:1,
+        onSelect: function(start, end){
+                console.log('checked dates');
+                var start = new Date($('#datepicker').val());
+                var end = new Date($('#datepicker2').val());
+                if (start <= end) {
+                  if (start < d){
+                    $(".netterms-checkout").prop('disabled', true);
+                  	$(".netterms-checkout").val('{{ 'cart.b2b.button.start_date_in_past' | t }}');                    
+                  }else{
+                  	$(".netterms-checkout").prop('disabled', false);
+                  	$(".netterms-checkout").val('{{ 'cart.general.checkout' | t }}');
+                  }
+                }else{
+                    $(".netterms-checkout").prop('disabled', true);
+                  	$(".netterms-checkout").val('{{ 'cart.b2b.button.please_correct_dates' | t }}');
+                }	
+              },
+              minDate: null,
+              startDate: now,
+              lang: {% if request.locale.iso_code == 'fr' %}'fr-FR'{% elsif request.locale.iso_code == 'de' %}'de-DE'{% else %}'en-US'{% endif %},
+              numberOfMonths: 1,
+              numberOfColumns: 1,
+            });
+        var picker = new Litepicker({ 
+              element: document.getElementById('datepicker2'),
+              firstDay: 1,
+          autoRefresh:1,
+              format: 'MMM D, YYYY',
+              minDate: null,
+              startDate: now,
+              onSelect: function(start, end){
+                console.log('checked dates');
+                var start = new Date($('#datepicker').val());
+                var end = new Date($('#datepicker2').val());
+                if (start <= end) {
+                    $(".netterms-checkout").prop('disabled', false);
+                  	$(".netterms-checkout").val('{{ 'cart.general.checkout' | t }}');
+                }else{
+                    $(".netterms-checkout").prop('disabled', true);
+                  	$(".netterms-checkout").val('{{ 'cart.b2b.button.please_correct_dates' | t }}');
+                }	
+              },          
+              lang: {% if request.locale.iso_code == 'fr' %}'fr-FR'{% elsif request.locale.iso_code == 'de' %}'de-DE'{% else %}'en-US'{% endif %},
+              numberOfMonths: 1,
+              numberOfColumns: 1,
+            });        
+      });
+  </script>
+{% endif %}
+<style>
+  .netterms-checkout[disabled] {
+    cursor: default;
+    background-color: #666666 !important;
+    opacity:1 !important;
+    border-color: #f4f4f4;
+}
+</style>
+{% comment %}
+MAJORITY OF THE SCRIPTING FOR THIS IS IN THE SNIPPET 'cart-scripts.liquid'
+{% endcomment %}
+
+{% schema %}
+  {
+    "name": "Cart page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "B2B Error Modal"
+      },
+      {
+        "type": "text",
+        "id": "b2b_error_title",
+        "label": "Error Title",
+        "default": "Error adding to cart"
+      },
+      {
+        "type": "richtext",
+        "id": "b2b_error_content",
+        "label": "Error Content",
+        "default": "<p>It appears that there was an error adding your products to cart, please try again. If this issue persists, please <a href=\"/pages/contact\">contact us</a></p>"
+      }
+    ]
+  }
+{% endschema %}

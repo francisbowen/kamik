@@ -1,0 +1,182 @@
+{% for block in section.blocks %}
+  {% assign filter_tags_simple = block.settings.filter_tags | replace: ', ', ',' %}
+  {% assign filter_tags_simple = filter_tags_simple | replace: ' ,', ',' %}
+  {% assign downcased = block.settings.title | downcase %}
+  {% if downcased == 'color' or downcased == 'couleur' or downcased == 'farbe' %}
+    {% assign fitler_tags = filter_tags_simple | split: ',' | sort | reverse %}
+    <script>
+      $(function() {
+        var select = $('#SortTags_{{ block.settings.title | handleize }}');
+        select.html(select.find('option').sort(function(x, y) {
+          return $(x).text() > $(y).text() ? 1 : -1;
+        }));
+      });
+    </script>
+  {% else %}
+    {% assign fitler_tags = filter_tags_simple | split: ',' %}
+  {% endif %}
+  {% assign curr_tags = '' %}
+  {% for tag in current_tags %}
+    {% capture curr_tags %}{{ curr_tags }},{{ tag | handleize }}{% if forloop.last %},{% endif %}{% endcapture %}
+  {% endfor %}
+  <div class="filter_holder hide">
+    <label for="SortTags_{{ block.settings.title | handleize }}">{{ block.settings.title }}<span>:</span></label>
+    <select class="filters-toolbar__input filters-toolbar__input--filter custom-select" name="SortTags" id="SortTags_{{ block.settings.title | handleize }}" data-template="{% if template contains 'collection-of-collections' %}multiproduct{% else %}{{ collection.url }}{% endif %}" placeholder="{% assign placeholder = block.settings.title %}{% for filter_tag in fitler_tags %}{% capture filter_tag_handleized %},{{ filter_tag | handleize }},{% endcapture %}{% if curr_tags contains filter_tag_handleized %}{% assign placeholder = filter_tag %}{% endif %}{% endfor %}{{ placeholder }}" data-filtertype="{{ block.settings.title }}">
+      <option value=""><ly-as-101225>Any</ly-as-101225></option>
+      {% for filter_tag in fitler_tags %}
+      	{%unless filter_tag contains "b2b"%}
+        	<option value="{{ filter_tag | handleize }}"{% capture filter_tag_handleized %},{{ filter_tag | handleize }},{% endcapture %}{% if curr_tags contains filter_tag_handleized %} selected="selected"{% endif %}>{{ filter_tag | remove: block.settings.remove | capitalize }}</option>
+		{%endunless%}
+      {% endfor %}
+    </select>
+  </div>
+{% endfor %}
+
+<script>
+  var option_get = function() {
+    var arr = [],
+        selections = [],
+        $filters = $('.filters--collection select'),
+        count_select = $filters.length;
+    $('#SortTags').hide();
+    $('#SortTags option').each(function () {
+      arr.push($(this).val());
+    });
+    $filters.each(function(){
+      var originalElems = $(this),
+          filterName = originalElems.find('option:first').text(),
+          elems = originalElems.find('option'),
+          count = elems.length,
+          currSelect = originalElems.find('option:selected');
+
+      if(currSelect.val() != '') {
+        selections.push(currSelect.text());
+      }
+      elems.each(function(){
+        if ($.inArray($(this).val(), arr) == -1 && $(this).val() != '') {
+          $(this).remove();
+        };
+        if (!--count) {
+          if(originalElems.find('option').length >= 2) {
+            var $placehold = $('.filters-toolbar-placeholder');
+            $placehold.append('<div class="sidebar-filter" data-name="'+ originalElems.attr('id') +'">' + originalElems.parent('.filter_holder').html() + '</div>');
+            if(!$placehold.closest('.container').hasClass('breadcrumb-container')) {
+              $('div[data-name="'+ originalElems.attr('id') +'"] .custom-select').each(function(i, select){
+                var $select = $(select);
+                $select.wrap('<div class="sidebar--single-filter"></div>');
+                $select.find('option').each(function(j, option){
+                  var $option = $(option);
+                  if($option.val() != '') {
+                    // Create a radio:
+                    var $swatchbox = $('<div class="filter-element" />'),
+                        $radio = $('<input type="radio" />'),
+                        $label = $('<label />');
+                    // Set name and value:
+                    $radio.attr('name', $select.attr('id')).attr('value', $option.val()).attr('id',$option.val() +'_'+ $select.attr('id'));
+                    // Set checked if the option was selected
+                    if ($option.attr('selected')) {
+                      $swatchbox.addClass('selected');
+                      $radio.attr('checked', 'checked');
+                    }
+                    // Insert a label:
+                    $label.attr('for',$option.val() +'_'+ $select.attr('id')).append($option.text());
+                    $swatchbox.addClass($option.val()).append($label).prepend($radio);
+                    $select.after($swatchbox);
+                  } else {
+                    var check_check = '';
+                    if($select.val() == '') {
+                      check_check = ' checked="checked"';
+                    }
+                    $select.before($('<div class="filter-element"><input id="all_'+ $select.attr('id') +'" type="radio" name="'+ $select.attr('id') +'" value=""'+ check_check +' /><label for="all_'+ $select.attr('id') +'">Any</label></div>'));
+                  }
+                });
+                $select.removeClass('custom-select').addClass('hide');
+              });
+            } else {
+              $('.sidebar-filter select').prettyDropdown();
+            }
+          }
+        } else {
+          $('p.current-filter').find('span').text([selections.slice(0, -1).join(', '), selections.slice(-1)[0]].join(selections.length < 2 ? '' : ' and '));
+        }
+      });
+
+      if(!--count_select){
+        if(!$('.filters-toolbar-placeholder').closest('.container').hasClass('breadcrumb-container')) {
+          var $select_el = $('.sidebar-filter #SortTags_{% if request.locale.iso_code == 'fr' %}couleur{% elsif request.locale.iso_code == 'de' %}farbe{% else %}color{% endif %}'),
+              contract_height = $select_el.next('.filter-element').outerHeight()*7;
+          $select_el.closest('.sidebar--single-filter').addClass('cutoff').css('height',contract_height).append('<div class="filter-element color-expand"><a class="btn btn--secondary">See All Colors</a></div>');
+        }
+      }
+    });
+  }
+  
+  $(document).ready(function(){
+    option_get();
+
+    $('body').on('change', '.sidebar-filter input',function(){
+      $(this).closest('.sidebar-filter').find('select#'+$(this).attr('name')).val($(this).val()).trigger('change');
+    });
+
+    $('body').on('change', '.sidebar-filter select',function(e){
+      e.preventDefault();
+      var params = [],
+          str = '';
+      $('.sidebar-filter select').each(function(){
+        if($(this).val() != '') {
+          params.push($(this).val());
+        }
+      });
+      $.each( params, function(i,v){
+        if (i != 0) {
+          str += '+';
+        }
+        str += v;
+      });
+      window.location.href = window.location.protocol + '//' + window.location.host + '{{ collection.url }}/' + str;
+    });
+
+  
+    $('.grid--view-sidebar').on('click','.color-expand .btn',function(){
+      $(this).closest('.sidebar--single-filter').removeClass('cutoff').css('height','auto')
+    });
+  
+    $('.grid--view-sidebar').on('click','.filters-toolbar__item--count',function() {
+      console.log($('.filters-toolbar-placeholder'));
+      $('.filters-toolbar-placeholder').toggleClass('open');
+    });
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Collection page filters",
+    "class": "filters--collection",
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "collection_filters",
+        "name": "Collection Filters",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Filter Name"
+          },
+          {
+            "type": "textarea",
+            "id": "filter_tags",
+            "label": "Tags",
+            "info": "Separate with a comma"
+          },
+          {
+            "type": "text",
+            "id": "remove",
+            "label": "Part of tag to remove"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,442 @@
+{%- assign ad = '' -%}
+{% for block in section.blocks %}
+  {% if block.settings.collection == collection.handle %}
+	{% for i in (1..2) %}
+	  {% capture active_setting %}active_{{ i }}{% endcapture %}
+	  {% if block.settings[active_setting] %}
+		{% capture ad_position %}position_{{ i }}{% endcapture %}
+		{% capture ad %}{{ ad }}{% if ad != blank %}___{% endif %}{{ block.settings[ad_position] }}\\\{{ forloop.index0 }}\\\{{ i }}{% endcapture %}
+      {% else %}
+		{% continue %}
+	  {% endif %}
+    {% endfor %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{%- assign cols = section.settings.grid | times: 1 -%}
+{%- assign rows = section.settings.rows | times: 1 -%}
+{%- assign limit = cols | times: rows -%}
+{% if ad != blank %}
+  {%- assign ad_parts = ad | split: '___' -%}
+  {%- assign ad_positions = '' -%}
+  {% for ad_part in ad_parts %}
+    {%- assign ad_needs = ad_part | split: '\\\' -%}
+	{% capture ad_positions %}{{ ad_positions }}{% if ad_positions != blank %},{% endif %}{{ ad_needs[0] }}{% endcapture %}
+  {% endfor %}
+  {%- assign ad_check = ad_positions | split: ',' -%}
+  {%- assign limit_check = ad_parts.size -%}
+{% endif %}
+
+
+{% if collection.all_products_count > limit %}
+  {%- assign sidebar_need = true -%}
+{% else %}
+  {%- assign limit = limit | minus: 1 | minus: limit_check -%}
+{% endif %}
+
+{% if template.suffix == 'of-collections' %}
+  {%- assign sidebar_need = false -%}
+  {%- assign limit = limit | minus: limit_check -%}
+{% endif %}
+
+{% comment %}NETTERMS CHECK - set sidebar as always true and remove ads{% endcomment %}
+{% include 'netterms-check' %}
+{% if netavail %}
+  {%- assign limit = cols | times: rows -%}
+  {%- assign sidebar_need = true -%}
+  {%- assign ad_check = '' -%}
+{% endif %}
+
+{% if sidebar_need %}
+  {% include 'header-image' %}
+  {%- assign cols = section.settings.grid | minus: 1 -%}
+{% else %}
+  {% include 'breadcrumbs' %}
+  {%- assign cols = section.settings.grid | times: 1 -%}
+{% endif %}
+
+{% case cols %}
+  {% when 1 %}
+    {%- assign grid_item_width = 'col-60' -%}
+    {%- assign image_size = '2200x' -%}
+  {% when 2 %}
+    {%- assign grid_item_width = 'col-30' -%}
+    {%- assign image_size = '1500x' -%}
+  {% when 3 %}
+    {%- assign grid_item_width = 'col-md-20 col-30' -%}
+    {%- assign image_size = '1000x' -%}
+  {% when 4 %}
+    {%- assign grid_item_width = 'col-lg-15 col-md-20 col-30' -%}
+    {%- assign image_size = '600x' -%}
+  {% when 5 %}
+    {%- assign grid_item_width = 'col-lg-12 col-md-20 col-30' -%}
+    {%- assign image_size = '500x' -%}
+{% endcase %}
+
+{%- assign split_prod = false -%}
+{% if template contains 'split products' %}
+  {%- assign split_prod = true -%}
+  {%- assign spit_prod_gender_find = collection.title | split: ':' -%}
+  {%- assign spit_prod_gender = spit_prod_gender_find[0] | strip | downcase | append: ',both,all' | split: ',' -%}
+{% endif %}
+
+{% paginate collection.products by limit %}
+
+<div data-section-id="{{ section.id }}" data-section-type="collection-template">
+  <div class="container" id="Collection">
+    <div class="row">
+      {% if sidebar_need %}
+        <div class="col-lg-15">
+          <div class="grid--view-sidebar">
+            <div class="filters-toolbar__item--count">
+              <span {% if customer.tags contains "B2B"%}style="display:none;"{%endif%} class="filters-toolbar__product-count"><i class="fal fa-sliders-v"></i> {{ 'collections.general.items_with_count' | t: count: collection.products_count }}</span>
+            </div>
+            {% include 'collection-filters' %}
+            {% if ad_check.size > 0 %}
+              <div class="grid--view-sidebar--ads d-none d-lg-block">
+                {% for ad_position in ad_check %}
+                  {%- assign ad_part = ad_parts[forloop.index0] -%}
+                  {%- assign ad_needs = ad_part | split: '\\\' -%}
+                  <div class="grid-view-item--single grid-view-item--single-sidebar collection-ad">
+                    {% include 'product-card-grid--ad', block_num: ad_needs[1], ad_num: ad_needs[2]  %}
+                  </div>
+                  {% break %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+      <div class="{% if sidebar_need %}col-lg-45{% else %}col-60{% endif %}">
+        <div id="AjaxinateContainer" class="row{% if collection.products_count > 0 %} grid--view-items{% endif %}">
+          {% unless sidebar_need or template.suffix == 'of-collections' or paginate.current_page > 1 %}
+            <div class="{{ grid_item_width }} grid-view-item--single collection-info">
+              <div class="collection-info--description" style="background-image:url({{ collection.image | img_url: image_size }});">
+                <div class="collection-info--description-text">
+                  <h1>
+                    {%- assign collection_title_check = collection.title | split: ':' -%}
+                    {% for collection_title in collection_title_check %}
+                      {% if forloop.first %}
+                        {%- assign title_downcase = collection_title | downcase -%}
+                        {{ collection_title | strip }}
+                    {% comment %}
+                    {% if title_downcase contains 'women ' or title_downcase contains 'kid ' or title_downcase contains 'men ' or title_downcase contains 'toddler ' %}'s {% endif %}
+                    {% endcomment %}
+                      {% elsif forloop.last %}
+                        {{ collection_title }}
+                      {% endif %}
+                    {% endfor %}
+                  </h1>
+                  {%- assign subhead_check = collection.description | slice: 0, 3 -%}
+                  {% if subhead_check contains 'h5' %}
+                    {%- assign subtitle_text_split = collection.description | split: '</h5>' -%}
+                    {%- assign header_subtitle = subtitle_text_split[0] | remove_first: '<h5>' -%}
+                  {% endif %}
+                  {% if header_subtitle != blank %}
+                    <p>{{ header_subtitle | newline_to_br }}</p>
+                  {% endif %}
+                  {% if current_tags %}
+                    <p class="current-filter">In <span></span></p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endunless %}
+          
+          {% for product in collection.products %}
+              
+          	{% unless sidebar_need %}
+              {% if paginate.current_page == 1 %}
+                {% capture index %}{{ forloop.index }}{% endcapture %}
+                {% if ad_check contains index %}
+                  {% for ad_position in ad_check %}
+                    {% if ad_position == index %}
+                      {%- assign ad_part = ad_parts[forloop.index0] -%}
+                      {%- assign ad_needs = ad_part | split: '\\\' -%}
+                      <div class="{{ grid_item_width }} grid-view-item--single collection-ad">
+                        {% include 'product-card-grid--ad', block_num: ad_needs[1], ad_num: ad_needs[2]  %}
+                      </div>
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endif %}
+            {% endunless %}
+			{% include 'itemchecker' %}
+            <div class="{{ grid_item_width }} colitem-{{product.handle}} {% if product.tags contains "b2c-product"%}colitem-b2c {%endif%} {%unless product.tags contains "b2b-purchasenow" or product.tags contains "b2b-preorder"%}colitem-b2c {%endunless%} {% if product.tags contains "b2b-purchasenow"%}colitem-purchasenow {%endif%} {% if product.tags contains "b2b-preorder"%}colitem-preorder {%endif%} grid-view-item--single">
+              {% include 'product-card-grid', grid_image_width: image_size %}
+            </div>
+              
+	      {% else %}
+	        {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+	            <div class="grid__item {{ grid_item_width }}">
+	              <div class="grid grid--uniform">
+	                {% for i in (1..limit) %}
+	                  <div class="grid__item {{ grid_item_width }}">
+	                    <div class="grid-view-item">
+	                      <a href="#" class="grid-view-item__link">
+	                        <div class="grid-view-item__image">
+	                          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+	                          {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+	                        </div>
+	                        <div class="h4 grid-view-item__title">{{ 'homepage.onboarding.product_title' | t }}</div>
+	                        <div class="grid-view-item__meta">
+	                          <span class="product-price__price">$19.99</span>
+	                        </div>
+	                      </a>
+	                    </div>
+	                  </div>
+	                {% endfor %}
+	              </div>
+	            </div>
+	          {% else %}
+	            {%- assign is_empty_collection = true -%}
+	          {% endif %}
+	        {% endfor %}
+          
+	      </div>
+
+	    {% if is_empty_collection %}
+	      <div class="col small--text-center">
+	        <p class="text-center">{{ 'collections.general.no_matches' | t }}</p>
+	      </div>
+	    {% endif %}
+
+	    {% if paginate.pages > 1 %}
+	      {% include 'pagination' %}
+	    {% endif %}
+	  </div>
+	</div>
+  </div>
+  {% if collection.description != blank %}
+    <div id="collection-description">
+      <div class="container">
+        <div class="row justify-content-around">
+          <div class="col-xxl-20 col-lg-30 col-md-40 rte text-center">
+            {%- assign content = collection.description -%}
+            {%- assign subhead_check = content | slice: 0, 3 -%}
+            {% if subhead_check contains 'h5' %}
+              {%- assign subtitle_text_split = collection.description | split: '</h5>' -%}
+              {%- assign content = subtitle_text_split[1] -%}
+            {% endif %}
+            {{ content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% endpaginate %}
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+      {
+        "type": "select",
+        "id": "grid",
+        "label": "Products per row",
+        "default": "4",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "rows",
+        "label": "Rows per page",
+        "default": "2",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          },
+          {
+            "value": "6",
+            "label": "6"
+          },
+          {
+            "value": "7",
+            "label": "7"
+          },
+          {
+            "value": "8",
+            "label": "8"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendors",
+        "default": false
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Collection Ad",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Pick Collection For this Ad"
+          },
+          {
+            "type": "header",
+            "content": "Ad #1"
+          },
+          {
+            "type": "checkbox",
+            "id": "active_1",
+            "label": "Collection Ad One Active?",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image"
+          },
+          {
+            "type": "select",
+            "id": "alignment_1",
+            "label": "Image alignment",
+            "default": "center",
+            "options": [
+              {"value": "top", "label": "Top"},
+              {"value": "center", "label": "Middle"},
+              {"value": "bottom", "label": "Bottom"}
+            ]
+          },
+          {
+            "type": "range",
+            "id": "position_1",
+            "min": 1,
+            "max": 40,
+            "step": 1,
+            "unit": "pos",
+            "label": "Ad Position",
+            "default": 5
+          },
+          {
+            "type": "checkbox",
+            "id": "textoverlay_1",
+            "label": "Show Text Overlay?",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "title_1",
+            "label": "Ad Title"
+          },
+          {
+            "type": "textarea",
+            "id": "adcopy_1",
+            "label": "Ad Copy"
+          },
+          {
+            "type": "text",
+            "id": "adcta_1",
+            "label": "CTA Copy"
+          },
+          {
+            "type": "url",
+            "id": "link_1",
+            "label": "AD link"
+          },
+          {
+            "type": "header",
+            "content": "Ad #2"
+          },
+          {
+            "type": "checkbox",
+            "id": "active_2",
+            "label": "Collection Ad Two Active?",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image"
+          },
+          {
+            "type": "select",
+            "id": "alignment_2",
+            "label": "Image alignment",
+            "default": "center",
+            "options": [
+              {"value": "top", "label": "Top"},
+              {"value": "center", "label": "Middle"},
+              {"value": "bottom", "label": "Bottom"}
+            ]
+          },
+          {
+            "type": "range",
+            "id": "position_2",
+            "min": 1,
+            "max": 40,
+            "step": 1,
+            "unit": "pos",
+            "label": "Ad Position",
+            "default": 5
+          },
+          {
+            "type": "checkbox",
+            "id": "textoverlay_2",
+            "label": "Show Text Overlay?",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "title_2",
+            "label": "Ad Title"
+          },
+          {
+            "type": "textarea",
+            "id": "adcopy_2",
+            "label": "Ad Copy"
+          },
+          {
+            "type": "text",
+            "id": "adcta_2",
+            "label": "CTA Copy"
+          },
+          {
+            "type": "url",
+            "id": "link_2",
+            "label": "AD link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

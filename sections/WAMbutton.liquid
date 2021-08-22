@@ -1,0 +1,230 @@
+{% assign inwam = false %}
+{% if cart.attributes.accessibilitymode == "true" %}
+{% assign inwam = true %}
+{% endif %}
+
+{% if section.settings.active %}
+	<a class="wamswitch" href="#"><div class="wambutton"><ly-as-46302>accessibility mode:</ly-as-46302> <strong class="wamstatus">{% if inwam %}<ly-as-46303>on</ly-as-46303>{% else %}<ly-as-46304>off</ly-as-46304>{%endif%}</strong></div></a>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "WAM! Button",
+    "settings": [
+		{
+        	"type": "checkbox",
+        	"id": "active",
+        	"label": "Activate Web Accesibility Mode Button",
+        	"default": true
+      	}
+	]
+  }
+{% endschema %}
+
+
+	<style>
+	{% if section.settings.active %}
+      @media screen and (min-width: 419px) {
+		.wambutton {
+			display:block;
+			position:absolute;
+			background-color:white;
+			color:black;
+			top:0;
+			left:0;
+			padding:10px 20px;
+			z-index:999 !important;
+		}
+      }
+	{% endif %}
+	{% if inwam %}
+		p, button, .btn,h1,h2,h3,h4,h5, li, a, small, em, span, aelect, b, strong, .soldout .crossed-item-top {background-color: white !important; color: black !important;-webkit-tap-highlight-color: rgba(0, 0, 0, 1);}
+   {% endif %}
+	</style>
+
+
+
+{% if section.settings.active %}
+	<script>
+      // START dis allow framing this site to stop troll lawyers
+      	if(top!=self){
+    		top.location.replace(document.location);
+    		alert("For security reasons, framing is not allowed; click OK to remove the frames.")
+		}
+      // END frame stop
+      
+      // turn on and off WAM by cast attributes
+		$( ".wamswitch" ).click(function() {
+        	var wamstate = $( ".wamstatus" ).text();
+			console.log(wamstate);
+			if ( wamstate == 'off'){
+				//$( ".wamstatus" ).text('On');
+                $.ajax({
+                	type: "POST",
+                  	url: '/cart.js',
+                  	data: {"attributes[accessibilitymode]": true},
+                  	success: function(d){
+                    	console.log('WAM on');
+                      	location.reload();
+                  	},
+                  	dataType: 'json'
+             	});
+			} else {
+				//$( ".wamstatus" ).text('Off');
+                $.ajax({
+                	type: "POST",
+                  	url: '/cart.js',
+                  	data: {"attributes[accessibilitymode]": false},
+                  	success: function(d){
+                    	console.log('WAM off');
+                      	location.reload();
+                  	},
+                  	dataType: 'json'
+             	});              
+			}
+      	}); 
+	</script>
+{% endif %}
+
+{% if inwam %}
+	<script>
+      
+        $('html').attr('lang','en');
+       	console.log('WAM - added html lang');
+      
+		setTimeout(function(){
+	        $('iframe html').attr('lang','en');
+       		console.log('WAM - added iframe html lang');
+        }, 2000);  
+      
+        $(document).ready(function() {
+            // start doc ready changes
+          // let's delay by a second incase other scripts happen on ready
+		setTimeout(function(){
+            $('img').each(function(){
+              var $img = $(this);
+              var filename = $img.attr('src')
+              var attr = $(this).attr('alt');
+                if (typeof attr == typeof undefined || attr == false) {
+                    $img.attr('alt', filename.substring(0, filename.lastIndexOf('.')));
+                    console.log('WAM - fixed and image alt');
+                }
+            });
+          
+            $('a').each(function(){
+              var $a = $(this);
+              var filename = $a.attr('href')
+              var attr = $(this).attr('aria-label');
+              $a.removeAttr( "aria-controls" );
+              $a.removeAttr( "aria-describedby" );
+              $a.removeAttr( "aria-has-popup" );
+                if (typeof attr == typeof undefined || attr == false) {
+                    $a.attr('aria-label', filename);
+                  console.log('WAM - a aria -label and removed bad labels');
+                }
+            });
+  
+// - need to add support for video captions and audio description tracks
+//        
+//            $('video').each(function(){
+//              var $video = $(this);
+//              var filename = $a.attr('src')
+//              var attr = $(this).attr('caption');
+//              if (typeof attr == typeof undefined || attr == false) {
+//                    $video.attr('caption', filename);
+//                  	console.log('WAM - added a caption to a video');
+//                }
+//            });
+
+            $('iframe').each(function(){
+              var $iframe = $(this);
+              var filename = $iframe.attr('id')
+              var attr = $(this).attr('title');
+                if (typeof attr == typeof undefined || attr == false) {
+                    $iframe.attr('title', filename);
+                  console.log('WAM - put title on iframe');
+                }
+            });
+
+           $('input').each(function(){
+              var $input = $(this);
+              $input.removeAttr( "aria-controls" );
+              $input.removeAttr( "aria-describedby" );
+             console.log('WAM - removed input bad aria labels');
+            });
+
+             $('li').each(function(){
+              var $li = $(this);
+              $li.removeAttr( "aria-controls" );
+              $li.removeAttr( "aria-describedby" );
+               console.log('WAM - removed li bad aria labels');
+            });
+          
+          	$("li").removeAttr("aria-describedby");
+
+            $('h2').each(function(){ // For each element
+                $(this).removeAttr( 'aria-describedby' );
+                if( $(this).text().trim() === '' )
+                    $(this).remove(); // if it is empty, it removes it
+                    console.log('WAM - cleared an empty h2');
+                });
+
+            $('h3').each(function(){ // For each element
+                $(this).removeAttr( 'aria-describedby' );
+                if( $(this).text().trim() === '' )
+                    $(this).remove(); // if it is empty, it removes it
+                    console.log('WAM - cleared an empty h3');
+            });
+
+            $('h4').each(function(){ // For each element
+                $(this).removeAttr( 'aria-describedby' );
+                if( $(this).text().trim() === '' )
+                    $(this).remove(); // if it is empty, it removes it
+                    console.log('WAM - cleared an empty h4');
+            });
+
+            $('h5').each(function(){ // For each element
+                $(this).removeAttr( "aria-describedby" );
+                if( $(this).text().trim() === '' )
+                    $(this).remove(); // if it is empty, it removes it
+                    console.log('WAM - cleared an empty h5');
+                });
+
+            // end doc ready changes
+          }, 1000);
+        });
+      
+      	// function to be able to switch tag types (for em an i )
+  		$.fn.changeElementType = function(newType) {
+    		this.each(function() {
+      			var attrs = {};
+      			$.each(this.attributes, function(idx, attr) {
+        			attrs[attr.nodeName] = attr.nodeValue;
+      			});
+      			$(this).replaceWith(function() {
+        			return $("<" + newType + "/>", attrs).append($(this).contents());
+      			});
+    		});
+  		};
+      
+      	// fix shopify reviews
+  		function review_check(num) {
+    		var j = parseInt(num);
+     		$('i').changeElementType('em');
+     		$('b').changeElementType('strong');
+    		if($('.spr-reviews .spr-review').length > 0) {
+      			$('i').changeElementType('em');
+    		} else {
+      			if(j < 20) {
+        			j = num + 1;
+        			setTimeout(function(){review_check(j)}, 1000);
+      			}
+   	 		}
+  		}
+      
+  		$(document).ready(function(){
+    		review_check(1);
+  		});
+         
+	</script>
+{% endif %}

@@ -1,0 +1,12 @@
+<div class="sustainability-grid-item__link">
+  {% if image != blank %}
+    <div class="sustainability-grid-item__overlay{% if text == blank %} no-text{% endif %}" style="background-image: url({{ image | img_url: size }})"></div>
+  {% endif %}
+  {% if text != blank %}
+    <div class="sustainability-grid__text">
+      <h3 class="sustainability-grid-item__title">
+        {{ text }}
+      </h3>
+    </div>
+  {% endif %}
+</div>

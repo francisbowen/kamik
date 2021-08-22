@@ -1,0 +1,151 @@
+{% include 'netterms-check' %}
+<div class="cart-black-overlay"></div>
+<div class="cart-sidebar closed">
+  <div class="cart-sidebar-container">
+    <div class="cart-sidebar--header">
+      <strong><ly-as-101261>Your Cart</ly-as-101261></strong>
+      <a><em class="fal fa-times"></em></a>
+    </div>
+  </div>
+  <div class="shopping-cart cart-sidebar--items-wrapper{% if cart.item_count > 0 %} filled{% endif %}">
+    <div style="display:none;"> {{ customer.metafields.global }}</div>
+    {% if netavail %}
+      {% assign cart_total = 0 %}
+    {% endif %}
+    {% unless netavail %}	
+	      {% if settings.show_free_shipping %}	
+	        <div class="free-shipping-text">	
+	          {% assign threshold = settings.free_shipping_threshold | times: 100 %}	
+	          {% if threshold > cart.total_price %}	
+	            {% assign threshold_left_money = threshold | minus: cart.total_price | money %}	
+	            {% assign threshold_text = settings.free_shipping_left_text | replace: '|amount|', threshold_left_money %}	
+	            {{ threshold_text }}	
+	          {% else %}	
+	            {{ settings.free_shipping_met_text }}	
+	          {% endif %}	
+	        </div>	
+	      {% endif %}	
+	    {%endunless%}
+    <ul class="shopping-cart-items">
+      {% if cart.item_count > 0 %}
+        {% for item in cart.items %}
+      
+          {% assign preorder = false %}
+          {% for p in item.properties %}
+            {% unless p.last == blank %}
+              {% if p.first == 'PREORDER' %}
+                {% assign preorder = true %}
+                {% break %}
+              {% endif %}
+            {% endunless %}
+          {% endfor %}
+      
+          {% assign item_key = item.key %}
+          {% assign item_image = item.image %}
+          {% assign item_url = item.url %}
+          {% assign item_product_title = item.product.title %}
+          {% assign item_title = item.variant.title %}
+          {% assign item_sku = item.sku %}
+          {% assign item_isbn = item.variant.barcode %}
+          {% capture item_options %}
+            {% unless item.product.has_only_default_variant %}
+              {% for option in item.options_with_values %}
+                <p><strong>{{ option.name }}:</strong> {{ option.value }}</p>
+              {% endfor %}
+            {% endunless %}
+          {% endcapture %}
+          {% assign item_qty = item.quantity %}
+          {% assign product_id = item.product_id %}
+          {% assign variant_id = item.variant_id %}
+          {% assign item_sku = item.sku %}
+          {% assign item_price = item.price %}
+          {% assign item_final_price = item.final_price %}
+          {% if netavail and preorder %}
+            {% for p in item.properties %}
+              {% unless p.last == blank %}
+                {% if p.first == 'Product Handle' %}
+                  {% assign preorder_product = all_products[p.last] %}
+                {% endif %}
+                {% if p.first == 'Variant ID' %}
+                  {% assign variant_id = p.last | times: 1 %}
+                {% endif %}
+              {% endunless %}
+            {% endfor %}
+            {% for preorder_variant in preorder_product.variants %}
+              {% if preorder_variant.id == variant_id %}
+                {% assign item_image = preorder_variant.image %}
+                {% assign item_url = preorder_variant.url %}
+                {% assign item_title = preorder_variant.title %}
+                {% capture item_options %}
+                  {% unless preorder_product.has_only_default_variant %}
+                    {% if preorder_variant.option1 != blank %}
+                      <p><strong>{{ preorder_product.options_with_values[0].name }}:</strong> {{ preorder_variant.option1 }}</p>
+                    {% endif %}
+                    {% if preorder_variant.option2 != blank %}
+                      <p><strong>{{ preorder_product.options_with_values[1].name }}:</strong> {{ preorder_variant.option2 }}</p>
+                    {% endif %}
+                    {% if preorder_variant.option3 != blank %}
+                      <p><strong>{{ preorder_product.options_with_values[2].name }}:</strong> {{ preorder_variant.option3 }}</p>
+                    {% endif %}
+                  {% endunless %}
+                {% endcapture %}
+                {% assign variant_id = preorder_variant.id %}
+                {% assign item_sku = preorder_variant.sku %}
+                {% assign item_price = preorder_variant.price %}
+                {% assign item_final_price = preorder_variant.price | times: item_qty %}
+                {% assign item_sku = preorder_variant.sku %}
+                {% assign item_isbn = preorder_variant.barcode %}
+                {% assign cart_total = cart_total | plus: item_final_price %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% assign item_product_title = preorder_product.title %}
+            {% assign product_id = preorder_product.id %}
+          {% endif %}
+      
+          <li class="cart-sidebar-item cart-single-item cart__row">
+            <a class="delete-cart-item" data-itemid="{{ item_key }}"><em class="fal fa-times"></em></a>
+            <div class="d-flex align-items-center">
+              <a href="{{ item_url }}" class="align-self-stretch cart-sidebar-item--image">
+                {% include 'image', file: item_image, default_size: '200x' %}
+              </a>
+              <div class="cart-sidebar-item--product-info flex-grow-1">
+                <h5><a href="{{ item_url }}">{{ item_product_title }}</a></h5>
+                {{ item_options }}
+                <div class="cart-sidebar-item--updates d-flex justify-content-between">
+                  <div class="cart-sidebar-item--qty">
+                    <select class="cart-prod-qty pretty-dropdown" data-item="{{ item_key }}" name="cart-prod-qty">
+                      {% for i in (1..10) %}
+                        <option value="{{i}}"{% if i == item_qty %} selected{% endif %}>{{i}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="cart-sidebar-item--price text-right">
+                    {{ item_final_price | money }}
+                  </div>
+                </div>
+                {% if netavail and preorder %}
+                  <input class="d-none" type="text" name="product[all]" value="{{ item_qty }},{{ item_product_title }} :: {{ item_title }} :: {{ item_isbn }} :: {{ item_sku }},{{ item_price | money_without_currency }}">               
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      {% else %}
+        <li class="cart-sidebar-empty text-center">{{ 'cart.general.empty' | t }}</li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="cart-sidebar--footer">
+    <div class="d-flex justify-content-between cart-sidebar--footer-subtotal">
+      <p><ly-as-101262>Subtotal</ly-as-101262></p>
+      <p class="cart-subtotals">{% if cart_total > 0 %}{{ cart_total | money }}{% else %}{{ cart.total_price | money }}{% endif %}</p>
+    </div>
+    <div class="cart-sidebar--footer-buttons text-center">
+      <a href="/checkout" class="btn btn-checkout{% unless cart.item_count > 0 %} d-none{% endunless %}"><ly-as-101263>Secure Checkout</ly-as-101263></a>
+      <a href="/">{{ 'general.404.link' | t }}</a>
+    </div>
+  </div>
+</div>
+
+{% include 'cart-scripts' %}

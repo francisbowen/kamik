@@ -1,0 +1,222 @@
+{% assign curr_title = 'customer.login.title' | t %}
+{% render 'account-header', title: curr_title, image: section.settings.image %}
+
+<div class="container loginpage section-spacing">
+
+  {% unless section.settings.logncreate %}
+    <div class="row">
+      <div class="col-md-30 offset-md-15">
+        <div class="note form-success hide" id="ResetSuccess">
+          {{ 'customer.recover_password.success' | t }}
+        </div>
+
+        <div id="CustomerLoginForm" class="form-vertical">
+          {% form 'customer_login' %}
+
+            {{ form.errors | default_errors }}
+
+            <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+            <input type="email" placeholder="Email" name="customer[email]" id="CustomerEmail" class="{% if form.errors contains 'email' %} input--error{% endif %}" autocorrect="off" autocapitalize="off" autofocus>
+
+            {% if form.password_needed %}
+              <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+              <input type="password" placeholder="Password" value="" name="customer[password]" id="CustomerPassword" class="{% if form.errors contains 'password' %} input--error{% endif %}">
+            {% endif %}
+
+            <input type="hidden" name="checkout_url" value="{% if request.locale.iso_code == 'fr' %}/fr{% elsif request.locale.iso_code == 'de' %}/de{% endif %}/account?action=initial_login">
+
+            <div class="text-center">
+              {% if form.password_needed %}
+                <p><a href="#recover" id="RecoverPassword"><ly-as-86822>Change or Forgot Your Password?</ly-as-86822></a></p>
+              {% endif %}
+
+              <input type="submit" class="btn" value="{{ 'customer.login.sign_in' | t }}">
+
+              <p>
+                <a href="/account/register"><ly-as-86823>Create Account for Consumers Only</ly-as-86823></a>
+              </p>
+            </div>
+
+          {% endform %}
+        </div>
+
+        <div id="RecoverPasswordForm" class="hide">
+
+          <div class="text-center">
+            <h2>{{ 'customer.recover_password.title' | t }}</h2>
+            <p>{{ 'customer.recover_password.subtext' | t }}</p>
+          </div>
+
+          <div class="form-vertical">
+            {% form 'recover_customer_password' %}
+
+              {{ form.errors | default_errors }}
+
+              {% comment %}
+                Add a hidden span to indicate the form was submitted succesfully.
+              {% endcomment %}
+              {% if form.posted_successfully? %}
+                <span class="hide reset-password-success"></span>
+              {% endif %}
+
+              <label for="RecoverEmail">{{ 'customer.recover_password.email' | t }}</label>
+              <input type="email" value="" name="email" id="RecoverEmail" class="input-full"autocorrect="off" autocapitalize="off">
+
+              <div class="text-center">
+                <p>
+                  <input type="submit" class="btn" value="{{ 'customer.recover_password.submit' | t }}">
+                </p>
+
+                <button type="button" id="HideRecoverPasswordLink" class="text-link">{{ 'customer.recover_password.cancel' | t }}</button>
+              </div>
+            {% endform %}
+          </div>
+
+        </div>
+
+        {% comment %}
+          If accounts are set as optional, the following will be shown as an option
+          during checkout, not on the default /login page.
+        {% endcomment %}
+        {% if shop.checkout.guest_login %}
+          <div class="text-center">
+            <hr class="hr--invisible">
+            <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+            {% form 'guest_login' %}
+              <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+            {% endform %}
+          </div>
+        {% endif %}
+      </div>
+        </div>
+  {% else %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-30">
+          <div class="note form-success hide" id="ResetSuccess">
+            {{ 'customer.recover_password.success' | t }}
+          </div>
+
+          <div id="CustomerLoginForm" class="form-vertical">
+            {% form 'customer_login' %}
+
+              <h1 class="text-center">{{ 'customer.login.title' | t }}</h1>
+
+              {{ form.errors | default_errors }}
+
+              <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+              <input type="email" name="customer[email]" id="CustomerEmail" class="{% if form.errors contains 'email' %} input--error{% endif %}" autocorrect="off" autocapitalize="off" autofocus>
+
+              {% if form.password_needed %}
+                <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+                <input type="password" value="" name="customer[password]" id="CustomerPassword" class="{% if form.errors contains 'password' %} input--error{% endif %}">
+              {% endif %}
+
+              <input type="hidden" name="checkout_url" value="{% if request.locale.iso_code == 'fr' %}/fr{% elsif request.locale.iso_code == 'de' %}/de{% endif %}/account?action=initial_login">
+
+              <div class="text-center">
+                {% if form.password_needed %}
+                  <p><a href="#recover" id="RecoverPassword"><ly-as-86822>Change or Forgot Your Password?</ly-as-86822></a></p>
+                {% endif %}
+
+                <input type="submit" class="btn" value="Create Account for Consumers Only">
+              </div>
+
+            {% endform %}
+          </div>
+
+          <div id="RecoverPasswordForm" class="hide">
+
+            <div class="text-center">
+              <h2>{{ 'customer.recover_password.title' | t }}</h2>
+              <p>{{ 'customer.recover_password.subtext' | t }}</p>
+            </div>
+
+            <div class="form-vertical">
+              {% form 'recover_customer_password' %}
+
+                {{ form.errors | default_errors }}
+
+                {% if form.posted_successfully? %}
+                  <span class="hide reset-password-success"></span>
+                {% endif %}
+
+                <label for="RecoverEmail">{{ 'customer.recover_password.email' | t }}</label>
+                <input type="email" value="" name="email" id="RecoverEmail" class="input-full"autocorrect="off" autocapitalize="off">
+
+                <div class="text-center">
+                  <p>
+                    <input type="submit" class="btn" value="{{ 'customer.recover_password.submit' | t }}">
+                  </p>
+
+                  <button type="button" id="HideRecoverPasswordLink" class="text-link">{{ 'customer.recover_password.cancel' | t }}</button>
+                </div>
+              {% endform %}
+            </div>
+
+          </div>
+
+          {% if shop.checkout.guest_login %}
+            <div class="text-center">
+              <hr class="hr--invisible">
+              <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+              {% form 'guest_login' %}
+                <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+              {% endform %}
+            </div>
+          {% endif %}
+        </div>   
+        <div class="col-md-30">
+          {% include 'createaccount' %}  
+        </div>
+      </div>
+    </div>
+  
+  {% endunless %} 
+  {% if section.settings.b2b_alert != blank %}
+    <div class="col-md-30 offset-md-15" style="margin-top:40px;padding:20px; text-align:center; border: 1px solid black; background-color:#f7f7f7;">
+      {{ section.settings.b2b_alert }}
+    </div>
+  {% endif %}
+
+</div>
+
+{% schema %}
+  {
+    "name": "Login Page Options",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Header Image",
+        "info": "Leave blank to just use text"
+      },
+      {
+        "type": "header",
+        "content": "Dual Purpose"
+      },
+	  {
+        "type": "checkbox",
+        "id": "logncreate",
+        "label": "Show Both Login and Create Account Forms?",
+        "default": false
+      },
+	  {
+        "type": "header",
+        "content": "B2B Text"
+      },
+	  {
+        "type": "textarea",
+        "id": "b2b_alert",
+        "label": "B2B Alert",
+        "default": "For our B2B Customers, we’re sorry but our site is under construction! Our site will be available soon, and you will be receiving information for activating your account and site instructions in the coming days."
+      }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,13 @@
+{% if shop.customer_accounts_enabled %}
+  {% if customer %}
+    <a href="/account" class="site-header__account">
+      {% include 'icon-account' %}
+      {{ 'layout.customer.account' | t }}
+    </a>
+  {% else %}
+    <a href="/account/login" class="site-header__account">
+      {% include 'icon-account' %}
+      {{ 'layout.customer.log_in' | t }}
+    </a>
+  {% endif %}
+{% endif %}

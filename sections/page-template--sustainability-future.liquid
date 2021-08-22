@@ -1,0 +1,97 @@
+<section class="container sustainability-future--goals">
+  <div class="row">
+    {%- assign column_size = section.blocks.size | modulo: 10 -%}
+    {% case column_size %}
+      {% when 9 %}
+        {%- assign title_item_width = 'col-md-30' -%}
+        {%- assign grid_item_width = 'col-md-30' -%}
+      {% when 8 %}
+        {%- assign title_item_width = 'col-md-20' -%}
+        {%- assign grid_item_width = 'col-md-20' -%}
+      {% when 7 %}
+        {%- assign title_item_width = 'col-md-30' -%}
+        {%- assign grid_item_width = 'col-md-30' -%}
+      {% when 6 %}
+        {%- assign title_item_width = 'col-md-30' -%}
+        {%- assign grid_item_width = 'col-md-15' -%}
+      {% when 5 %}
+        {%- assign title_item_width = 'col-md-20' -%}
+        {%- assign grid_item_width = 'col-md-20' -%}
+      {% when 4 %}
+        {%- assign title_item_width = 'col-md-40' -%}
+        {%- assign grid_item_width = 'col-md-20' -%}
+      {% when 3 %}
+        {%- assign title_item_width = 'col-md-15' -%}
+        {%- assign grid_item_width = 'col-md-15' -%}
+      {% when 2 %}
+        {%- assign title_item_width = 'col-md-12' -%}
+        {%- assign grid_item_width = 'col-md-24' -%}
+      {% when 1 %}
+        {%- assign title_item_width = 'col-md-15' -%}
+        {%- assign grid_item_width = 'col-md-45' -%}
+      {% when 0 %}
+        {%- assign title_item_width = 'col-md-20' -%}
+        {%- assign grid_item_width = 'col-md-20' -%}
+    {% endcase %}
+    <article class="container">
+      <div class="row align-items-center">
+        <div class="{{ title_item_width }} rte">
+          {% if section.settings.image != blank %}
+            {% render 'image', class:'feature-row__icon', file: section.settings.image, default_size: '500x', alt: section.settings.image.alt | escape %}
+          {% endif %}
+          {% if section.settings.title != blank %}<h2>{{ section.settings.title }}</h2>{% endif %}
+          {% if section.settings.content != blank %}{{ section.settings.content }}{% endif %}
+        </div>
+        {% for block in section.blocks %}
+          <div class="{{ grid_item_width }}">
+            <div class="sustainability-grid-item sustainability-grid-item--{{ block.id }}">
+              {% render 'sustainability-grid-item', image: block.settings.image, size: '1000x', text: block.settings.title %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </article>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Sustainability Future",
+    "class": "section-spacing section--sustainability-future",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image Above Title"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "sustainable_image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Sustainability Text"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Sustainability Image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,25 @@
+<script type="text/javascript">
+  var nett = Cookies.get('netneed');
+  function item_checker() {
+    if(nett=="net_preorder"){
+      $('.colitem-b2c').hide();
+      $('.colitem-purchasenow').hide();
+      $('.colitem-preorder').show();
+    }else if(nett=="net_now"){
+      $('.colitem-purchasenow').show();
+      $('.colitem-b2c:not(.colitem-purchasenow)').hide();
+      $('.colitem-preorder').hide();    
+    } else if(nett=="net_dropship"){
+      $('.colitem-b2c').show();
+      $('.colitem-purchasenow:not(.colitem-b2c)').hide();
+      $('.colitem-preorder').hide(); 
+    } else{
+      $('.colitem-b2c').show();
+      $('.colitem-purchasenow:not(.colitem-b2c)').hide();
+      $('.colitem-preorder').hide(); 
+    }
+  }
+  $( document ).ready(function() {
+    item_checker();
+  });                   
+</script>

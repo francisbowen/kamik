@@ -1,0 +1,147 @@
+{% if section.blocks.size > 0 %}
+  <div class="featured-articles">
+    {% for block in section.blocks %}
+      {%- assign mod = forloop.index | modulo: 2 -%}
+      {%- assign article = articles[block.settings.featured] -%}
+      <div class="featured-article">
+        <div class="featured-article--top featured-article--bg">
+          <div class="container">
+            <div class="row justify-content-between align-items-center">
+              <div class="col-md-35 order-md-1">
+                {% render 'image', file: block.settings.image_1, class: 'img_bg_find img_bg_over' %}
+              </div>
+              <article class="col-md-23{% if mod == 0 %} order-md-2{% else %} order-md-0{% endif %} featured-article--content">
+                <h2>{{ article.title }}</h2>
+                <div class="featured-article--excerpt">
+                  {% if article.excerpt.size > 0 %}
+                    {{ article.excerpt }}
+                  {% else %}
+                    {{ article.content | strip_html | truncate: 150 }}
+                  {% endif %}
+                </div>
+                <a class="btn btn--secondary" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="featured-article--bottom featured-article--bg equalize">
+          {% unless mod == 0 %}
+            {% if block.settings.image_2 != blank %}
+              <img class="featured-article--image-tall equalize" src="{{ block.settings.image_2 | img_url: '1800x' }}" alt="{{ article.title }}" />
+            {% endif %}
+          {% endunless %}
+          <div class="container featured-article--bottom-container">
+            <div class="row justify-content-end align-items-center">
+              <div class="col-md-23">
+                <img class="img_bg_find lazyload featured-article--image-square{% if mod == 0 %} featured-article--image-square-alone{% endif %}" src="{{ block.settings.image_3 | img_url: '800x800' }}" alt="{{ article.title }}" data-og="{{ block.settings.image_3 | img_url: '2000x' }}" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% paginate blog.articles by 12 %}
+
+<section id="blog">
+  <div class="container">
+    <div id="AjaxinateContainer" class="row grid--blog">
+      {% for article in blog.articles %}
+        {%- assign author = '' -%}
+        {%- assign published = '' -%}
+        {% if article.excerpt.size > 0 %}
+          {%- assign excerpt = article.excerpt -%}
+        {% else %}
+          {%- assign excerpt = article.content | strip_html | truncate: 150 -%}
+        {% endif %}
+        {% if section.settings.blog_show_author %}
+          {%- assign author = 'blogs.article.by_author' | t: author: article.author -%}
+        {% endif %}
+        {% if section.settings.blog_show_date %}
+      	  {%- assign published = article.published_at | time_tag: format: 'month_day_year' -%}
+        {% endif %}
+        <div class="col-xxl-15 col-lg-20 col-md-30">
+          {% render 'infoblock-single', url: article.url, image: article.image, title: article.title, description: excerpt, by: author, on: published %}
+        </div>
+      {% endfor %}          
+    </div>
+  </div>
+  {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+  {% endif %}
+</section>
+
+{% endpaginate %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+<script>
+  const colorThief = new ColorThief();
+  const img = document.querySelectorAll('.img_bg_find');
+  $(document).on('lazyloaded', function(e){
+    if($(e.target).hasClass('img_bg_find')){
+      const img = new Image();
+      img.addEventListener('load', function() {
+        const brightness = Math.round(((parseInt(colorThief.getColor(img)[0]) * 299) +
+                                       (parseInt(colorThief.getColor(img)[1]) * 587) +
+                                       (parseInt(colorThief.getColor(img)[2]) * 114)) / 1000);
+        const textColour = (brightness > 125) ? '{{ settings.color_body_text }}' : '{{ settings.color_body_bg }}';
+        $(e.target).closest('.featured-article--bg').css('background-color','rgb('+ colorThief.getColor(img)[0] +','+ colorThief.getColor(img)[1] +','+ colorThief.getColor(img)[2] +')').find('.featured-article--content').css('color',textColour);
+      });
+      
+      img.crossOrigin = 'Anonymous';
+      img.src = $(e.target).data('og');
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Blog Articles",
+    "class": "section-spacing section--blog-articles",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": "Show date",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "featured-article",
+        "name": "Featured Article",
+        "settings": [
+          {
+            "type": "article",
+            "id": "featured",
+            "label": "Featured Article"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image 2",
+            "info": "Not used on the even numbered blocks"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_3",
+            "label": "Image 3"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,38 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title | replace: '"','&quot;' }}",
+  "image": [{%for image in product.images %}
+  "{{ image.src | img_url: 'grande' }}"{% unless forloop.last%},{%endunless%}
+  {%endfor%}],
+  "description": "{{ product.description | strip_html | truncatewords: '50' | escape }}",
+  "sku": "{{ product.selected_or_first_available_variant.sku }}",
+  "mpn": "{% if product.selected_or_first_available_variant.barcode %}{{ product.selected_or_first_available_variant.barcode }}{%else%}{{ product.selected_or_first_available_variant.sku }}{%endif%}",
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ product.vendor }}",
+    "description": "{{ shop.description }}",
+    "image": "{{ settings.logo | img_url: 'original' }}"
+  },
+    "offers": [
+  {% for variant in product.variants %}
+  {
+    "@type": "Offer",
+    "name": "{{variant.title}}",
+    "image": "{{ variant.image.src | img_url: 'grande' }}",
+    "url": "{{ shop.url }}{{ product.url }}?variant={{variant.id}}",
+    "priceCurrency": "{{ shop.currency }}",
+    "price": "{{ variant.price | money_without_currency | remove: "," }}",
+    "priceValidUntil": "{{ "now" | date: "%s" | plus: 864000 | date: "%b %d, %Y" }}",
+    "itemCondition": "http://schema.org/NewCondition",
+    "availability": "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+    "seller": {
+      "@type": "Organization",
+      "name": "{{shop.name}}"
+    }
+  }{%unless forloop.last%},{%endunless%}
+  {%endfor%}
+  ]
+}
+</script>

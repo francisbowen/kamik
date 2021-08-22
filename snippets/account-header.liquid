@@ -1,0 +1,43 @@
+<div class="header-image accountheader{% if image != blank %} image-bar__overlay jarallax{% else %} minimal{% endif %}"{% if image != blank %} data-jarallax data-speed="0.75"{% endif %}>
+  <div class="header-image--text">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-30">
+          <h1>{{ title }}</h1>
+        </div>
+        {% if secondary != blank %}
+          <div class="col-lg-30 text-right">
+            {{ secondary }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if image != blank %}
+  {%- assign header_image_std = image | img_url: '2400x' -%}
+  {%- assign header_image_desktop = image | img_url: '1500x' -%}
+  {%- assign header_image_tablet = image | img_url: '1000x' -%}
+  {%- assign header_image_mobile = image | img_url: '600x' -%}
+  <style>
+    .header-image {
+      background-image: url('{{ header_image_std }}');
+    }
+    @media screen and (max-width: 1024px) {
+      .header-image {
+        background-image: url('{{ header_image_desktop }}');
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .header-image {
+        background-image: url('{{ header_image_tablet }}');
+      }
+    }
+    @media screen and (max-width: 425px) {
+      .header-image {
+        background-image: url('{{ header_image_mobile }}');
+      }
+    }
+  </style>
+{% endif %}

@@ -1,0 +1,280 @@
+{%- assign video = '' -%}
+{%- assign video_nav = '' -%}
+{%- assign vimeo_used = false -%}
+{%- assign ratio_style = '' -%}
+{%- assign zeroindex = 0 -%}
+
+{%- assign external_videos = product.media | where: 'media_type', 'external_video' -%}
+{% for external_video in external_videos %}
+  {% if external_video.host == 'vimeo' %}
+    {%- assign vimeo_used = true -%}
+  {% endif %}
+  {% capture video_nav %}
+    {%- assign external_video_split = external_video.alt | split: ':' -%}
+    {% if request.locale.iso_code == 'fr' %}
+      {% unless external_video_split[0] contains 'language - FR' %}
+        {% continue %}
+      {% endunless %}
+    {% elsif request.locale.iso_code == 'de' %}
+      {% unless external_video_split[0] contains 'language - DE' %}
+        {% continue %}
+      {% endunless %}
+    {% else %}
+      {% if external_video_split[0] contains 'language - FR' or external_video_split[0] contains 'language - DE' %}
+        {% continue %}
+      {% endif %}
+    {% endif %}
+    {{ video_nav }}
+    <li>
+      <a id="video{{ external_video.id }}-tab"{% if video_nav == '' %} class="active show"{% endif %} href="#section-{{ external_video.id }}" data-toggle="tab">
+        {% include 'icon-video' %}
+        <span>{% if external_video_split[1] != blank %}{{ external_video_split[1] | strip }}{% else %}{{ product.title }}{% endif %}</span>
+        {%- assign ratio_setting = external_video.aspect_ratio | round: 4 | times: 100 -%}
+        {% capture ratio_style %}padding-top: {{ 100 | divided_by: ratio_setting | times: 100 | round: 2 }}%;{% endcapture %}
+      </a>
+    </li>
+  {% endcapture %}
+  {% capture video %}
+    {%- assign external_video_split = external_video.alt | split: ':' -%}
+    {% if request.locale.iso_code == 'fr' %}
+      {% unless external_video_split[0] contains 'language - FR' %}
+        {% continue %}
+      {% endunless %}
+    {% elsif request.locale.iso_code == 'de' %}
+      {% unless external_video_split[0] contains 'language - DE' %}
+        {% continue %}
+      {% endunless %}
+    {% else %}
+      {% if external_video_split[0] contains 'language - FR' or external_video_split[0] contains 'language - DE' %}
+        {% continue %}
+      {% endif %}
+    {% endif %}
+    {{ video }}
+    <div id="section-{{ external_video.id }}" class="tab-pane fade{% if video == '' %} active show{% endif %}" role="tabpanel" aria-labelledby="video{{ external_video.id }}-tab">
+      <div class="vid_trigger" data-vidtype="{{ external_video.host }}" data-vidid="{{ external_video.external_id }}" data-index="{{ zeroindex }}">
+        <div class="holdingimage" class="holdingimage"></div>
+        <div id="video-{{ external_video.id }}" class="vid_container"></div>  
+      </div>
+    </div>
+	{%- assign zeroindex = zeroindex | plus: 1 -%}
+  {% endcapture %}
+{% endfor %}
+
+{% for block in section.blocks %}
+  {% if product.tags contains block.settings.tag %}
+	{% if block.settings.tab_video_link != blank %}
+      {% if external_video.host == 'vimeo' %}
+        {%- assign vimeo_used = true -%}
+      {% endif %}
+      {% capture video_nav %}
+        {{ video_nav }}
+        <li>
+          <a id="video{{ block.id }}-tab"{% if video_nav == '' %} class="active show"{% endif %} href="#section-{{ block.id }}" data-toggle="tab">
+            {% include 'icon-video' %}
+            <span>{{ block.settings.tab_title }}</span>
+            {{ block.settings.tab_video_link.aspect_ratio }}
+          </a>
+        </li>
+      {% endcapture %}
+      {% capture video %}
+        {{ video }}
+        {%- assign video_id = block.settings.tab_video_link.id -%}
+        {%- assign video_type = block.settings.tab_video_link.type -%}
+        {% if request.locale.iso_code == 'fr' and block.settings.tab_video_link_fr != blank %}
+          {%- assign video_id = block.settings.tab_video_link_fr.id -%}
+          {%- assign video_type = block.settings.tab_video_link_fr.type -%}
+        {% elsif request.locale.iso_code == 'de' and block.settings.tab_video_link_de != blank %}
+          {%- assign video_id = block.settings.tab_video_link_de.id -%}
+          {%- assign video_type = block.settings.tab_video_link_de.type -%}
+        {% endif %}
+        <div id="section-{{ block.id }}" class="tab-pane fade{% if video == '' %} active show{% endif %}" role="tabpanel" aria-labelledby="video{{ block.id }}-tab">
+          <div class="vid_trigger" data-vidtype="{{ video_type }}" data-vidid="{{ video_id }}" data-index="{{ zeroindex }}">
+            <div class="holdingimage"{% if block.settings.tab_image != blank %} style="background-image:url({{ block.settings.tab_image | img_url: '2000x' }});"{% endif %}></div>
+            <div id="video-{{ block.id }}" class="vid_container"></div>
+          </div>
+        </div>
+        {%- assign zeroindex = zeroindex | plus: 1 -%}
+      {% endcapture %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if video != blank %}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-20 col-md-30">
+        <div class="video-tabs">
+          {% if section.settings.title != blank %}<h3 class="thin">{{ section.settings.title }}</h3>{% endif %}
+          <ul class="nav nav-tabs" role="tablist">
+            {{ video_nav }}
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-40 col-md-30">
+        <div class="tab-content">
+          {{ video }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if vimeo_used %}
+    <script src="https://player.vimeo.com/api/player.js"></script>
+  {% endif %}
+  <script>
+    var videoArray = new Array();
+
+    function createVideo() {
+      var youtubeScriptId = 'youtube-api';
+      var youtubeScript = document.getElementById(youtubeScriptId);
+
+      if (youtubeScript === null) {
+        var tag = document.createElement('script');
+        var firstScript = document.getElementsByTagName('script')[0];
+
+        tag.src = 'https://www.youtube.com/iframe_api';
+        tag.id = youtubeScriptId;
+        firstScript.parentNode.insertBefore(tag, firstScript);
+      }
+
+      window.onYouTubeIframeAPIReady = function() {
+        var videos = $('#shopify-section-{{ section.id }} .vid_trigger[data-vidtype="youtube"]');
+        for (var i = 0; i < videos.length; i++) {
+          var $videoContain = $(videos[i]),
+              videoId = $videoContain.data('vidid'),
+              divID = $videoContain.find('.vid_container').attr('id');
+          
+          videoArray[i] = new YT.Player($('#'+divID)[0], {
+            videoId: videoId,
+            height: '780',
+            width: '1280',
+            playerVars: {
+              autoplay: 0,
+              modestbranding: 1,
+              rel: 0
+            },
+            events: {
+              'onReady': function(e) {
+                $(e.target.f).closest('.vid_trigger').addClass('videoloaded');
+              }
+            }
+          });
+        }
+
+      };
+    }
+    
+    function vid_play($target) {
+      var type = $target.data('vidtype'),
+          index = $target.data('index');
+      if(type == 'vimeo') {
+        alert('vimeo not set up');
+      } else {
+        videoArray[index].playVideo();
+      }
+    }
+    
+    function vid_pause($target) {
+      var type = $target.data('vidtype'),
+          index = $target.data('index');
+      if(type == 'vimeo') {
+        alert('vimeo not set up');
+      } else {
+        videoArray[index].pauseVideo();
+      }
+    }
+    
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+      if(e.relatedTarget) {
+        var old_contain = $(e.relatedTarget).attr('href'),
+            old_video_holder = $(old_contain).find('.vid_trigger');
+        vid_pause(old_video_holder)
+      }
+      var new_contain = $(e.target).attr('href'),
+          video_holder = $(new_contain).find('.vid_trigger');
+      vid_play(video_holder);
+    });
+    
+    $(document).ready(function(){
+      createVideo();
+    });
+  </script>
+  {% if section.settings.image != blank %}
+    <style>
+      #shopify-section-{{ section.id }} .holdingimage { background-image:url({{ section.settings.image | img_url: '2000x' }}); }
+      {% if ratio_style != blank %}#shopify-section-{{ section.id }} .vid_trigger { {{ ratio_style }} }{% endif %}
+    </style>
+  {% endif %}
+{% else %}
+  <style>
+    #shopify-section-{{ section.id }} {
+      display: none;
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Product Videos",
+    "class": "product-videos",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Default Holding Image"
+      }
+    ],
+	"blocks": [
+      {
+        "type": "video",
+        "name": "video",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+			"info": "For Organizational Purposes"
+          },
+          {
+            "type": "text",
+            "id": "tag",
+            "label": "Product Tag Connected To"
+          },
+          {
+            "id": "tab_title",
+            "type": "text",
+            "label": "Heading",
+            "default": "Insert Title"
+          },
+          {
+            "id": "tab_image",
+            "type": "image_picker",
+            "label": "Holding Image"
+          },
+          {
+            "id": "tab_video_link",
+            "type": "video_url",
+            "accept": ["youtube", "vimeo"],
+            "label": "Video URL"
+          },
+          {
+            "id": "tab_video_link_fr",
+            "type": "video_url",
+            "accept": ["youtube", "vimeo"],
+            "label": "Video URL (French)"
+          },
+          {
+            "id": "tab_video_link_de",
+            "type": "video_url",
+            "accept": ["youtube", "vimeo"],
+            "label": "Video URL (German)"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

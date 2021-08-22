@@ -1,0 +1,14 @@
+<div class="{{ cardclass }} card">
+  <div class="card-header" id="heading-{{ title | handleize }}">
+    <h5 class="mb-0">
+      <a data-toggle="collapse" data-target="#collapse-{{ title | handleize }}" role="button" aria-expanded="{% if title == 'Description' or start_open %}false{% else %}true{% endif %}" aria-controls="collapse-{{ title | handleize }}" class="{% unless title == 'Description' or start_open %}collapsed{% endunless %}">
+        {{ title }}
+      </a>
+    </h5>
+  </div>
+  <div id="collapse-{{ title | handleize }}" class="collapse{% if title == 'Description' or start_open %} show{% endif %}" aria-labelledby="heading-{{ title | handleize }}"{% unless title == 'Description' %} data-parent="{{ accordion_id }}"{% endunless %}>
+    <div class="card-body">
+      {{ content }}
+    </div>
+  </div>
+</div>

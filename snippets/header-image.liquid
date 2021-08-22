@@ -1,0 +1,270 @@
+{% if request.page_type == 'article' %}
+  {% assign header_title = article.title %}
+{% elsif request.page_type == 'collection' %}
+  {% assign collection_title_split = collection.title | split: ':' %}
+  {% for collection_title_single in collection_title_split %}
+    {% if forloop.last %}
+      {% assign header_title = collection_title_single | strip %}
+    {% endif %}
+  {% endfor %}
+{% elsif request.page_type == 'blog' %}
+  {% assign header_title = blog.title %}
+{% elsif request.page_type == 'page' %}
+  {% assign header_title = page.title %}
+{% endif %}
+
+{% assign text_class = 'header-image--text' %}
+
+{% assign header_img = false %}
+{% if request.page_type == 'collection' %}
+  {% if collection.image != blank %}
+    {% assign header_img = true %}
+    {% assign header_image_std = collection.image | img_url: '2400x' %}
+    {% assign header_image_desktop = collection.image | img_url: '1500x' %}
+    {% assign header_image_tablet = collection.image | img_url: '1000x' %}
+    {% assign header_image_mobile = collection.image | img_url: '600x' %}
+  {% endif %}
+  {% assign subhead_check = collection.description | slice: 0, 3 %}
+  {% if subhead_check contains 'h5' %}
+	{% assign subtitle_text_split = collection.description | split: '</h5>' %}
+    {% assign header_subtitle = subtitle_text_split[0] | remove_first: '<h5>' %}
+  {% endif %}
+{% elsif request.page_type == 'article' %}
+  {% if article.image != blank %}
+    {% assign header_img = true %}
+    {% assign header_image_std = article.image.src | img_url: '2400x' %}
+    {% assign header_image_desktop = article.image.src | img_url: '1500x' %}
+    {% assign header_image_tablet = article.image.src | img_url: '1000x' %}
+    {% assign header_image_mobile = article.image.src | img_url: '600x' %}
+  {% endif %}
+{% endif %}
+
+{% assign header_video = false %}
+{% for block in section.blocks %}
+  {% assign url_parts = block.settings.url | split: '/' %}
+  {% assign url = url_parts.last %}
+  {% case request.page_type %}
+    {% when 'blog' %}
+	  {% assign handle = blog.handle %}
+    {% when 'collection' %}
+	  {% assign handle = collection.handle %}
+    {% when 'article' %}
+	  {% assign handle = article.handle %}
+    {% when 'page' %}
+	  {% assign handle = page.handle %}
+  {% endcase %}
+  {% if handle == url %}
+    {% if block.settings.image != blank %}
+      {% assign header_img = true %}
+      {% assign header_image_std = block.settings.image | img_url: '2400x' %}
+      {% assign header_image_desktop = block.settings.image | img_url: '1500x' %}
+      {% assign header_image_tablet = block.settings.image | img_url: '1000x' %}
+      {% assign header_image_mobile = block.settings.image | img_url: '600x' %}
+    {% endif %}
+    {% if block.settings.title != blank %}
+      {% assign header_title = block.settings.title %}
+    {% endif %}
+    {% if block.settings.subtitle != blank %}
+      {% assign header_subtitle = block.settings.subtitle %}
+    {% endif %}
+	{% if block.settings.video != blank %}
+      {% assign maintain_ratio = false %}
+      {% assign header_video = true %}
+	  {% assign div_id = 'video-' | append: block.id %}
+      {% assign video_id = block.settings.video.id %}
+      {% assign video_type = block.settings.video.type %}
+	  {% assign video_height = block.settings.video_height | times: 1 %}
+      {% if request.locale.iso_code == 'fr' and block.settings.video_fr != blank %}
+        {% assign video_id = block.settings.video_fr.id %}
+        {% assign video_type = block.settings.video_fr.type %}
+      {% elsif request.locale.iso_code == 'de' and block.settings.video_de != blank %}
+        {% assign video_id = block.settings.video_de.id %}
+        {% assign video_type = block.settings.video_de.type %}
+      {% endif %}
+	  {% if video_height > 0 %}
+        {% assign maintain_ratio = true %}
+      {% else %}
+        {% assign video_height = 720 %}
+      {% endif %}
+      {% if block.settings.keep_title %}
+        {% assign text_class = text_class | append: ' stay-put' %}
+      {% endif %}
+      {% if block.settings.btn_text != blank %}
+        {% capture play_link %}
+          <a class="btn btn--link play-video"><span><ly-as-87380>Video:</ly-as-87380></span> {{ block.settings.btn_text }}</a>
+        {% endcapture %}
+      {% else %}
+        {% capture play_link %}
+          <a class="btn btn--link play-video play-video-mobile"><span><ly-as-87381>Play Video</ly-as-87381></a>
+        {% endcapture %}
+      {% endif %}
+    {% endif %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+<div class="header-image{% if header_img %} image-bar__overlay jarallax{% if header_video %} header-image--large{% endif %}{% else %} minimal{% endif %}"{% if header_img %} data-jarallax data-speed="0.75"{% endif %}>
+  {% if header_video != blank %}
+    <div class="video-wrapper">
+      <div id="{{ div_id }}" data-video="{{ video_id }}" data-type="{{ video_type }}"></div>
+    </div>
+    {{ play_link }}
+  {% endif %}
+  {% if header_title != blank %}
+  	<div class="{{ text_class }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-30">
+            {% if header_title != blank %}
+              <h1>{{ header_title }}</h1>
+            {% endif %}
+            {% if header_subtitle != blank %}
+              <p>{{ header_subtitle | newline_to_br }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% if header_video != blank %}
+  <script>
+    var video,
+        userPlay = false;
+     
+    function onVideoEnd(event) {
+      if(event.data == 1) {
+        $(event.target.f).closest('.header-image').addClass('videoplay');
+      }
+      if(event.data == 0 && userPlay){
+        video.stopVideo();
+        $(event.f).closest('.header-image').removeClass('videoplay');
+      }
+    }
+   
+    function adjust_video(iframe) {
+      iframe.closest('.header-image').addClass('videoloaded');
+      var playerWidth = 1280,
+          playerHeight = {{ video_height }},
+          slideWidth = $('.header-image').outerWidth(),
+          slideHeight = $('.header-image').outerHeight();
+      if ((slideWidth / slideHeight) < (playerWidth / playerHeight)) {
+        playerWidth = Math.ceil(slideHeight * (playerWidth / playerHeight));
+        iframe.width(playerWidth).height(slideHeight).css({
+          left: (slideWidth - playerWidth) / 2,
+          top: 0
+        });
+      } else {
+        playerHeight = Math.ceil(slideWidth * (playerWidth / playerHeight));
+        iframe.width(slideWidth).height(playerHeight).css({
+          left: 0,
+          top: (slideHeight - playerHeight) / 2
+        });
+      }
+    }
+
+    function createVideo() {
+      var youtubeScriptId = 'youtube-api';
+      var youtubeScript = document.getElementById(youtubeScriptId);
+
+      if (youtubeScript === null) {
+        var tag = document.createElement('script');
+        var firstScript = document.getElementsByTagName('script')[0];
+
+        tag.src = 'https://www.youtube.com/iframe_api';
+        tag.id = youtubeScriptId;
+        firstScript.parentNode.insertBefore(tag, firstScript);
+      }
+
+      window.onYouTubeIframeAPIReady = function() {
+        var $videoContain = $('#{{ div_id }}'),
+            videoId = $videoContain.data('video');
+
+        video = new YT.Player($videoContain[0], {
+            videoId: videoId,
+            height: '{{ video_height }}',
+            width: '1280',
+            playerVars: {
+              autoplay: 1,
+              controls: 0,
+              showinfo: 0,
+              modestbranding: 1,
+              loop: 1,
+              mute: 1,
+              fs: 0,
+              cc_load_policy: 0,
+              iv_load_policy: 3,
+              autohide: 0,
+              playlist: videoId
+            },
+            events: {
+              'onReady': function(e) {
+                var iframe = $(e.target.f);
+                adjust_video(iframe);
+              },
+              'onStateChange': function(e) {
+                onVideoEnd(e);
+              }
+            }
+        });
+      };
+    }
+
+    var loadVideo = function() {
+      var videoDiv = $('#{{ div_id }}'),
+          video_type = videoDiv.data('type'),
+          video_src = videoDiv.data('video');
+      if(!videoDiv.length){ return; }
+      if(video_type == 'vimeo') {
+        alert('vimeo not set up');
+      } else {
+        createVideo();
+      }
+    }
+
+    $(document).ready(function(){
+      loadVideo();
+    });
+    
+    $('.play-video').on('click',function(){
+      video.seekTo(0).unMute().setLoop(false);
+      $('.header-image').addClass('user-play');
+      userPlay = true;
+    });
+
+    document.addEventListener("shopify:section:load", function(event) {
+      if (event.detail.sectionId === "header-bg") {
+        loadVideo();
+      }
+    });
+
+  </script>
+  <style>
+    #shopify-section-{{ section.id }} .video-wrapper { padding-bottom: {{ video_height | times: 100 | divided_by: 1280 }}%; }
+    {% if maintain_ratio %}#shopify-section-{{ section.id }} .header-image.header-image--large { height: auto; }{% endif %}
+  </style>
+{% endif %}
+
+{% if header_img %}
+  <style>
+    .header-image {
+      background-image: url('{{ header_image_std }}');
+    }
+    @media screen and (max-width: 1024px) {
+      .header-image {
+        background-image: url('{{ header_image_desktop }}');
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .header-image {
+        background-image: url('{{ header_image_tablet }}');
+      }
+    }
+    @media screen and (max-width: 425px) {
+      .header-image {
+        background-image: url('{{ header_image_mobile }}');
+      }
+    }
+  </style>
+{% endif %}

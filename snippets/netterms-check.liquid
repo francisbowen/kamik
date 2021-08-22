@@ -1,0 +1,74 @@
+{%- assign netavail = false -%}
+{%- assign price_adjust = 0 -%}
+
+{%- assign allow_net_pricing = false -%}
+{%- assign booking_discount_amt = 0 -%}
+{%- assign reorder_discount_amt = 0 -%}
+{%- assign dropship_fee = false -%}
+{%- assign dropship_cost = 0 -%}
+{%- assign preorder = true -%}
+{%- assign dropship = true -%}
+
+{% if customer.tags contains 'netterms' %}
+  {%- assign netavail = true -%}
+{% endif %}
+
+{% if netavail %}
+  {% for tag in customer.tags %}
+    {% if tag contains 'B2B-' %}
+      {%- assign tag_parts = tag | split: '-' -%}
+      {%- assign booking_discount_amt = tag_parts[1] | times: 0.01 -%}
+      {%- assign reorder_discount_amt = tag_parts[2] | times: 0.01 -%}
+	  {% if tag_parts[1] == "99" %}
+			{%- assign preorder = false -%}
+	  {% endif%}
+      {% if tag_parts.last contains 'DS' %}
+        {%- assign dropship_fee = true -%}
+        {%- assign dropship_cost = tag_parts.last | remove: 'DS' | times: 100 -%}
+		{% if tag_parts.last == "DS99" %}
+			{%- assign dropship = false -%}
+		{%endif%}
+      {% endif %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{%- assign prod = product.variants[0] -%}
+{% if request.page_type == 'product' %}
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign prod = current_variant -%}
+{% endif %}
+{%- assign price = prod.price -%}
+{%- assign compare_at_price = prod.compare_at_price -%}
+{% unless compare_at_price > 0 %}
+  {%- assign compare_at_price = price -%}
+{% endunless %}
+
+<!-- {{ price }} -->
+{% if netavail %}
+  {%- assign price = prod.metafields.global.b2b_price | times: 1 -%}
+  {%- assign compare_at_price = price -%}
+<!-- {{ prod.metafields.global.b2b_price }} -->
+
+  {% if cart.attributes.netneed == 'net_dropship' and dropship_fee %}
+      {%- assign price = prod.metafields.global.b2b_price | times: 1 | plus: dropship_cost -%}
+      {%- assign compare_at_price = price -%}
+  {% elsif cart.attributes.netneed == 'net_preorder' and booking_discount_amt > 0 %}
+    {%- assign price_adjust = booking_discount_amt -%}
+    {%- assign price_off = price | times: booking_discount_amt -%}
+    {%- assign price = price | minus: price_off -%}
+  {% elsif cart.attributes.netneed == 'net_now' and reorder_discount_amt > 0 %}
+    {%- assign price_adjust = reorder_discount_amt -%}
+    {%- assign price_off = price | times: reorder_discount_amt -%}
+    {%- assign price = price | minus: price_off -%}
+  {% endif %}
+<!-- {{ price }} -->
+{% endif %}
+
+
+{% if netavail and preorder %}
+<style>
+  .ls-dropdown-menu{display:none !important;}
+</style>
+{%endif%}

@@ -1,0 +1,93 @@
+{% if section.settings.message %}
+  <style>
+    .notification-bar {
+      background-color: {{ section.settings.color_bg }};
+    }
+
+    .notification-bar__message {
+      color: {{ section.settings.color_text }};
+    }
+  </style>
+
+  <div class="notification-bar">
+    {% if section.settings.message %}
+      {% if section.settings.message_icon != blank %}
+        {% capture message_icon %}<i class="fa {{ section.settings.message_icon }}"></i>{% endcapture %}
+      {% endif %}
+      {% if section.settings.message_link != blank %}
+        <a href="{{ section.settings.message_link }}" class="notification-bar__message">
+          {% if section.settings.align_message_icon == 'left' and section.settings.message_icon != blank %}{{ message_icon }}{% endif %}
+          {{ section.settings.message_text | escape }}
+          {% if section.settings.align_message_icon == 'right' and section.settings.message_icon != blank %}{{ message_icon }}{% endif %}
+        </a>
+      {% else %}
+        <span class="notification-bar__message">
+          {% if section.settings.align_message_icon == 'left' and section.settings.message_icon != blank %}{{ message_icon }}{% endif %}
+          {{ section.settings.message_text | escape }}
+          {% if section.settings.align_message_icon == 'right' and section.settings.message_icon != blank %}{{ message_icon }}{% endif %}
+        </span>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <script>
+    $(window).load(function(){
+      var menOffset = $('.notification-bar').outerHeight();
+      $('.mobile-nav-wrapper').css('top','-'+menOffset+'px');
+    });
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Notification Bar",
+    "settings": [
+       {
+        "type": "checkbox",
+        "id": "message",
+        "label": "Show announcement",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "message_text",
+        "label": "Announcement text",
+        "default": "Announce something here"
+      },
+      {
+        "type": "text",
+        "id": "message_icon",
+        "label": "Icon name",
+        "info": "[Click here](http:\/\/fontawesome.io\/cheatsheet\/) to view the list of available icons. Example: fa-anchor"
+      },
+      {
+        "type": "radio",
+        "id": "align_message_icon",
+        "label": "Icon alignment",
+        "default": "left",
+        "options": [
+          {"value": "left", "label": "Before Text"},
+          {"value": "right", "label": "After Text"}
+        ]
+      },
+      {
+        "type": "url",
+        "id": "message_link",
+        "label": "Announcement link",
+        "info": "Optional"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Announcement color",
+        "default": "#7796A8"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Announcement text color",
+        "default": "#fff"
+      }
+    ]
+  }
+{% endschema %}

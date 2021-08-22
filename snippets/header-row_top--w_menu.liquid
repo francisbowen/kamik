@@ -1,0 +1,32 @@
+<header class="container site-header" role="banner">
+  <div class="row align-items-center">
+    <div class="col-lg-10 col-md-15 order-{% if settings.align_logo == 'center' %}3{% else %}1{% endif %}">
+      {% include 'header-logo' %}
+    </div>
+
+    <div class="col d-none d-md-block order-2">
+      <nav class="d-none d-md-block text-{{ settings.align_menu_text }}" id="AccessibleNav" role="navigation">
+        {% include 'site-nav' %}
+      </nav>
+    </div>
+
+    <div class="col order-5 text-right site-header__icons">
+      <div class="site-header__icons-wrapper">
+
+        {% include 'search-toggle' %}
+
+        {% include 'header-account' %}
+
+        {% include 'header-cart_icon' %}
+
+        {% include 'header-menu_icon' %}
+
+      </div>
+
+      {% if settings.cartdropdown %}
+        {% include 'header-cart_dropdown' %}
+      {% endif %}
+
+    </div>
+  </div>
+</header>

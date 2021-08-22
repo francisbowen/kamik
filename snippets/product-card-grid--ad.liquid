@@ -1,0 +1,41 @@
+{%- assign block_number = block_num | times: 1 -%}
+{%- assign ad_number = ad_num | times: 1 -%}
+{%- assign block = section.blocks[block_number] -%}
+
+{% capture image_setting %}image_{{ ad_num }}{% endcapture %}
+{%- assign image = block.settings[image_setting] -%}
+{% capture alignment_setting %}alignment_{{ ad_num }}{% endcapture %}
+{%- assign alignment = block.settings[alignment_setting] -%}
+{% capture textuse_setting %}textoverlay_{{ ad_num }}{% endcapture %}
+{%- assign textuse = block.settings[textuse_setting] -%}
+{% capture title_setting %}title_{{ ad_num }}{% endcapture %}
+{%- assign title = block.settings[title_setting] -%}
+{% capture copy_setting %}adcopy_{{ ad_num }}{% endcapture %}
+{%- assign copy = block.settings[copy_setting] -%}
+{% capture btn_setting %}adcta_{{ ad_num }}{% endcapture %}
+{%- assign btn = block.settings[btn_setting] -%}
+{% capture link_setting %}link_{{ ad_num }}{% endcapture %}
+{%- assign link = block.settings[link_setting] -%}
+<div class="grid-view-item grid-view-item--simple">
+  <{% if link != blank %}a href="{{ link }}"{% else %}div{% endif %}>
+    <div role="img"
+         class="grid-view-item__image{% unless textuse %} grid-view-item__image--full{% endunless %} lazyload"
+         data-bg="{{ image | img_url: '300x' }}"
+         data-bgset="{% render 'image-bg', image: block.settings.image %}"
+         data-sizes="auto"
+         data-parent-fit="cover"
+         style="background-position: {{ alignment }};
+                background-image: url('{{ image | img_url: '300x' }}');"></div>
+    {% if textuse %}
+      <div class="grid-view-item__content collectionad">
+        <div class="h4 grid-view-item__title">
+          {{ title }}
+        </div>
+        <div class="grid-view-item__meta">
+          {{ copy}}
+        </div>
+        {% if btn != blank %}<span class="btn btn--secondary">{{ btn }}</span>{% endif %}
+      </div>
+    {% endif %}
+  </{% if link != blank %}a{% else %}div{% endif %}>
+</div>

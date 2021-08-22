@@ -1,0 +1,38 @@
+{% assign pro = false %}
+{% if customer %}
+  <div class="wholesale_notification" data-disc=".30">
+    <div class="container wholesale_notification-container" style="padding-left:0px;">
+      <div class="row">
+        {% if netavail %}
+        <div class="col-16 col-xl-20 offset-9 offset-xl-7">
+          {% assign custpart = customer.default_address.company | split: "ship_to:" %}
+          <p>{{ 'b2b_interactions.notification.welcome' | t: email: customer.email }}</p>
+        </div>
+        <div class="col-30 text-right row">
+          <p class="col-60" style="display:inline-block;">{{ 'b2b_interactions.notification.currently_shopping' | t }} <span class="nettype" style="text-decoration:underline;"></span> | <a style="font-weight:bold;color:white;" href="/account?action=initial_login">{{ 'b2b_interactions.notification.change' | t }}</a><!--<p class="col-30">{{ settings.promsg }}</p>-->
+            <script type="text/javascript">
+              $(document).ready(function(){
+                var nett = Cookies.get('netneed');
+                if(nett=="net_preorder"){
+                  var nettt = "{{ 'b2b_interactions.modal.preorder' | t | escape | strip }}";
+                }
+                if(nett=="net_now"){
+                  var nettt="{{ 'b2b_interactions.modal.order' | t | escape | strip }}";
+                }
+                if(nett=="net_dropship"){
+                  var nettt = "{{ 'b2b_interactions.modal.dropship' | t | escape | strip }}";
+                }
+                $('.nettype').html(nettt);
+              });
+            </script>
+        </div>
+        {% else %}
+        <div class="col-60 text-center">
+          {{ 'b2b_interactions.notification.welcome' | t: email: customer.email }}! {{ settings.promsg }}.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+<style>@media screen and (min-width: 992px) {.wholesale_notification-container { padding-left: {{ settings.logo_max_width | plus: 40 }}px; }}</style>

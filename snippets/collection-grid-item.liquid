@@ -1,0 +1,94 @@
+{% unless collection_image_size %}
+  {%- assign collection_image_size = '650x' -%}
+{% endunless %}
+
+{% if collection.empty? %}
+  {% comment %}add default state for collection block in theme editor{% endcomment %}
+  {% assign collection_image_url = '' %}
+{% else %}
+  {% if block.settings.collectionimage != blank %}
+    {%- assign collection_image_url = block.settings.collectionimage -%}
+  {% elsif collection.image %}
+    {%- assign collection_image_url = collection.image -%}
+  {% elsif collection.products.first %}
+    {%- assign collection_image_url = collection.products.first.image -%}
+  {% endif %}
+{% endif %}
+<div class="collection-grid-item collection-grid-item--{{ block.id }}">
+  <a href="{% if block.settings.link_override != blank %}{{ block.settings.link_override }}{% elsif collection.empty? %}#{% else %}{{ collection.url }}{% endif %}" class="collection-grid-item__link">
+    <div class="collection-grid-item__overlay">
+      {% if collection.empty? %}
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+      {% else %}
+        {% include 'image', file: collection_image_url, default_size: collection_image_size %}
+      {% endif %}
+    </div>
+    {% unless section.settings.move_text_below %}
+      <div class="collection-grid__text collection-grid-item__title-wrapper">
+        <h4 class="collection-grid-item__title">
+          {% if block.settings.title != blank %}
+            {{ block.settings.title }}
+          {% else %}
+            {% if collection.empty? %}
+              {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+              {%- assign collection_title_split = collection.title | split: ':' -%}
+              {% for collection_title_single in collection_title_split %}
+          		{% if forloop.last %}
+                  {{ collection_title_single | strip }}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+        </h4>
+        {% if block.settings.subtitle != blank %}
+          <p>{{ block.settings.subtitle }}</p>
+        {% endif %}
+        {% if block.settings.subtitle != blank %}
+          <span class="btn">{{ block.settings.btn_text }}</span>
+        {% endif %}
+      </div>
+    {% endunless %}
+  </a>
+</div>
+
+{% if section.settings.move_text_below %}
+  <div class="collection-grid__text collection-grid__text-below text-center">
+    <h3>
+      {% if block.settings.title != blank %}
+        {{ block.settings.title }}
+      {% else %}
+        {% if collection.empty? %}
+          {{ 'homepage.onboarding.collection_title' | t }}
+        {% else %}
+          {{ collection.title }}
+        {% endif %}
+      {% endif %}
+    </h3>
+    {% if block.settings.subtitle != blank %}
+      <p>{{ block.settings.subtitle }}</p>
+    {% endif %}
+    {% if block.settings.subtitle != blank %}
+      <span class="btn">{{ block.settings.btn_text }}</span>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if section.settings.image_type == 'image_ratio' %}
+  <style type="text/css">
+    .collection-grid-item--{{ block.id }} {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 0px;
+      {% capture img_width %}{{ collection.image.width }}{% endcapture %}
+      {% capture img_height %}{{ collection.image.height | times: 100 }}{% endcapture %}
+      {% capture rounddown %}{{ img_height | divided_by: img_width }}{% endcapture %}
+      padding-bottom: {{ rounddown | plus: 1 }}%;
+    }
+    .collection-grid-item--{{ block.id }} .collection-grid-item__overlay {
+      background-size: contain;
+    }
+  </style>
+{% endif %}

@@ -1,0 +1,159 @@
+{% if swatch == blank %}
+  <div class="swatch error">
+    <p><ly-as-46320>You must include the snippet swatch.liquid with the name of a product option.</ly-as-46320></p>
+    <p><ly-as-46321>Use:</ly-as-46321> <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+    <p><ly-as-46322>Example:</ly-as-46322> <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+  </div>
+{% else %}
+
+  {% assign swatch_style = '' %}
+  {% assign swatch_script = '' %}
+  {% assign found_option = false %}
+  {% assign is_color = false %}
+  {% assign is_size = false %}
+  {% assign option_index = 0 %}
+
+  {% for option in product.options %}
+    {% if option == swatch %}
+      {% assign found_option = true %}
+      {% assign option_index = forloop.index0 %}
+      {% capture swatch_style %}
+        {{ swatch_style }}
+        label[for="product-select-option-{{ product.id }}{{ option_index }}"] { display: none; }
+        #product-select-option-{{ product.id }}{{ option_index }} { display: none; }
+        #product-select-option-{{ product.id }}{{ option_index }} + .custom-style-select-box { display: none !important; }
+      {% endcapture %}
+      {% capture swatch_script %}
+		{{ swatch_script }}
+        $('.selector-wrapper.{{ product.handle }}:eq({{ option_index }})').hide();
+      {% endcapture %}
+
+      {% assign downcased_option = swatch | downcase %}
+      {% if downcased_option contains 'color' or downcased_option contains 'couleur' or downcased_option contains 'farbe' %}
+        {% assign is_color = true %}
+      {% endif %}
+      {% if downcased_option contains 'size' or downcased_option contains 'taille' or downcased_option contains 'größe' %}
+        {% assign is_size = true %}
+      {% endif %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% unless found_option %}
+    <div class="swatch error">
+      <p><ly-as-46323>You included the snippet swatch.liquid with the name of a product option —</ly-as-46323> <code>'{{ swatch }}'</code> <ly-as-46324>— that does not belong to your product.</ly-as-46324></p>
+      <p><ly-as-46325>Use</ly-as-46325> <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+      <p><ly-as-46322>Example:</ly-as-46322> <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+      <p><strong><ly-as-46326>This is case-sensitive!</ly-as-46326></strong> <ly-as-46327>Do not put in</ly-as-46327> <code><ly-as-46328>'color'</ly-as-46328></code> <ly-as-46329>if your product option name is</ly-as-46329> <code><ly-as-46330>'Color'</ly-as-46330></code>.</p>
+    </div>
+  {% else %}
+	{% assign selected_option = product.options_with_values[option_index].selected_value %}
+	{% assign number_check = selected_option | split: ' ' %}
+	{% assign number_exist = number_check[0] | times: 1 %}
+    {% assign size_option = false %}
+    {% if number_exist > 0 %}
+      {% assign selected_option = number_exist %}
+	  {% assign size_option = true %}
+    {% endif %}
+    <fieldset class="swatch clearfix" data-option-index="{{ option_index }}" data-option-id="{{ product.id }}">
+      <div class="swatch--{{ swatch | handleize }}">
+        <legend class="label mobile-toggler{% if netavail and size_option %} hide{% endif %}">
+          {{ swatch }}: <span>{{ selected_option }}</span>
+          {% if is_size %}<div class="size-guide"><a class="mp-inline" href="#size-chart">Size &amp; Fit Guide</a></div>{% endif %}
+        </legend>
+        <div class="swatch-container">
+          <div class="d-flex flex-wrap">
+            
+            {% if netavail and size_option %}
+              <div class="swatch-element swatch-element--helper">
+                <span>{{ swatch }}</span>
+                <span>Qty</span>
+              </div>
+            {% endif %}
+            
+            {% assign values = '' %}
+            {%- assign order_no_array = '' -%}
+            {%- assign ordered_number = '' -%}
+            {% for variant in product.variants %}
+              {% assign value = variant.options[option_index] %}
+              {% unless values contains value %}
+                {% if is_color and split_prod %}
+                  {%- assign gender_filter_downcase = variant.metafields.global.gender_filter | downcase -%}
+                  {% if spit_prod_gender != blank %}
+                    {% unless spit_prod_gender contains gender_filter_downcase %}
+                      {% continue %}
+                    {% endunless %}
+                  {% else %}
+                    {%- assign order_no = 0 -%}
+                    {% if order_no_array contains gender_filter_downcase %}
+                      {%- assign order_no_split = order_no_array | split: gender_filter_downcase -%}
+                      {%- assign ordered_number_finder = order_no_split[0] | split: ',' -%}
+                      {%- assign ordered_number = ordered_number_finder.last | replace: '__', '' | times: 1 -%}
+                    {% else %}
+                      {%- assign ordered_number = order_no -%}
+                      {% if variant.metafields.global.gender_filter == 'both' or variant.metafields.global.gender_filter == 'all' %}
+                        {%- assign ordered_number = 10 -%}
+                      {% endif %}
+                      {% capture order_no_array %}{{ order_no_array }},{{ ordered_number }}__{{ gender_filter_downcase }}{% endcapture %}
+                      <h5 class="title-split_prod order-{{ ordered_number }}">{{ variant.metafields.global.gender_filter }}</h5>
+                      {%- assign order_no = order_no | plus: 1 -%}
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+
+                {% assign values = values | join: ',' %}
+                {% assign values = values | append: ',' | append: value %}
+                {% assign values = values | split: ',' %}
+                <div class="swatch-element{% if settings.color_swatchimage %} swatch--{{ swatch | handle }}{% endif %}{% if is_color %} color{% endif %} {{ value | handle }}
+                            {% if ordered_number != blank %}
+                              order-{{ ordered_number }} 
+                            {% else %}
+                              {% if is_color and color_order != blank %}{%- assign extra_items = color_order.size -%}{% if color_order contains value %}{% for color in color_order %}{% if color == value %} order-{{ forloop.index0 }}{% break %}{% endif %}{% endfor %}{% else %} order-{{ extra_items }}{%- assign extra_items = extra_items | plus: 1 -%}{% endif %}{% endif %}
+                              {% if is_size and size_order != blank %}{%- assign extra_items = size_order.size -%}{% if size_order contains value %}{% for size in size_order %}{% if size == value %} order-{{ forloop.index0 }}{% break %}{% endif %}{% endfor %}{% else %} order-{{ extra_items }}{%- assign extra_items = extra_items | plus: 1 -%}{% endif %}{% endif %}
+                            {% endif %}"
+                     data-value="{{ value | escape }}">
+                  {% if is_color %}
+                    <div class="tooltip">{{ value }}</div>
+                  {% endif %}
+                  <input id="swatch-{{ product.id }}{{ option_index }}-{{ value | handle }}"{% if netavail and size_option %} class="all-checked"{% endif %} type="radio" name="option-{{ product.id }}{{ option_index }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %} />
+                  {% if is_color %}
+                    <label class="color" for="swatch-{{ product.id }}{{ option_index }}-{{ value | handle }}"{% if settings.color_swatchimage %} style="background-image: url({{ variant.image.src | img_url: '300x' }});"{% endif %}>
+                      <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
+                    </label>
+                  {% else %}
+                    <label for="swatch-{{ product.id }}{{ option_index }}-{{ value | handle }}">
+                      {% if size_option %}
+                        {% assign size_split = value | split: ' ' %}
+                        {{ size_split[0] }}
+                      {% else %}
+                        {{ value }}
+                      {% endif %}
+                      <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
+                    </label>
+                    {% if netavail %}
+                      <input {% if netavail %}tabindex="{% if is_size and size_order != blank %}{%- assign extra_items = size_order.size -%}{% if size_order contains value %}{% for size in size_order %}{% if size == value %}{{ forloop.index0 | plus: 1 }}{% break %}{% endif %}{% endfor %}{% else %}{{ extra_items | plus: 1 }}{%- assign extra_items = extra_items | plus: 1 -%}{% endif %}{% endif %}" data-ti="{% if is_size and size_order != blank %}{%- assign extra_items = size_order.size -%}{% if size_order contains value %}{% for size in size_order %}{% if size == value %}{{ forloop.index0 | plus: 1 }}{% break %}{% endif %}{% endfor %}{% else %}{{ extra_items | plus: 1 }}{%- assign extra_items = extra_items | plus: 1 -%}{% endif %}{% endif %}"{%endif%}  type="number" class="netterms-qty" data-option="option{{ option_index | plus: 1 }}" data-value="{{ value | escape }}" min="0" step="1" disabled="disabled" />
+                    {% endif %}
+                  {% endif %}
+                  {% unless netavail %}
+                    {% if variant.compare_at_price > variant.price %}
+                      <p class="variant-tag"><ly-as-46332>Sale</ly-as-46332></p>
+                    {% endif %}
+                  {% endunless %}
+                </div>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+  {% endunless %}
+
+{% endif %}
+
+<style>
+  {{ swatch_style }}
+</style>
+<script>
+  $(document).ready(function() { {{ swatch_script }} });
+</script>
